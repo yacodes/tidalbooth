@@ -1,0 +1,5 @@
+d1 $ fast (((cT 1 "12") * 10) + 1) $ (# gain (cF 0 "0")) $ sound "amencutup" + n (run (segment 1 $ range 1 16 $ cF 0 "4")) # speed ((cF 1 "8") + 1)
+
+d1 $ s "bd*4"
+
+hush

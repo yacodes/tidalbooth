@@ -1,0 +1,22 @@
+do
+  d1
+    $ s "bd:1*4"
+      # speed 1
+      # gain 1.2
+  d2
+    $ s "~ sd"
+  d3
+    $ whenmod 3 5 (palindrome)
+    $ jux rev
+    $ stutWith 4 (1/16) ((# speed (range 0.5 4 (fast 2 (cat [sine + 0.125, saw])))) . (# gain 1))
+    $ s "hh(11, 16)"
+      |*| gain 0
+  d4
+    $ sometimes palindrome
+    $ fast 2
+    $ n "<[e4 e4 f5 g5] [e4 [f5 f5] g5 [g5 e5]]>"
+      # s "supernoise"
+      # sustain 0.1
+      # room 0.5
+      # krush 2
+      # orbit 1
