@@ -21,7 +21,7 @@ function setdir {
 
 setdir
 
-TIDAL_BOOT_PATH=${TIDAL_BOOT_PATH:-"$DIR/Tidal.ghci"}
+TIDAL_BOOT_PATH=${TIDAL_BOOT_PATH:-"$DIR/Tidal.hs"}
 GHCI=${GHCI:-"ghci"}
 
 # Run GHCI and load Tidal bootstrap file
