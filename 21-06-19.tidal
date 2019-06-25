@@ -20,3 +20,27 @@ do
       # room 0.5
       # krush 2
       # orbit 1
+
+d1
+  $ stut 4 (1/8) 0.8
+  $ stutWith 3 (1/6) (# speed (slow 8 $ range 0.5 4 (cat [sine + 0.125, saw]))) $ s "bd*4"
+
+d2 $ every' 8 1 (# gain 0) $ s "[sn ~ ~ sn ~ ~ sn ~ sn ~ ~ sn ~ ~ sn ~]"
+  # n 1
+  # gain 1.2
+  # room 0.5
+  # sz 0.5
+
+d3 $ jux rev $ s "hh(<17 15 13 11 15 17 18>, 18)"
+
+d4 $ s "supersaw"
+  # lpf (range 50 4000 (fast 16 (cat [sine])))
+  # lpq (range 0 1 (cat [sine + 0.25, saw]))
+  # accelerate "<0 1 0 2>"
+
+d5 $ s "superkick*4"
+  # pitch1 1
+  # decay 1
+  # accelerate 1
+  # sustain 1
+  # n 127
