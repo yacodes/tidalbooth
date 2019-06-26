@@ -25,18 +25,45 @@ d1
   $ stut 4 (1/8) 0.8
   $ stutWith 3 (1/6) (# speed (slow 8 $ range 0.5 4 (cat [sine + 0.125, saw]))) $ s "bd*4"
 
-d2 $ every' 8 1 (# gain 0) $ s "[sn ~ ~ sn ~ ~ sn ~ sn ~ ~ sn ~ ~ sn ~]"
-  # n 1
-  # gain 1.2
-  # room 0.5
-  # sz 0.5
+d1 $ s "bd:4*4" # gain 1.2
 
-d3 $ jux rev $ s "hh(<17 15 13 11 15 17 18>, 18)"
+d2
+  $ every 3 (# pan (range 0 1 $ cat [sine + 0.25, saw + 0.125]))
+  $ whenmod 5 3 (# crush 1)
+  $ every' 8 1 (# gain 0)
+  $ s "[sn ~ ~ sn ~ ~ sn ~ sn ~ ~ sn ~ ~ sn ~]"
+    # n (irand 4)
+    # speed (range 1 4 (cat [sine, saw]))
+    # gain 1.2
+    # room 0.5
+    # sz 0.5
+
+d3
+  $ stutWith 2 (1/4) (# speed 2)
+  $ jux rev
+  $ s "hh(<17 15 13 11 15 17 18>, 18)"
+    # gain 1.3
 
 d4 $ s "supersaw"
   # lpf (range 50 4000 (fast 16 (cat [sine])))
   # lpq (range 0 1 (cat [sine + 0.25, saw]))
   # accelerate "<0 1 0 2>"
+
+d1 $ s "bd(4, 8)" # n ((irand 2) + 4) # gain 1.4
+
+d4
+  $ stutWith (choose [1..3]) (1/(choose [3..8])) (|*| speed 2)
+  $ degradeBy 0.2
+  $ every 2 (loopAt (choose [2..6]))
+  $ chop (choose [8..32])
+  -- $ striate 32
+  $ s "bass3(<5 7 5 3 5 7>, 8, <0 3 0 6 0 7 3>)"
+    |*| speed 4
+    |*| speed (slow 4 $ range 0.5 4 $ cat [tri - 0.25, sine, saw, saw + 0.25])
+    # pan (fast 2 $ range 0 1 $ cat [sine + 0.25, sine - 0.125, sine + 0.5, saw - 0.25])
+    # gain 1
+    # cut 1
+    # hpf 2000
 
 d5 $ s "superkick*4"
   # pitch1 1
