@@ -10,8 +10,8 @@
     ~dirt.loadSoundFiles;
     ~dirt.loadSoundFiles(PathName.new("../samples").fullPath ++ "/*");
     s.sync;
-    // ~dirt.start(57120, [0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22]); // 12 hardware channels
-    ~dirt.start(57120, [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]); // 12 virtual channels
+    ~dirt.start(57120, 12.collect({|i| 2 * i})); // 12 hardware channels
+    // ~dirt.start(57120, 12.collect({0})); // 12 virtual channels
   };
 
   s.latency = 0.3;

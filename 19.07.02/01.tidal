@@ -1,0 +1,119 @@
+d1 $ s "k*4"
+
+d1
+  $ shuffle 4
+  $ chop 32
+  $ s "breaks125"
+    |*| speed (rand + 1)
+    # cut 1
+
+do
+  d1
+    $ striate 512
+    $ s "breaks125"
+
+do
+  d1
+    $ whenmod 5 3 (rev)
+    $ every 4 (0.5 <~)
+    $ every 3 (0.25 <~)
+    $ every 2 (0.125 <~)
+    $ striate 128
+    $ s "breaks125"
+      -- |+| cutoff (rangex 200 5000 $ slow 4 $ sine)
+      -- |+| speed (slow 4 $ sine * 0.5 + 1)
+      -- |*| speed (range 0.5 1.5 $ slow 8 $ cat [sine + 0.25, sine + 0.125])
+      -- |*| cutoff (rangex 1000 20000 $ slow 4 $ sine - 0.125)
+      -- |*| resonance (range 0 1 $ slow 4 $ cat [sine + 0.125, saw + 0.5])
+      -- |*| hpf 20
+
+setcps (128/60/4)
+
+d1 $ every 2 (iter 4) $ up "<[0 5 5*2 [12 ~]] [12 17 [~ 17] 17*2]>" # s "jungbass"
+
+-- Striate
+d1
+  $ slow 4
+  $ striate 64
+  $ s "dorkbot"
+    # cut 1
+
+-- Striate' + spread, spreadr
+d1
+  $ slow 4
+  $ spreadr (striate' 64) [0.01, 0.2, 0.05, 0.5, 0.0002]
+  $ s "dorkbot"
+    # cut 1
+
+-- Striate multiple samples
+d1
+  -- $ fast 2
+  -- $ shuffle 32
+  -- $ striate' (choose [8, 4, 2, 1]) (choose [(1/64), (1/32), (1/8), (1/256), (1/512)])
+  $ s "k*4"
+    -- # n 1
+    |*| up "0 0 5 3"
+
+d1
+  $ every 2 (0.25 <~)
+  $ slow 2
+  -- $ striate' 256 (choose [(1/64), (1/128), (1/256), (1/512)])
+  $ s "msynth:2 msynth:3"
+
+-- Striate with speed
+d1
+  $ (|*| gain 0.8)
+  $ jux rev
+  $ every 3 (rev)
+  $ slow 2
+  $ scramble 8
+  $ (striate' 16 0.05 $ s "voxmale")
+    |*| speed "[[1 2 0.5 0.8 3 2.5 1.5], [~ 0.25 ~]/2, [9 8 7 8 5 6 7]/3]"
+    |*| room 0.65
+    |*| sz 0.35
+
+d2
+  $ s "k*4"
+    # gain 1.2
+
+d3
+  $ every 2 (ghost)
+  $ s "s:1(2, 4, 2)"
+
+d4
+  $ n "<e3 e3 e3 g3>"
+    # s "supersquare"
+    # cutoff 300
+    # hpf 20
+    # legato 1
+    # accelerate "<0 0 0 0.2>"
+
+-- Striate short and long samples
+d1
+  $ every 4 (rev)
+  $ every 2 (ghost)
+  $ fast 4
+  $ (striate' 16 0.75 $ s "k:1 k")
+    |*| speed (slow 4 $ range 0.5 1 $ cat [sine, sine + 0.125, square - 0.25])
+    |*| room 0.25
+    |*| sz 0.4
+
+d2
+  $ every 2 (ghost)
+  $ s "s(<2 2 2 <4 <11 13>>>, 16, 8)"
+    # n 1
+    # room 0.25
+    # sz 0.5
+    |*| speed "0.925 1 1.125 1.25 0.85"
+
+-- Isolating interesting frequencies via trunc
+d1
+  -- $ trunc 0.5
+  $ jux rev
+  $ slow 2
+  $ every 2 (ghost)
+  -- $ rev
+  $ (striate' 64 0.5 $ s "k k")
+    |*| speed "[[1 0.8 0.5 1.25 1.5], [~ 0.25 0.1225]/2, [4 5 5 3 5 4 3]*3]"
+    |*| room 0.5
+    |*| sz 0.2

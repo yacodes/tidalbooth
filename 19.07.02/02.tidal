@@ -1,0 +1,112 @@
+-- Extereme granulization
+d1
+  $ slow 16
+  $ scramble 128
+  $ jux (|*| speed "1.25")
+  $ (striate' 4096 (1/100) $ s "voxmale")
+    -- |*| speed "[1 1.125, [0.85 0.925 1 1.25]/3]"
+    |*| delay 0.3 |*| delayfeedback 0.3 |*| delaytime 0.3
+    |*| hpf 20
+    |*| lpf 2000
+    |*| gain 0.9
+
+d2
+  $ whenmod 8 6 (ghost . (fast 2) . (|*| speed "<1 2 3 4>") . (stut 4 (1/8) 0.1))
+  $ (striate "<1 1 1 2>" $ s "[k s:1 <[~ k] k*2> s:1]")
+    |*| gain 1.2
+    |*| room 0.3 |*| sz 0.2
+
+-- Polyrhythms
+d1 $ s "[k*4, hih*3, s:1*5]"
+
+d1 $ s "[k [k*2, [hh*3, sn:1*5]] k k]"
+
+d1 $ s "[k [cp:1*2 sn*2]/2 k k]"
+
+d1 $ s "[k [cp:1*2 sn*2]*2 k k]"
+
+d1 $ s "{k k k k, hih cp:1 arpy hih*2 hih:1*2}"
+
+d1 $ s "{hih cp:1 arpy}%8"
+
+d1 $ s "{arpy arpy:1 arpy:2}%16" |*| speed "<0.85 1 1.125 1>"
+
+d2 $ s "k*4"
+
+d1 $ s "arpy*4" |*| speed "{1 1.5 2}%4"
+
+d1
+  $ stack [
+    s "k*4" # gain 1.2,
+    -- $ fast 2
+    s "k*4"
+      # coarse "{4 8 16 32 64 128 256}%8"
+      |*| speed "[1 1.25 0.85 1, [0.5 1.25 0.925]/3]"
+      -- |*| speed (range 0.75 1.5 $ slow 16 $ cat [sine, sine + 0.125, sine - 0.25])
+      # delay 0.3 # delaytime 0.3 # delayfeedback 0.3
+      # room 0.1 # sz 0.2
+      # hpf 20
+      # lpf 3000 # lpq (range 0 0.5 $ cat [sine, rand])
+      # gain 0.8
+  ]
+
+-- Tidal 0.6 new operators and stut' |\| |*| |+| |-|
+d1
+  $ s "arpy"
+    # pan "1"
+
+-- stut' (4 times) (25% gain) (0.25% time from last play)
+d1
+  -- $ stut 4 0.25 0.25
+  -- $ stut 32 0.5 0.0625
+  -- $ slow 2
+  $ stut' 16 (0.125/2) (|+| up "1")
+  $ s "arpy"
+
+-- Synchronizing multiple changes in do blocks
+do
+  let prog = "[0 2 7 5]/4"
+  let gainpat = "1 1*2 1(3, 8)"
+  d1 $ gain gainpat # s "k:1" # up prog
+  d2 $ gain gainpat # s "msynth" # up prog
+
+-- Binary patterns
+let inverse 1 = 0
+    inverse 0 = 1
+
+do
+  let gainPat = "[1 1 0 1 0 0 1 0]"
+  d1 $ gain gainPat # s "k:2" # cut 1
+  -- d2 $ (0.25 <~) $ gain (inverse <$> gainPat) # s "s:1"
+  -- d3 $ fast 2 $ gain gainPat # s "hih"
+
+setcps (140/60/4)
+
+-- Stuttered patterns
+-- off == stut 1 x y
+d1 $ off (-0.125) (|*| speed "1.4") $ s "k(<3 5>, 8)"
+
+-- Truncating samples with "cut"
+d1 $ s "voxmale*3 orc*4" # cut "-1" -- cuts samples with the same name
+
+d1 $ s "voxmale*3 orc*4" # cut "1 2" -- pattern as cut groups
+
+d1 $ degradeBy 0.2 $ s "voxmale(<3 5 8>, 8) orc*4" # cut "[1 2 3]" -- complex cut groups patterns
+
+
+-- Elastic tempo flux
+-- nudge
+-- spaceOut
+
+d1 $ s "k*8"
+	-- # nudge (slow 4 $ sine - 0.125)
+	-- # nudge "[0 0.05]"
+	-- # nudge "0.2"
+
+d1 $ spaceOut [1, 0.5] $ s "k*4 s*2"
+
+d1 $ spaceOut ([1, 0.95..0.2] ++ [0.1, 0.2..1]) $ s "k*4 s*2"
+
+[1, 0.95..0.2] ++ [0.1, 0.2..1]
+
+map (1/) [1, 1.1..5]
