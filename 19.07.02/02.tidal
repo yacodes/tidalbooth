@@ -110,3 +110,67 @@ d1 $ spaceOut ([1, 0.95..0.2] ++ [0.1, 0.2..1]) $ s "k*4 s*2"
 [1, 0.95..0.2] ++ [0.1, 0.2..1]
 
 map (1/) [1, 1.1..5]
+
+d1
+  $ s "sfm-lindrum-bass*8"
+    # n 14
+    # speed (range 0.25 4 $ slow 2 $ rand)
+    -- # pan (range 0 1 $ slow 8 $ cat [rand, sine])
+    -- # cut "-1"
+
+d1
+  $ jux rev
+  $ shuffle 4
+  $ (striate (choose [1, 2, 3, 4]) $ s "sfm-lindrum-tom*4")
+    # gain 1
+    # n 1
+    |*| hpf 20
+    # lpf (rangex 200 5000 $ slow 4 $ cat [rand, sine]) |*| lpf (range 0 1 $ slow 4 $ cat [rand, sine - 0.5])
+
+d2
+  -- $ slow 2
+  -- $ ghost
+  -- $ stut' 4 (1/8) (# speed (choose [1, 1.25, 0.8, -0.85, 2]))
+  -- $ striate (choose [1, 2, 3])
+  $ (0.25 <~)
+  $ s "sfm-lindrum-snare*2"
+    # cut "-1"
+    # n (irand 4)
+
+d3
+  $ every 4 (iter 4)
+  $ whenmod 5 3 (0.125 <~)
+  $ jux rev
+  $ s "sfm-lindrum-ch(11, 16)"
+    # speed (range 0.85 2 $ slow 4 $ sine - 0.825)
+    # gain 0.9
+    # n (irand 3)
+    -- # lpf (rangex 200 15000 $ slow 8 $ sine + 0.5)
+
+d4
+  $ every 2 (0.25 <~)
+  $ striate (choose [1, 2, 4])
+  $ s "sfm-lindrum-bass*4"
+    |*| delay 0.3 |*| delayfeedback 0.3 |*| delaytime 0.3
+    |*| room 0.2 |*| sz 0.2
+    # n (irand 4)
+
+d1
+  $ jux rev
+  $ scramble 16
+  $ (striate' 32 (1/16) $ s "sfm-lindrum-cabasa")
+    # pan (range 0 1 $ slow 4 $ sine)
+    # speed (range (-0.5) 0.5 $ slow 4 $ cat [rand, sine - 0.5])
+    |*| room 0.2 |*| sz 0.2
+    |*| hpf 20
+    |*| lpf 4000
+
+d2
+  $ s "sfm-lindrum-tom*4"
+    # n 1
+    # up (choose [0, 3, -3, 5])
+
+d3
+  $ sometimes (iter 4)
+  $ s "[sfm-lindrum-bass sfm-lindrum-snare <[~ sfm-lindrum-bass] sfm-lindrum-bass*2> sfm-lindrum-snare]"
+    # gain 1.2
