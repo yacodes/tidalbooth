@@ -1,0 +1,37 @@
+d1
+  $ jux rev
+  $ every 2 (# gain 0.9)
+  $ stut' 8 (1/4)
+    ((|* up (choose [3, 5, 7, 9, 12, 15])) .
+    (# pan (range 0 1 $ slow 2 $ cat [sine + 0.25, rand])))
+  $ (striate 4 $ s "sfm-lindrum-conga*4")
+    |* speed ((range 0.25 1 $ slow 4 $ sine) + "<0 0 0 2>")
+    |* hpf (rangex 20 4000 $ slow 4 $ cat [sine - 0.25, rand])
+    |* lpf (choose [2000, 3000..6000]) |* lpq (range 0.4 0.6 $ slow 8 $ cat [sine + 0.5, rand])
+    |* gain 0
+    |* room 0.4 |* sz 0.2
+    |* delay 0.2 |* delayt 0.3 |* delayfb 0.3
+
+d2
+  $ whenmod 32 28 (|* gain 0)
+  $ off 0.125 (|* room 0.2)
+  $ degradeBy 0.2
+  $ struct "t*16"
+  $ s "sfm-lindrum-bass"
+    |* n 12
+    |* gain 1.3
+    |* speed (range 0.25 0.5 $ slow 4 $ cat [sine + 0.125, rand])
+    |* up (segment 8 $ range (-8) 8 $ slow 4 $ cat [sine, rand])
+    |* pan (range 0.25 0.75 $ slow 2 $ cat [sine + 0.25, rand])
+
+d3
+  $ whenmod 32 28 (|* gain 0)
+  $ jux rev
+  $ degradeBy 0.2
+  $ off 0.125 (|* speed "<0.85 1 1.125 1.25>")
+  $ every 2 (iter 4)
+  $ struct (whenmod 5 3 inv "t(11, 16)")
+  $ s "sfm-lindrum-snare"
+    |* gain 1.2
+    |* n 5
+    |* room 0.2 |* sz 0.2
