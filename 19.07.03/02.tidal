@@ -1,0 +1,12 @@
+d1
+  $ whenmod 5 4 (|* gain 0)
+  $ degradeBy 0.2
+  $ s "kick9*16"
+    |< n (choose [40, 50, 60, 80, 90, 100])
+    |< sustain 3
+    |* hpf 100
+    |* lpf 8000 |* lpq 0.2
+    |* room 0.2 |* sz 0.2
+    |* gain 0.8
+    |* gain "1.25 1.1 1.0 1.125 1.4"
+    |+ gain (choose [0.125, 0.1, 0.15, 0.2])

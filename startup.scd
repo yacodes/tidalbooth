@@ -1,4 +1,5 @@
 (
+
   s.options.numBuffers = 1024 * 256;
   s.options.memSize = 8192 * 16;
   s.options.maxNodes = 1024 * 32;
@@ -12,6 +13,16 @@
     s.sync;
     // ~dirt.start(57120, 12.collect({|i| 2 * i})); // 12 hardware channels
     ~dirt.start(57120, 12.collect({0})); // 12 virtual channels
+
+    (
+      SynthDef.new(\kick9, {|out, pan, sustain = 2, n = 110|
+        var env = EnvGen.kr(Env.perc(0.02, sustain, 1, -8), doneAction: Done.freeSelf);
+        var noise = LPF.ar(WhiteNoise.ar(), Env.new([n * 10, n, 20], [0, sustain], -2).kr, mul: 5);
+        var osc = Resonz.ar(SinOsc.ar(Env.new([n * 10, n, 20], [0, sustain], -1).kr), n, 0.9, mul: 1);
+        var sig = Mix.new([noise, osc]);
+        OffsetOut.ar(out, DirtPan.ar(sig, ~dirt.numChannels, pan, env));
+      }).add;
+    )
   };
 
   s.latency = 0.3;
@@ -37,3 +48,16 @@
 // )
 
 // Synth(\kik, [\basefreq, 40, \decay1, 0.9, \decay1L, 0.9, \decay2, 0.45, \sweeptime, 0.25, \ratio, 2])
+
+// s.boot;
+
+
+// Synth.new(\kick9)
+
+// (
+//   SynthDef(\tutorial1, {|out, sustain=1, pan, accelerate, n |
+//     var env = EnvGen.ar(Env.perc(0.001, 0.999, 1, -4), timeScale: sustain, doneAction: 2);
+//     var sound = SinOsc.ar(n * Line.kr(1, 1 + accelerate, sustain));
+//     OffsetOut.ar(out, DirtPan.ar(sound, ~dirt.numChannels, pan, env));
+//   }).add
+// )
