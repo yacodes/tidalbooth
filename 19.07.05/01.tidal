@@ -1,0 +1,64 @@
+d1
+  $ whenmod 8 6 (|< gain 0)
+  $ ghost
+  $ struct "t*4"
+  $ s "ewavfm-bd"
+
+d2
+  $ whenmod 8 6 (|< gain 0)
+  $ sometimes (iter 4)
+  $ fast 2
+  $ sometimes (|+| up "12")
+  $ (|*| up "<[-3 [~ <0 -3>] [<-5 ~> <-5 -3>] <-7 -5>]>")
+  $ s "acidfm-big-res"
+    |< n 1
+    |-| up "-3"
+    |*| lpf 3000
+    |*| hpf 20
+
+d3
+  $ degradeBy 0.2
+  $ s "ewavfm-rim*16"
+    |< pan (range 0 1 $ slow 4 $ cat [rand, sine])
+    |*| room 0.2 |*| sz 0.2
+    |*| gain 0.9
+    |* up (choose [0, -1, 1, -2, 2, -3, 3])
+    |< n ((irand 4) + 2)
+    |* lpf (rangex 200 10000 $ slow 8 $ cat [sine + 0.125, rand, isaw])
+
+d4
+  $ shuffle 32
+  $ striate 128
+  $ (0.75 ~>)
+  $ s "fsfm-metal/2"
+    |< n 2
+    |*| gain 1.2
+    |* speed "<1 1.125 0.925 0.85 1.15>"
+    |* speed "0.2"
+
+d5
+  $ degradeBy 0.75
+  $ sometimes (shuffle 16)
+  $ (striate' (choose [32, 64, 128]) (1/(choose [4, 8, 32, 64, 128])) $ s "s612fm-vox-choir")
+    |< n 0
+    |*| delay 0.3 |*| delayt 0.3 |*| delayfeedback 0.3
+    |* speed "0.85 1 1.125 1.15"
+    |< cut "-1"
+    |* speed "<0.75 1.1 0.85 0.9 1.25>"
+
+d6
+  -- $ degradeBy 0.1
+  $ stut' 2 (1/8) ((|*| speed "<0.9125 1.125 1.25 0.8>") . (|*| gain 0.9))
+  $ whenmod 5 3 (iter 4)
+  $ (*| up "0 ~ <3 ~> 5 ~ <~ -2> 0 ~ -2 ~ <5 ~> ~ <7 10> ~ ~ ~")
+  $ s "2600fm-billy-zane"
+    |< gain 1.2
+    |< n 0
+    -- |+| up "-3"
+    |< cut "-1"
+
+d1
+  $ stut' 4 (1/8) ((|*| gain 0.9) . (|*| speed "<0.9125 1.125 1.15 0.85 1>"))
+  $ struct "t*4"
+  $ s "ewavfm-bd"
+    |< n 2

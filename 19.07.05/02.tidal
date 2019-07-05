@@ -1,0 +1,78 @@
+d1
+  $ whenmod 16 8 (|* gain 0)
+  $ sometimesBy 0.3333 (fast 2 . brak)
+  $ ghost
+  $ struct "t*4"
+  $ s "ewavfm-bd"
+    |< n 0
+    |< gain 1.1
+
+d2
+  $ every 2 (|* gain 0)
+  $ sometimes (|+ up (choose [5, 7, 10]))
+  $ jux (rev . (|*| up "<-4 0 3 -2>"))
+  $ sometimesBy 0.75 (0.75 <~)
+  $ (striate 32 $ s "ewavfm-fx*2")
+    |< n 4
+    |< room 0.2 |< sz 0.1
+
+d3
+  $ every 2 (ghost)
+  $ sometimes (iter 4)
+  $ sometimes (|+ up "<7 12 10>")
+  $ (*| up "<[0 ~ ~ 3 <~ -2> 3 ~ ~ 0 ~ 5 <-4 ~> 0 ~ 7/2 ~]>")
+  $ s "2600fm-billy-zane"
+    |< n 1
+    |* room 0.2 |* sz 0.2
+    |* delay 0.3 |* delayt 0.3 |* delayfb 0.2
+
+d4
+  $ degradeBy 0.2
+  $ (0.25 <~)
+  $ ghost
+  $ s "ewavfm-ch(16, 16)"
+    |< pan (range 0 1 $ slow 4 $ cat [sine, rand])
+    |< gain 0.8
+    |< up "0 3 5 -2 -4"
+
+d5
+  $ whenmod 16 14 (|* gain 0)
+  $ whenmod 16 14 (|+ up "<7 10 12>")
+  $ degradeBy 0.5
+  $ sometimes (iter 4)
+  $ every 2 (shuffle 8)
+  $ (striate' 64 (1/64) $ s "s612fm-vox-choir")
+    |< n 0
+    |< gain 1.1
+    |< up "0 3 5 -2 -4"
+    |* delay 0.3 |* delayt 0.3 |* delayfb 0.2
+    |< cut "-1"
+
+d1
+  $ whenmod 16 14 (striate 4)
+  $ sometimes (ghost)
+  $ stut' 4 (1/16) ((|*| gain 0.8) . (|+ up "<0 -2 -4>"))
+  $ s "ewavfm-bd*4"
+    |< n 2
+
+d2
+  $ (0.25 <~)
+  $ s "ewavfm-sn*2"
+    |< n (irand 2)
+    |* gain 1.2
+
+d3
+  $ whenmod 14 13 (striate 4)
+  $ sometimesBy 0.2 (iter 8)
+  $ sometimesBy 0.333 (|+ up "<7 12>")
+  $ (+| up "0 <3 ~ 0> ~ <-2 0> <~ 0 3> ~ ~ <0 ~ 3> ~ <5 3 -2 ~> ~ ~ 0 ~ <5 7> ~")
+  $ s "2600fm-rankingdons"
+    |< n 1
+    |* gain 1.2
+    |* delay 0.3 |* delayt 0.3 |* delayfb 0.2
+
+d4
+  $ jux rev
+  $ degradeBy 0.5
+  $ s "ewavfm-rim(16, 16)"
+    |< up "0 -2 -4 3 5 7"
