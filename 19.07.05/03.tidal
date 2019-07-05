@@ -1,0 +1,48 @@
+d1
+  $ whenmod 16 14 ((striate 4) . (fast 2) . (iter 4) . (ghost) . (|< gain 0.9))
+  $ s "ewavfm-bd*3 ewavfm-sn*2"
+
+d2
+  $ whenmod 8 6 (fast 2 . zoom (0.25, 0.75))
+  $ slow 2
+  $ repeatCycles 4
+  $ stut' 2 (1/8) ((|+ up "0 -2 -4 3 7"))
+  $ (gap (choose [16, 32, 64]) $ s "s612fm-vox-choir")
+    |< cut "-1"
+    |* delay 0.5 |* delayt 0.3 |* delayfb 0.3
+    |+ up (choose [0, -4, 5, 7])
+    |* room 0.1 |* sz 0.1
+
+d3
+  $ repeatCycles 2
+  $ sometimes (iter 4)
+  $ slow 4
+  $ scramble (wchoose [(4, 0.4), (16, 0.3), (32, 0.15), (64, 0.15)])
+  $ sometimesBy 0.05 (gap (wchoose [(2, 0.5), (4, 0.1), (8, 0.3), (16, 0.1)]))
+  $ (striate' 32 (1/16) $ s "s612fm-ambient-pad")
+    |< cut "-1"
+    |* speed (choose [1, -1])
+    |+ up (choose [0, -4, 5, 7, -2, 9])
+    |* delay 0.5 |* delayt 0.3 |* delayfb 0.3
+    |* room 0.2 |* sz 0.1
+    |* pan (range 0.4 0.6 $ slow 4 $ cat [sine, rand])
+
+d4
+  $ degradeBy 0.5
+  $ ghost
+  $ stut' 4 (1/16) (|+ up (choose [-2..3]))
+  $ s "ewavfm-bd*8"
+    |+ up (choose [0, -4, 5])
+    |* room 0.1 |* sz 0.1
+    |* lpf (rangex 200 8000 $ slow 4 $ cat [cosine, rand]) |* lpq 0.4
+    |* hpf 20
+
+d5
+  $ whenmod 8 6 (brak . (fast 2) . (<| gain (choose [0.8, 0.9..1.4])))
+  $ ghost
+  $ (0.25 <~)
+  $ s "ewavfm-sn*2"
+    |< n 59
+    |* room 0.1 |* sz 0.1
+    |+ up (choose [-1..2])
+    |* gain 1.2
