@@ -1,5 +1,4 @@
 (
-
   s.options.numBuffers = 1024 * 256;
   s.options.memSize = 8192 * 16;
   s.options.maxNodes = 1024 * 32;
@@ -28,6 +27,9 @@
   s.latency = 0.3;
 );
 
+// Platform.systemExtensionDir; // system extensions
+// Platform.userExtensionDir; // user extensions
+
 // Custom synth example
 // (
 //   SynthDef(\tutorial1, {|out, sustain=1, pan, accelerate, n |
@@ -49,15 +51,31 @@
 
 // Synth(\kik, [\basefreq, 40, \decay1, 0.9, \decay1L, 0.9, \decay2, 0.45, \sweeptime, 0.25, \ratio, 2])
 
-// s.boot;
-
-
-// Synth.new(\kick9)
-
 // (
 //   SynthDef(\tutorial1, {|out, sustain=1, pan, accelerate, n |
 //     var env = EnvGen.ar(Env.perc(0.001, 0.999, 1, -4), timeScale: sustain, doneAction: 2);
 //     var sound = SinOsc.ar(n * Line.kr(1, 1 + accelerate, sustain));
 //     OffsetOut.ar(out, DirtPan.ar(sound, ~dirt.numChannels, pan, env));
 //   }).add
+// )
+
+// Beautifull FreqScope
+// (
+// w = Window("My Analyzer", Rect(0, 20, 300, 150)); // width should be 511
+// f = FreqScopeView(w, w.view.bounds);
+// f.active_(true);
+// f.freqMode_(1);
+
+// w.onClose_({ f.kill }); // you must have this
+// w.front;
+// )
+// f.active_(true);
+
+// Stethoscope inserted inside the window
+// (
+// w = Window.new("my own scope", Rect(20, 20, 400, 500));
+// w.view.decorator = FlowLayout(w.view.bounds);
+// c = Stethoscope.new(s, view:w.view);
+// w.onClose = { c.free }; // don't forget this
+// w.front;
 // )
