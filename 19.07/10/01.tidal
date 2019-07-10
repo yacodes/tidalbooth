@@ -1,0 +1,54 @@
+d1
+  $ whenmod 8 4 (fast 2 . ply "<1 2 2 4>/2")
+  $ superimpose (fast 2)
+  $ struct "t*4"
+  $ s "ewavfm-bd"
+    |>| gain (choose [0.9, 0.91..1.1])
+    |>| speed (choose [0.95, 0.96..1.1])
+
+d2
+  $ hurry 2
+  $ (loopAt (choose [1..4]) $ chop "1 2 2 8" $ s "s612fm-ambient-pad")
+    |> n "4"
+    |> cut "-1"
+    |*| delay 0.5 |*| delayt 0.75 |*| delayfb 0.75
+    |*| room 0.2 |*| sz 0.1
+    |* gain (wchoose [(0, 0.5), (1, 0.5)])
+    |> pan (range 0 1 $ slow 8 $ cat [cosine, rand])
+    |> shape (range 0 0.5 $ cat [saw, rand])
+
+do
+  d1
+    $ ghost
+    -- $ trunc 0.75
+    $ linger (choose [0.25, 0.5, 0.75, 1])
+    $ struct "<[t ~ t t/4 ~ t ~ t/3 t ~ t t/2 ~ t t/4 t/2]>"
+    $ s "ewavfm-bd"
+      |> gain (choose [0.9, 0.91..1.1])
+      |> speed (choose [0.95, 0.96..1.1])
+      |*| room 0.1 |*| sz 0.1
+
+d2
+  $ slow 4
+  $ (0.75 <~)
+  $ stutWith 8 (1/64) ((|* up (choose [-3, -1, 2, 4])) . (|* shape (range 0 0.7 $ cat [cosine, rand])))
+  $ struct "~ t"
+  $ s "ewavfm-noise"
+    |> n "5"
+    |*| room 0.1 |*| sz 0.1
+    |> gain (choose [0.6, 0.61..0.7])
+    |> speed (choose [0.95, 0.96..1.1])
+    |* delay 0.5 |* delayt 0.5 |* delayfb 0.5
+
+d3
+  $ s "supersaw"
+    # n "e2"
+    # legato 2
+
+once
+  $ slow 2
+  $ rev
+  $ (striate' 16 (1/4) $ (s "sfm-lindrum-crash"))
+    |> n "1"
+    -- |> cut "-1"
+    |> gain 1
