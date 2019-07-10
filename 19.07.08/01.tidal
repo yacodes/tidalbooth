@@ -1,0 +1,33 @@
+d1
+  -- $ ghost
+  $ slow 2 $ trunc 0.25
+  $ struct "<[t ~ ~ t ~ t ~ ~ t ~ ~ ~ t t/4 t t/4]>"
+  $ s "ewavfm-bd*4"
+    |< n 2
+    |+| up (choose [-0.5, 0, 0.5])
+    |* gain (choose [0.925, 1, 1.125])
+    |* room 0.1 |* sz 0.1
+    |* gain 1.4
+
+d2
+  $ slow 2 $ trunc 0.25
+  $ struct "<[t ~ ~ t ~ t ~ ~ t ~ ~ ~ t t/4 t t/4]>"
+  $ s "s612fm-ebass2"
+    |< cut "-1"
+    |< n 0
+    |+| up "0 -0.5 0.5"
+    |+| up (choose [-0.5, 0, 0.5])
+    |* gain 1.5
+
+d3
+  $ jux rev
+  $ slow 4
+  $ (0.25 <~)
+  $ scramble 32
+  $ (striate 64 $ s "fsfm-body-misc")
+    |* delay 0.5 |* delayt 0.5 |* delayfb 0.5
+    |* room 0.2 |* sz 0.2
+    |+| speed (choose [1, -1, 2])
+    |* gain 0.8
+
+(setcps (140/60/4))
