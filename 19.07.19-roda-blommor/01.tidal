@@ -1,0 +1,73 @@
+setcps (128/60)
+
+d1
+  $ slow 8
+  $ whenmod 5 3 (slow 16)
+  $ struct "t? t? [t? t? t] t?"
+  $ s "landr-vocalL"
+    |> cut "-1"
+    |> n 5
+    |>| speed "1 1.25 1 0.95"
+    |> gain 0.8
+    |> delay 0.5 |> delayt 0.3 |> delayfb 0.3
+
+
+-- !!!
+d2
+  $ slow 4
+  $ struct "t t <t [~ t]> t"
+  $ s "sf-bk"
+
+-- !!!
+d3
+  $ slow 8
+  $ sometimes (iter 4)
+  -- $ sometimes (rev)
+  $ (striate 8 $ s "sf-arab-percL")
+    # cut "-1"
+
+d1
+  $ slow 4
+  $ squeeze "<2 2 2 <3 4>>" [
+    "t*4",
+    "t*2",
+    "t(3, 8)",
+    "t(5, 8)",
+    "t(7, 8)"
+  ] |> s "sf-bk"
+
+
+setcps (120/60/4)
+
+d1 $ soak 4 (* speed 1.5) $ sound "bd(3,8) sd:2"
+
+d1 $ note (scale "minor" $ snowball 4 (+) (slow 2) $ (run 3)) # sound "gtr" #gain 0.9
+
+take 2 $ iterate [1, 2, 3]
+
+:t iterate
+
+d1 $ slow 4 $ soak 4 (iter 8. slow 2 .ply 3) $ euclid 3 5 $ sound "bd sn"
+
+d1 $ slow 4 $ (note $ scale "hexPhrygian" $ soak 4 ((0.25 <~) . (+ irand(2))) "0 . 2 3 ~ . 0 1 . -1 -2") # s "gtr"
+
+setcps (120/60)
+
+d2
+  -- $ pickF 1 [(|* speed 0.5), (fast 2)]
+  $ slow 2
+  $ iter 4
+  $ up (scale "minor" $ squeeze "<0 1 2 2>" [
+    "0 [0 0] ~ [0 0]",
+    "0 [5 3] 0 [2 2]",
+    "0 [3 0] [~ 0] [5 <5 7>]"
+  ]) |> s "2600fm-technoir"
+    |> cut "-1"
+
+d4
+  $ slow 4
+  $ up (sew "<t f>"
+    ("0 [~ 3] [~ 3 3] <5 3>")
+    ("[~*2 3] 5 [3*3 <3 5>] [~ 5]"))
+    |> s "2600fm-technoir"
+    |> cut "-1"
