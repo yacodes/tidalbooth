@@ -1,4 +1,11 @@
+// ServerOptions.outDevices.do {|d| d.postln}
+// ServerOptions.inDevices.do {|d| d.postln}
+
 (
+  // s.options.inDevice = "Scarlett 2i4 USB";
+  // s.options.outDevice = "Scarlett 2i4 USB";
+  // s.options.outDevice = "Soundflower (2ch)";
+  s.options.outDevice = "Built-in Output";
   s.options.numBuffers = 1024 * 256;
   s.options.memSize = 8192 * 16;
   s.options.maxNodes = 1024 * 32;

@@ -1,0 +1,45 @@
+setcps (128/60/2)
+
+d1
+  -- $ iter 8
+  -- $ trunc 0.75
+  $ slow 2
+  $ (|+| up ("<[0 5 0 5 0 5 ~ 3 0 3 ~ 5 0 ~ 3 ~]>" + "<0 0 0 0>"))
+  -- $ scramble 64
+  -- $ chop 256
+  $ s "s612fm-synth-guitar"
+    |* gain (choose [0.95, 0.96..1.2])
+    |> cut "-1"
+    |> n 0
+    |* lpf 8000
+    |* room 0.2 |* sz 0.2
+
+d2 $ s "sf-bk*2" # gain 1
+
+d3
+  -- $ iter 2
+  $ slow 16
+  $ shuffle 32
+  -- $ loopAt 1
+  -- $ (|+| up ("<[0 ~ 2 2 5 ~ 5 5 2 ~ -1 -1 0 ~ 0 ~]>"))
+  $ (striate' 256 (1/64) $ s "bbs-engines")
+    # speed "11"
+    # n 0
+    |> cut "-1"
+
+d1 $ s "landr-k*2" # n 23
+
+d2
+  $ s "s612fm-dx-punch(<3 3 <3 7> 5>, 8)"
+    # n 1
+    # up (fast 2 $ iter 4 $ "0 5 8")
+
+d3
+  $ (0.25 <~)
+  $ "s612fm-sunrise-rhodes*2"
+    # end "0.02"
+    # cut "-1"
+    # n 3
+    # speed "-1"
+
+setcps (60/60)

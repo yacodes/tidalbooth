@@ -1,0 +1,145 @@
+d1
+  $ s ""
+
+setcps (120/60/2)
+
+d1
+  -- $ loopAt 4
+  $ scramble 32
+  $ gap (choose [2, 4, 8, 16])
+  $ (striate' 128 (1/64) $ slow 16 $ s "bbs-engines")
+    |> cut "-1"
+    |> vowel (choose ["a", "e", "i", "o", "u", "~"])
+    |+ delay 0.3 |+ delayt 0.3 |+ delayfb 0.3
+    |+ lpf (rangex 1000 10000 $ slow 8 $ perlinWith (cosine))
+    -- |> pan 1
+    |> gain 0.7
+
+d2
+  -- $ slow 2
+  $ shuffle 16
+  $ rev $ (striate 128 $ s "fsfm-fx-textures")
+    |> cut "-1"
+    |> n 1
+
+d3
+  $ whenmod 8 4 (|* gain 0)
+  $ slow 2
+  $ scramble 8
+  $ (gap 16 $ s "landr-vocalL")
+    |> cut "-1"
+    |> n 33 -- 30!
+    |* gain 0.9
+    |> up (choose [0, -1, 1, -2, 2])
+    |> speed "0.75"
+    |> pan (range 0 1 $ slow 8 $ sine)
+    |+ delay 0.3 |+ delayt 0.3 |+ delayfb 0.3
+    |+ room 0.2 |+ sz 0.2
+    |> vowel (choose ["a", "e", "i", "o", "u", "~"])
+
+d4
+  $ whenmod 8 4 (|* gain 1)
+  $ slow 4
+  $ shuffle 32
+  $ (gap 32 $ s "landr-synthL")
+    |> cut "-1" |> n 1 |> speed 2
+    |> pan (range 0 1 $ slow 16 $ cosine)
+    |+ delay 0.3 |+ delayt 0.3 |+ delayfb 0.3
+    |> pan (range 0 1 $ slow 8 $ sine)
+    |+ room 0.2 |+ sz 0.2
+    |* gain 0
+
+d3
+  $ slow 2
+  $ s "fsfm-metal"
+    |> cut "-1"
+    |> n 1
+    |> speed (choose [0.5, 0.6..2])
+    |> vowel (choose ["a", "e", "i", "o", "u", "~"])
+
+d2
+  $ slow 2
+  $ gap 8
+  $ (striate' 128 (1/128) $ s "landr-vocalL")
+    |> n "4"
+    |> cut 1
+    |> vowel (choose ["a", "e", "i", "o", "u", "~"])
+    |> pan 0
+    |+ delay 0.3 |+ delayt 0.3 |+ delayfb 0.3
+    -- |+ speed "0.5"
+
+d3 $ s "sf-bk*2" |> cut "-1"
+
+setcps (140/60/2)
+
+d1
+  $ slow 8
+  $ shuffle 16
+  $ degrade
+  $ (striate' 128 (1/128) $ s "s612fm-vox-choir")
+    |> gain 1
+    |>| speed "0.5 0.75 1 1.25 1.5"
+    |+ delay 0.3 |+ delayt 0.3 |+ delayfb 0.3
+
+
+d2
+  -- $ whenmod 8 4 (|* gain 0)
+  -- $ slow 16
+  $ s "landr-vocalL"
+    # cut "-1"
+    # n "19"
+    -- |> speed (choose [0.5, 0.6..1.5])
+    -- |+ delay 0.3 |+ delayt 0.3 |+ delayfb 0.3
+    -- |>| vowel (choose ["a", "e", "i", "o", "u", "~"])
+    -- |> gain 0.9
+
+d3
+  -- $ slow 2
+  -- $ whenmod 36 35 (|* gain 1)
+  $ struct "t t t t"
+  $ s "s612fm-industrial-krunk"
+    |> n "2 3"
+    |> speed (choose [0.5, 0.6..1.5])
+    |> cut "-1"
+
+d4
+  $ slow 4
+  $ (striate 128 $ s "s612fm-vox-choir")
+    |> cut "-1"
+    |> gain 1
+    |+ delay 0.3 |+ delayt 0.3 |+ delayfb 0.3
+    -- |>| speed "1 1.25 1.5 0.75 0.925"
+
+
+d2
+  -- $ slow 2
+  -- $ up "<[] []>"
+  -- $ struct "<[t [t <t*3 ~>] t t]/2 [t ~ ~ ~]/2>"
+  $ scramble 16
+  $ (chop 16 $ slow 2 $ s "landr-vocalL")
+    |> cut 1
+    |> n 16 -- OK: 5, 9os, 13os, 14, 15, 16!, 17os, 20, 21os, 22os, 31
+    |>| vowel (choose ["a", "e", "i", "o", "u", "~"])
+    |+ delay 0.3 |+ delayt 0.3 |+ delayfb 0.3
+    -- |> lpf 10000
+
+let drops = [
+          ((rev $ striate' 256 (1/128) $ s "sfm-lindrum-crash")
+              # n 0
+              |* gain 1)]
+
+d1
+  $ whenmod 32 28 (superimpose $ const $ slow 4 $ drops!!0)
+  $ n "e2"
+  # s "supersaw"
+  # legato 2
+  # lpf 400
+  # hpf 40
+
+d2 $ s "sf-bk(5, 8)"
+
+d3
+  $ whenmod 32 28 (superimpose $ (brak . fast 4))
+  $ (0.5 <~)
+  $ s "ewavfm-sn"
+    |+ room 0.2 |+ sz 0.2

@@ -1,0 +1,44 @@
+d1
+  $ s "2600fm-technoir" -- bass
+    |> cut "-1"
+    |> n 0
+
+
+setcps (120/60)
+
+d1
+  -- $ gap 16
+  $ slow 4
+  $ struct "t"
+  -- $ n "e3 f3 g3 e3"
+    $ s "supernoise"
+    -- |> s "supernoise"
+    |> legato 2
+    |*| gain (range 0.5 0.8 $ slow 4 $ sine)
+    |*| pan (range 0 1 $ slow 4 $ perlinWith (cosine - 0.25))
+    |+| lpf (rangex 200 4000 $ slow 4 $ perlinWith (cosine + 0.25))
+    -- |+| lpf (trigger 1 $ rangex 200 4000 $ envEqR)
+    |*| hpf 50
+    |*| delay 0.3 |*| delayt 0.3 |*| delayfb 0.3
+
+d2
+  $ stutWith 4 (1/4) ((|* gain 0.9) . (|> crush "<16 <4 5>>/2"))
+  $ slow 4
+  $ struct "t*2"
+  $ s "sf-bk"
+    |> cut "-1"
+    |*| hpf 50
+    -- |*| delay 0.3 |*| delayt 0.3 |*| delayfb 0.3
+
+d3
+  $ "ewavfm-noise(3, 8)"
+    |>| n 4
+    -- |+ speed (choose [1, 2, 4])
+
+-- Bass
+d4
+  $ slow 4
+  $ up "<[0 [3] [~ 5] ~] [[3 0] [~ 0] ~ 5]>"
+    |> s "2600fm-just-sub"
+    |> n 0
+    |> cut "-1"

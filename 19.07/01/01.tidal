@@ -3,7 +3,8 @@ d1
   -- $ every' 2 1 (stutWith 4 (1/16) ((|*| speed (rand)) . (|*| crush 12)))
   -- $ every 2 (superimpose ((|*| speed (rand + 0.5)) . (fast 4)))
   -- $ off (-0.125) (|*| up 7)
-  $ s "k*4" # n 2
+  $ slow 4
+  $ s "ewavfm-bd*4" # n 2
     -- |*| delay 1 |*| delayfeedback 0.5 |*| delaytime 0.5
     -- |*| room 0.3
 

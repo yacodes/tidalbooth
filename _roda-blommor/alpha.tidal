@@ -1,0 +1,148 @@
+-- Intro
+setcps (128/60/2)
+
+d1
+  $ trunc 0.125
+  -- $ degradeBy 0.1
+  $ (+| up "<[0 ~ 3 0 1 ~ 0 ~ ~ ~ ~ ~ 0 ~ ~ ~]\
+            \[0 ~ ~ ~ 0 ~ 0 ~ ~ ~ 0 ~ ~ 1 3 5]>")
+  $ stack [
+    s "sf-bk"
+      |> n 0
+      |> cut "-1",
+    s "s612fm-ebass2"
+      |> n 1
+      |> cut "-1"
+      |* shape 0.8 |* gain 0.9
+      |* gain 1
+      |* crush 3
+      |* room 0.2 |* sz 0.2
+  ] |* gain (choose [0.9, 0.91..1.1])
+    |+| delay 0.25 |+| delayt 0.25 |+| delayfb 0.25
+    |+ lpf (rangex 200 10000 $ trigger 1 $ slow 16 $ envEqR)
+    |+ hpf 40
+    |* speed (choose [0.99, 0.9901..1.005]) -- detune
+
+d2
+  $ jux rev
+  $ (slow 2 $ striate' 64 (1/32) $ s "s612fm-industrial-krunk")
+    |> n (irand 4)
+    |+ lpf (rangex 1000 10000 $ slow 8 $ cat [sine])
+    |+ hpf (rangex 1000 10000 $ slow 8 $ cat [cosine])
+
+-- Background
+do
+  let patterns = [
+        ("a",
+          s "sfm-lindrum-bass*4"),
+        ("b",
+          s "sfm-lindrum-bass*2")]
+  d1 $ ur 4 "a b" patterns []
+    |> gain 2
+
+-- Drums
+
+-- Bass
+
+-- Lead
+
+-- Vox
+
+setcps (128/60/2)
+
+
+-- UR
+do
+  let drops = [
+            ((rev $ striate' 256 (1/128) $ s "sfm-lindrum-crash")
+                # n 0
+                |* gain 2)]
+  let patterns = [
+        ("a",
+          slow 2
+            $ (+| up "<[0 ~ 3 0 1 ~ 0 ~ ~ ~ ~ ~ 0 ~ ~ ~]\
+                      \[0 ~ ~ ~ 0 ~ 0 ~ ~ ~ 0 ~ ~ 1 3 5]>")
+            $ s "s612fm-ebass2"
+              |> n 2
+              |> crush 3
+              |> cut "-1"),
+        ("b",
+          slow 2 $ s "sfm-lindrum-bass*2")]
+  let fx = [
+        ("delay", (# (delay 0.3 |*| delayfb 0.3 |*| delayt 0.3))),
+        ("faster", (fast 2))]
+  d1
+    $ whenmod 32 28 (superimpose $ const $ slow 4 $ drops!!0)
+    $ ur 64 "a:delay" patterns fx
+      |* gain 2
+
+do
+  setcps (100/60)
+  let drops = [
+            ((rev $ striate' 256 (1/128) $ s "sfm-lindrum-crash")
+                # n 0
+                |* gain 1)]
+  d1
+    -- $ whenmod 64 56 (const $ slow 8 $ drops!!0)
+    $ stack [
+      slow 4 $ s "sf-bk ewavfm-sn:4 [~ sf-bk] ewavfm-sn:4" |> cut (-1),
+      -- (1 <~) $ slow 2 $ s "ewavfm-sn" # n 4,
+      slow 4 $ s "sfm-lindrum-cowbell"
+    ] |* gain 1.4
+
+
+d1 $ (spread' (slow "1%4 2 1 3") $ spread (striate) [2,3,4,1] $ sound "sn:2 sid:3 cp sid:4")
+  # speed "[1 2 1 1]/2"
+
+
+d1
+  $ smash 8 [2, 4, 6, 8]
+  $ sound "ho hh ho hh"
+
+
+-- ???
+d1
+  $ (slow 2 $ striate' 256 (1/256) $ "loopcloud-pps-bassL")
+    |* gain (range 0 1 $ trigger 1 $ slow 4 $ envEqR)
+    |* gain 1
+
+d2
+  $ every 2 (iter 4)
+  -- $ scramble 16
+  $ (slow 2 $ striate' 64 (1/64) $ s "sf-arab-percL")
+    |> n 7
+    |* gain 1
+    -- |* gain (range 0 1 $ trigger 2 $ slow 8 $ envEqR)
+
+d3
+  -- $ trunc 0.75
+  $ every 2 (slow 2)
+  $ struct "<[t ~ ~ t ~ t ~ ~ t ~ t/2 t ~ t/3 t t/4]>"
+  -- $ struct "t*4"
+  $ s "landr-k"
+    |* gain 1
+    |> n 1
+    |+ hpf 20
+    -- |+ hpf (rangex 15000 20 $ trigger 3 $ slow 16 $ envEqR)
+
+d4
+  $ whenmod 16 14 (|> gain 0)
+  $ scramble 16
+  $ degradeBy 0.5
+  $ (slow 4 $ striate' 128 (1/128) $ s "landr-vocalL")
+    |> n 12
+    |* speed "-1"
+    |* up "1 2 -1 -3"
+    |* pan (range 0 1 $ slow 4 $ cat [cosine, rand])
+    |+| delay 0.3 |+| delayt 0.5 |+| delayfb 0.2
+    |+| room 0.2 |+| sz 0.1
+    |+ lpf (rangex 40 10000 $ trigger 4 $ slow 4 $ envEqR)
+    |* gain 0.8
+
+d5
+  -- $ shuffle 32
+  $ (loopAt 2 $ striate 64 $ s "loopcloud-pps-bassL")
+    |> n 2
+    |+ hpf (rangex 12000 40 $ trigger 5 $ slow 16 $ envEqR)
+
+setcps (140/60/4)
