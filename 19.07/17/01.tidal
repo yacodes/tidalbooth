@@ -1,0 +1,73 @@
+setcps (120/60)
+
+d1
+  $ (slow 8 $ stack [(s "")
+    , shuffle 8 $
+      (striate' 16 (1/8) $ s "s612fm-industrial-krunk" |> n 0)
+        |> pan (range 0 1 $ slow 4 $ sine)
+    , shuffle 8 $
+    (striate' 16 (1/8) $ s "s612fm-industrial-krunk" |> n 1)
+      |> pan (range 0 1 $ slow 4 $ cosine)
+  ]) |> cut "-1"
+     -- |* gain (range 0 1 $ trigger 1 $ slow 32 $ envEqR)
+     |* gain 1
+
+d2
+  $ stutWith 4 (1/4) (
+    (|* gain 0.9)
+    . (|> crush (choose [4, 5, 6, 7, 8, 9]))
+    . (|+ up (choose [1.0, 1.1..2.5]))
+  )
+  $ (slow 4 $ struct "t" $ s "sf-bk")
+    + delay 0.3 + delayfb 0.3 + delayt 0.3
+    + room 0.2 + sz 0.2
+    -- |* gain (range 0 1.5 $ trigger 1 $ slow 32 $ envEqR)
+    |* gain 1
+
+d3
+  $ slow 4
+  $ stack [(s "")
+    ,
+      degradeBy 0.5 $
+      struct "~ t"
+      $ s "ewavfm-noise"
+        |> n 2
+    ,
+      sometimes (fast 2) $
+      degradeBy 0.5 $
+      struct (squeeze "<1 2 1 2 3 1>" [""
+      , "t(13, 16)"
+      , "t(11, 16)"
+      , "t(16, 16)"
+    ]) $
+      s (wchoose [("ewavfm-ch", 0.25), ("ewavfm-fieldperc", 0.75)])
+        |>| n (irand 3)
+        |> pan (range 0.75 1 $ slow 4 $ perlinWith cosine)
+    ,
+      sometimes (fast 2) $
+      degradeBy 0.5 $
+      struct "t(15, 16)" $
+      s (wchoose [("ewavfm-ch", 0.75), ("ewavfm-fieldperc", 0.25)])
+        |>| n (irand 5)
+        |> pan (range 0 0.25 $ slow 4 $ perlinWith sine)
+    ,
+      degradeBy 0.25 $
+      jux rev $
+      struct "t(15, 16)" $
+        s "ewavfm-ch"
+        |>| n (irand 3)
+  ] |* gain (choose [0.9, 0.901..1.1])
+
+d4
+  -- $ trunc 0.5
+  $ slow 4
+  $ up (scale "minor" $ squeeze "<1 2 1 2>" ["~"
+    , "0 ~ 2 2 0 ~ 5 ~ 0/2 ~ ~ ~ <~ 0>/2 ~ ~ ~"
+    , "2 ~ 5 2 ~ 2 5 ~ 0 0 2 ~ 0 0 2 5"
+  ])
+    |> s "sf-bk"
+    |>| n 0
+    |> cut "-1"
+    |* gain 1.8
+    |* lpf 500
+    |> begin 0.075
