@@ -25,6 +25,7 @@ d2
     |* gain 1
 
 d3
+  $ iter 4
   $ slow 4
   $ stack [(s "")
     ,
@@ -60,6 +61,7 @@ d3
 
 d4
   -- $ trunc 0.5
+  $ iter 4
   $ slow 4
   $ up (scale "minor" $ squeeze "<1 2 1 2>" ["~"
     , "0 ~ 2 2 0 ~ 5 ~ 0/2 ~ ~ ~ <~ 0>/2 ~ ~ ~"
