@@ -1,0 +1,26 @@
+setcps (132/60)
+
+
+let raisers = [
+        (loopAt 16 $ s "sfm-lindrum-crash" |>| speed "-2")
+      , (loopAt 16 $ s "ewavfm-cymb" |>| speed "-2" |>| gain 1.5)
+      , ()
+      ]
+
+d1
+  -- $ slow 32
+  $ (loopAt 32 $ s "2600fm-technoir" |>| speed "-4" |>| gain 1.5 |>| n 4)
+
+d1
+  $ whenmod 32 24 (const $ slow 8 $ drops!!0)
+  $ slow 4
+  $ struct "[t t/3] [~ t] [t/2 t] t"
+  $ s "sf-bk"
+
+d2
+  $ slow 4
+  $ ghost
+  $ (0.25 <~)
+  $ struct "t"
+  $ s "ewavfm-sn:15"
+    + speed "[1 1.25 0.925, 0.85 1 1.25]"
