@@ -1,1 +1,21 @@
-d1 $ s ""
+d1 $ s "sf-bk*4" |* gain 1
+
+setcps (60/60/4)
+
+d1
+  $ degradeBy 0.25
+  $ struct "t(16, 16)"
+  -- $ s "2600fm-just-sub"
+  $ s "ewavfm-fx"
+    |> n 0
+    |> crush (choose [4, 16])
+    -- |> n (irand 3)
+    |> pan (range 0 1 $ slow 4 $ sine)
+    |+ speed (choose [0.8, 0.801..1.2])
+    |> cut "-1"
+    * delay 0.5 * delayt 0.5 * delayfb 0.5
+    * room 0.2 * sz 0.2
+
+once $ s "sf-bk"
+
+once $ s "sf-bk(3, 8)"

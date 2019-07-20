@@ -1,0 +1,100 @@
+-- Raisers
+(loopAt 16 $ s "sfm-lindrum-crash" |>| speed "-2")
+(loopAt 16 $ s "ewavfm-cymb" |>| speed "-2" |>| gain 1)
+
+-- CPS
+(setcps (132/60))
+
+d1
+  $ whenmod 9 7 (
+      (|+ gain (choose [0.9, 0.91..1.1]))
+    . (|+ speed (choose [0.9, 0.91..1.1]))
+    . (sometimesBy 0.5 (|> crush (choose [4, 5, 6])))
+  )
+  $ slow 4
+  $ struct "t(13, 16)"
+  $ s "landr-k:1"
+    + gain 0
+    * hpf 100
+
+d2
+  $ whenmod 3 1 (
+      (|+ gain (choose [0.9, 0.91..1.1]))
+    . (|+ speed (choose [0.9, 0.91..1.1]))
+  )
+  $ slow 4
+  $ struct "t(15, 16, 2)"
+  $ s "ewavfm-ch"
+    |>| n (irand 5)
+    |> pan (range 0 1 $ slow 4 $ perlin2With sine cosine)
+    + gain 0
+
+d3
+  $ whenmod 8 4 (
+      (|+ gain (choose [0.9, 0.91..1.1]))
+    . (|* speed (choose [0.9, 0.91..1.1]))
+    . (sometimesBy 0.5 (|> crush (choose [4, 5, 6])))
+  )
+  $ degradeBy 0.2
+  $ slow 4
+  $ struct "t*16"
+  $ s "sfm-lindrum-bass:11"
+    * up (scale "minPent" $ choose [-2, -1..2])
+    * room 0.1 * sz 0.1
+    + gain 0
+    * hpf 200
+
+d4
+  $ s "landr-k"
+    |> n 22
+    |> cut "-1"
+    * gain 1.2
+
+d5 $ slow 4 $ n "e3" # s "supersaw" # legato 2 # lpf 2000 # gain 0.9 # accelerate "1"
+
+d6 $ slow 2 $ up "<[0 ~ 3 2 0 ~ 1 ~ 0 ~ 3 2 0 ~ 1 ~]>"
+  |> s "2600fm-billy-zane"
+  |> cut "-1"
+
+-- Improvise lazy donk
+d5
+  $ slow 4
+  $ striate' 128 (1/128)
+  $ s "landr-synthL"
+    |> cut "-1"
+    |> n 17
+
+d6
+  $ slow 4
+  $ striate' 128 (1/128)
+  $ s "landr-synthL"
+    |> cut "-1"
+    |> n 23
+
+d6
+  $ slow 8
+  $ striate' 128 (1/128)
+  $ s "landr-synthL"
+    |> cut "-1"
+    |> n 40
+
+d7 -- soft
+  $ slow 8
+  $ striate' 128 (1/128)
+  $ s "landr-synthL"
+    |> cut "-1"
+    |> n 42 -- 43
+
+d7 -- nice break, just in case
+  $ slow 8
+  $ striate' 128 (1/128)
+  $ s "landr-synthL"
+    |> cut "-1"
+    |> n 50
+
+d8
+  $ slow 8
+  $ striate' 128 (1/128)
+  $ s "landr-synthL"
+    |> cut "-1"
+    |> n 51

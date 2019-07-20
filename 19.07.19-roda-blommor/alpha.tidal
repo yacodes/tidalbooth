@@ -1,83 +1,156 @@
-setcps (128/60)
+-- Raisers
+(loopAt 16 $ s "sfm-lindrum-crash" |>| speed "-2")
+(loopAt 16 $ s "ewavfm-cymb" |>| speed "-2" |>| gain 1)
 
+-- CPS
+(setcps (128/60))
+
+d1 $ struct "[t ~ t ~ t ~ t ~ ~ t ~ t ~ t t t]/4" $ s "sf-bk"
+
+d2 $ slow 4 $ s "numbers" |> n "<4 3 2 1>"
+
+-- Reset
+resetCycles
+
+-- n1
 d1
-  -- $ struct "t t [~ t] t"
-  $ struct "[t/2]?"
-  $ (slow 4 $ striate 2 $ s "fsfm-vortex")
-    |> n 0
-    |> delay 0.75 |> delayt 0.5 |> delayfb 0.5
-    |+ speed (choose [0.5, 0.6..1.5])
-    |* gain 0.8
-    |> crush 5
-    -- |* gain (trigger 1 $ range 0 1 $ slow 8 $ envEqR)
+  $ whenmod 64 (64 - 8) (const $ (loopAt 16 $ s "sfm-lindrum-crash" |>| speed "-2"))
+  $ whenmod 5 3 (|* speed 16)
+  $ (
+    slow 1 $
+    striate 128 $
+    s "sf-bk")
+      |> n 0
+      * delay 0.3 * delayt 0.3 * delayfb 0.3
+      * room 0.2 * sz 0.2
+      |* gain (choose [0.9, 0.91..1.1])
+      |* speed (choose [0.8, 0.91..1.2])
+      |* gain 1
+      * crush 3
+      * lpf 5000
 
 d2
-  -- $ struct "t*4"
-  $ (slow 4 $ shuffle 8 $ rev $ striate' 64 (1/32) $ s "landr-synthL")
-    |> n 2
+  $ (
+    shuffle 4 $
+    iter 4 $
+    slow 8 $
+    striate 16 $
+    s "sf-arab-percL")
+      |> cut "-1"
+      |> n 0
+      * gain 1.4
+      * hpf 100
+      -- |* lpf (trigger 2 $ slow 16 $ rangex 200 15000 $ envEqR)
+
+-- n2
+-- d3 $ s "" * gain 0
+
+d1
+  $ whenmod 128 (128 - 16) (linger 0.25)
+  $ whenmod 64 (64 - 8) (scramble 4)
+  $ iter 4
+  $ slow 4
+  $ up (scale "minor"
+    ("<[0 1 <3 5> ~ ~ 3 0 ~ 2 ~ 0 3 3 ~ 2 ~]>"
+      + "<1 5 2 3>"
+    ))
+    |> s "2600fm-technoir"
+    |> n 0
     |> cut "-1"
-    |* gain 0.7
-    |> crush 8
-    -- |*| gain (trigger 2 $ range 0 1 $ slow 8 $ envEqR)
-    |> delay 0.75 |> delayt 0.3 |> delayfb 0.3
+    |> gain 1.3
+
+d2
+  $ whenmod 128 (128 - 16) (const $ (loopAt 16 $ (rev $ striate 128 $ s "sfm-lindrum-crash")))
+  $ whenmod 64 (64 - 8) (slow 4 . struct "t t/2 [t/2 t] t*4?0.7")
+    $ s "landr-k"
+    |> n 2
+    * gain 1.3
 
 d3
-  $ slow 16
-  $ sometimes (iter 4)
-  $ up "~ 3? [0? 0?] [5? 3? 0?]*2"
-    |> s "loopcloud-tl3"
+  -- $ whenmod 128 (128 - 16) (|> gain 0)
+  $ iter 4
+  $ degradeBy 0.33
+  $ struct "[t(13, 16)]/4"
+  $ s "ewavfm-ch"
+    |>| n ((irand 4) + 18)
+    * gain 0.7
+    * pan (range 0 1 $ slow 16 $ sine)
+    |+ speed (choose [0.8, 0.81..1.2])
+
+
+-- n3
+(setcps (140/60))
+
+d1
+  $ whenmod 256 (256 - 32) (
+    const $ (
+      slow 8 $
+      shuffle 32 $
+      striate' 128 (1/64) $
+      s "landr-synthL" |> n 67
+    )
+  )
+  -- $ whenmod 128 (128 - 16) (
+  --   const $ (
+  --     slow 8 $
+  --     striate' 128 (1/64) $
+  --     s "landr-synthL" |> n 53 |> cut "-1"
+  --   )
+  -- )
+  $ whenmod (32) (32 - 8) (struct "[t ~ ~ ~]/4")
+  $ struct "[t ~ ~ t t/4 t/5 t ~ t ~ ~ t ~ ~ t ~]/4"
+  -- $ struct "[t ~ ~ t ~ ~ t ~ t ~ ~ t ~ ~ t ~]/4"
+  $ s "[ewavfm-sn, ewavfm-bd]"
+    |> n 14
+    + up "-4"
+    * gain 1
     |> cut "-1"
-    |> legato 1
-    |> n 0
-    |> gain 0.7
-    |> lpf 4000
-    |> delay 0.75 |> delayt 0.5 |> delayfb 0.5
 
-let drops = [
-          ((rev $ striate' 256 (1/128) $ s "sfm-lindrum-crash")
-              # n 0
-              |* gain 1)]
-
-d4
-  $ slow 4
-  $ whenmod 32 28 (const $ slow 4 $ drops!!0)
-  $ stutWith 4 (1/4) (|* gain 0.8)
-  $ struct (sew "<t f>"
-    "t ~ ~ t ~ t t/2 ~ f ~ ~ ~ f ~ ~ ~"
-    "f ~ t ~ t ~ t t f ~ t ~ t ~ ~ ~"
+d2
+  $ whenmod 256 (256 - 32) (
+    const $ (loopAt 32 $ (rev $ striate' 256 (1/16) $ (s "ewavfm-cymb" |> speed 8)))
+  )
+  $ whenmod 128 (128 - 16) (
+    const $ (
+      slow 8 $
+      striate' 128 (1/64) $
+      s "landr-synthL" |> n 67 |> cut "-1")
+    )
+  $ whenmod 32 (32 - 8)
+  (
+    (struct "[t ~ ~ t t/3 t/2 t ~ t ~ ~ t ~ t t/2 t]/4") .
+    (+ up "0 0 0 1 2")
   )
   $ s "landr-k"
-    |> n 2
-    |*| gain (choose [0.91, 0.92..1.2])
-
-d5
-  $ slow 4
-  $ whenmod 32 28 (|* gain 0)
-  $ whenmod 8 6 (
-    (struct $ sew "<t f>"
-      "t ~ ~ t ~ t ~ t t ~ t ~ t ~ t ~"
-      "t ~ t t ~ t ~ t t t t ~ t t t t") .
-    (|>| speed (choose [0.90, 0.91..1.20])) .
-    ghost)
-  $ (0.5 <~)
-  $ struct "t t"
-  $ ghost
-  $ s "ewavfm-sn"
-    |> n 15
-    |> room 0.2 |> sz 0.4
-    |> gain 0.6
+    |> n 12
+    * gain 1.2
+    |> cut "-1"
 
 d6
-  $ slow 4
-  $ jux ((|* speed (choose [1.5, 1.6..2.4])) . degradeBy 0.5)
-  $ degradeBy 0.25
-  $ s "ewavfm-ch(15, 16)"
-    |> n (irand 2)
-    |* speed (choose [0.90, 0.91..1.2])
-    |> lpf (rangex 200 15000 $ slow 8 $ perlinWith (sine))
-
-d7
-  $ slow 4
-  $ up "0 0 0 0"
-    |> s "s612fm-ebass2"
+  -- $ whenmod 5 3 (* gain 0)
+  -- $ iter 4
+  $ struct "[t(11, 16)]/4"
+  $ s "ewavfm-fx"
+    -- |> n 1
+    |> n ((irand 2) + 3)
+    * up (choose [-2..2])
+    * gain 0.9
     |> cut "-1"
+    |>| pan (choose [0, 1])
+
+d4
+  $ whenmod 16 (16 - 8) (iter 4)
+  $ shuffle 2
+  $ trunc 0.75
+  $ (
+      slow 8 $
+      (ifp ((== 0) . (flip mod 2))
+        (striate 128) -- striate 128, 64, 32
+        (striate 128) -- striate 128, 64, 32
+      ) $
+      s "loopcloud-pps-bassL"
+    )
+      |> n 2
+      * gain 1.2
+      * up 12
+      |> cut "-1"

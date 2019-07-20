@@ -1,19 +1,27 @@
 d1
   $ s ""
 
-setcps (120/60/2)
+setcps (120/60)
 
 d1
-  -- $ loopAt 4
-  $ scramble 32
-  $ gap (choose [2, 4, 8, 16])
-  $ (striate' 128 (1/64) $ slow 16 $ s "bbs-engines")
-    |> cut "-1"
-    |> vowel (choose ["a", "e", "i", "o", "u", "~"])
-    |+ delay 0.3 |+ delayt 0.3 |+ delayfb 0.3
-    |+ lpf (rangex 1000 10000 $ slow 8 $ perlinWith (cosine))
-    -- |> pan 1
-    |> gain 0.7
+  $ slow 2 $ stack [
+    -- $ loopAt 4
+    scramble 32
+    $ gap (choose [2, 4, 8, 16])
+    $ (striate' 128 (1/64) $ slow 16 $ s "bbs-engines")
+      |> cut "-1"
+      |> vowel (choose ["a", "e", "i", "o", "u", "~"])
+      |+ delay 0.3 |+ delayt 0.3 |+ delayfb 0.3
+      |+ lpf (rangex 1000 10000 $ slow 8 $ perlinWith (cosine))
+      -- |> pan 1
+      |> gain 0.7
+    ,
+    -- $ slow 2
+    shuffle 16
+    $ rev $ (striate 128 $ s "fsfm-fx-textures")
+      |> cut "-1"
+      |> n 1
+  ]
 
 d2
   -- $ slow 2

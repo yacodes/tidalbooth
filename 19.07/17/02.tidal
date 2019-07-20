@@ -10,6 +10,7 @@ d1
   $ struct "t(13, 16)"
   $ s "landr-k:1"
     + gain 0
+    * hpf 200
 
 d2
   $ whenmod 3 1 (
@@ -36,6 +37,7 @@ d3
     * up (scale "minPent" $ choose [-2, -1..2])
     * room 0.1 * sz 0.1
     + gain 0
+    * hpf 200
 
 d4 $ s "sf-bk"
 
