@@ -1,3 +1,22 @@
+setcps (130/60)
+
+d1
+  $ whenmod 15 11 ((hurry 2) . (fast 2) . (|* speed (choose [0.5, 0.6..4])))
+  $ s "sf-bk"
+    |> n 0
+    * gain 1.6
+
+d2
+  $ s "inr"
+    * gain 1.8
+    # accelerate 7
+    -- * delay 0.75 * delayt 0.75 * delayfb 0.75
+    -- * room 0.2 * sz 0.2
+    -- * distort 1
+    -- |* speed (choose [0.5, 0.6..4])
+    -- * squiz 0.5
+    -- * crush 5
+
 d1
   -- $ whenmod 5 3 (fast 2)
   -- $ every' 2 1 (stutWith 4 (1/16) ((|*| speed (rand)) . (|*| crush 12)))
