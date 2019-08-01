@@ -4,8 +4,12 @@
 
 import Sound.Tidal.Context
 
+customTarget = OSCTarget {oName = "OSC-Proxy", oAddress = "127.0.0.1", oPort = 8765, oPath = "/tidal", oShape = Nothing, oLatency = 0.02, oPreamble = [], oTimestamp = MessageStamp}
+
 -- total latency = oLatency + cFrameTimespan
-tidal <- startTidal (superdirtTarget {oLatency = 0.1, oAddress = "127.0.0.1", oPort = 57120}) (defaultConfig {cFrameTimespan = 1/20})
+-- tidal <- startTidal (superdirtTarget {oLatency = 0.1, oAddress = "127.0.0.1", oPort = 57120}) (defaultConfig {cFrameTimespan = 1/20})
+-- tidal <- startTidal customTarget (defaultConfig {cFrameTimespan = 1/20})
+tidal <- startMulti [customTarget, (superdirtTarget {oLatency = 0.1, oAddress = "127.0.0.1", oPort = 57120})] (defaultConfig {cFrameTimespan = 1/20})
 
 let p = streamReplace tidal
 let hush = streamHush tidal
