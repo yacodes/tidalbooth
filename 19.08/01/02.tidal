@@ -1,0 +1,18 @@
+resetCycles
+
+setcps (128/60)
+
+d1
+  $ degrade
+  $ s "landr-k*4"
+    |> pan (slow 8 $ sine)
+    |> speed (choose [0.5, 0.6..2.5])
+    # crush (choose [3..8])
+
+d2
+  $ degrade
+  $ s "ewavfm-sn*2"
+    |> n (irand 4)
+    |> pan (slow 8 $ cosine)
+    |> speed (choose [0.5, 0.6..2.5])
+    * room 0.2 * sz 0.2

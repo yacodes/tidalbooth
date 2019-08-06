@@ -9,13 +9,20 @@ d1 $ struct "[t ~ t ~ t ~ t ~ ~ t ~ t ~ t t t]/4" $ s "sf-bk"
 
 d2 $ slow 4 $ s "numbers" |> n "<4 3 2 1>"
 
+d1 $ s "landr-k" |> speed (choose [0.5, 0.6..4])
+
+d2 $ (0.5 <~) $ s "ewavfm-sn/2"
+
+d3 $ s "hh*4" |> pan (slow 8 $ sine)
+
 -- Reset
 resetCycles
 
 -- n1
 d1
-  $ whenmod 64 (64 - 8) (const $ (loopAt 16 $ s "sfm-lindrum-crash" |>| speed "-2"))
-  $ whenmod 5 3 (|* speed 16)
+  -- $ whenmod 64 (64 - 8) (const $ (loopAt 16 $ s "sfm-lindrum-crash" |>| speed "-2"))
+  -- $ whenmod 5 3 (|* speed 16)
+  $ whenmod 9 7 (|* speed 16)
   $ (
     slow 1 $
     striate 128 $
@@ -25,13 +32,13 @@ d1
       * room 0.2 * sz 0.2
       |* gain (choose [0.9, 0.91..1.1])
       |* speed (choose [0.8, 0.91..1.2])
-      |* gain 1
+      -- |* gain 1
       * crush 3
       * lpf 5000
 
 d2
   $ (
-    shuffle 4 $
+    scramble 4 $
     iter 4 $
     slow 8 $
     striate 16 $
@@ -41,6 +48,13 @@ d2
       * gain 1.4
       * hpf 100
       -- |* lpf (trigger 2 $ slow 16 $ rangex 200 15000 $ envEqR)
+
+
+d1 $ s "landr-k" # crush (choose [3..10])
+
+d2 $ s "ewavfm-sn" # crush 8
+
+d3 $ slow 4 $ note "e3 f3 g3 e3" # "superpiano"
 
 -- n2
 -- d3 $ s "" * gain 0
@@ -126,9 +140,9 @@ d2
     * gain 1.2
     |> cut "-1"
 
-d6
-  -- $ whenmod 5 3 (* gain 0)
-  -- $ iter 4
+d3
+  $ whenmod 5 3 (* gain 0)
+  $ iter 4
   $ struct "[t(11, 16)]/4"
   $ s "ewavfm-fx"
     -- |> n 1
@@ -139,13 +153,13 @@ d6
     |>| pan (choose [0, 1])
 
 d4
-  $ whenmod 16 (16 - 8) (iter 4)
-  $ shuffle 2
-  $ trunc 0.75
+  -- $ whenmod 16 (16 - 8) (iter 4)
+  -- $ shuffle 2
+  -- $ trunc 0.75
   $ (
       slow 8 $
       (ifp ((== 0) . (flip mod 2))
-        (striate 128) -- striate 128, 64, 32
+        (striate 64) -- striate 128, 64, 32
         (striate 128) -- striate 128, 64, 32
       ) $
       s "loopcloud-pps-bassL"
@@ -153,4 +167,5 @@ d4
       |> n 2
       * gain 1.2
       * up 12
+      + speed 0.8
       |> cut "-1"

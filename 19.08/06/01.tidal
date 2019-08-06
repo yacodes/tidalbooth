@@ -1,0 +1,14 @@
+setcps (120/60)
+
+  -- |> n 156
+  -- |>| note "e5"
+
+d2 $ s "ewavfm-perc" |> n 125 |> cut "-1"
+
+resetCycles
+
+d3 $ (0.5 <~) $ (striate 8 $ s "ewavfm-sn")
+
+hush
+
+d1 $ s "sfm-lindrum-bass" |> n 15 |> cut "-1" -- |> note "<e4 g4 f4 c4>"

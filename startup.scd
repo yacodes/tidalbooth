@@ -4,6 +4,8 @@
 (
   s.options.inDevice = "Scarlett 2i4 USB";
   s.options.outDevice = "Scarlett 2i4 USB";
+  // s.options.inDevice = "A2I2";
+  // s.options.outDevice = "MOTU UltraLite mk3 Hybrid";
   // s.options.outDevice = "Soundflower (2ch)";
   // s.options.outDevice = "Built-in Output";
   s.options.numBuffers = 1024 * 256;
