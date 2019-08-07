@@ -55,4 +55,13 @@ let d10 = p 10 . (|< orbit 9)
 let d11 = p 11 . (|< orbit 10)
 let d12 = p 12 . (|< orbit 11)
 
+-- Helpers
+let bpm i = setcps (i / 60)
+let drop sampleName = rev $ striate' 64 (1/32) $ s sampleName # cut "-1"
+let drop' sampleName striateL striateC = rev $ striate' striateL striateC $ s sampleName # cut "-1"
+let vl = gain
+let dl = delay
+let dlt = delayt
+let dlfb = delayfb
+
 :set prompt "tidal> "

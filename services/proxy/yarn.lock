@@ -50,6 +50,11 @@ jspack@0.0.4:
   resolved "https://registry.yarnpkg.com/jspack/-/jspack-0.0.4.tgz#32dd35c7fdcb3e3456c18fbb7ef9ed0bc6238177"
   integrity sha1-Mt01x/3LPjRWwY+7fvntC8YjgXc=
 
+lodash.throttle@4.1.1:
+  version "4.1.1"
+  resolved "https://registry.yarnpkg.com/lodash.throttle/-/lodash.throttle-4.1.1.tgz#c23e91b710242ac70c37f1e1cda9274cc39bf2f4"
+  integrity sha1-wj6RtxAkKscMN/HhzaknTMOb8vQ=
+
 node-osc@4.1.0:
   version "4.1.0"
   resolved "https://registry.yarnpkg.com/node-osc/-/node-osc-4.1.0.tgz#ac5a6b9676e8a0f1f679cd8f2a5aac91d3e8a028"

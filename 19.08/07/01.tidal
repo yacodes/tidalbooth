@@ -1,0 +1,141 @@
+bpm 128
+
+let drops = [
+          (rev $ striate' 64 (1/32) $ s "crash") # cut "-1" # n 0,
+          (rev $ striate' 32 (1/16) $ s "crash") # cut "-1" # n 5];
+
+d1
+  -- $ sometimes (|+ speed (choose [0.0001, 0.0002..0.005]))
+  -- $ scramble 32
+  -- $ sometimes (rev)
+  $ (loopAt 32 $ striate' 64 (1/32) $ s "fx")
+    |+ n 6
+    |+ cut "-1"
+    + delay 0.3 + delayt 0.3 + delayfb 0.3
+    + room 0.2 + sz 0.2
+    -- |+ lpf (trigger 1 $ rangex 20 15000 $ slow 128 $ envEqR)
+    |+ lpf 3000
+    |+ lpq 0
+    |+ lpq (range 0.1 0.4 $ slow 32 $ perlinWith cosine)
+    |+ hpf 40
+    |+ shape 0.4
+    |+ gain 0.9
+    |+ pan (range 0 1 $ slow 8 $ perlinWith sine)
+
+d2
+  -- $ shuffle 2
+  $ whenmod 128 (128 - 32) (superimpose $ const $ loopAt 32 $ drops!!0)
+  $ struct (slow 4 $ cat [
+    -- degradeBy 0.9 $ "[t t t t t t t t t t t t t t t t]"
+    -- "[t ~ t ~ t ~ ~ t ~ t ~ ~ t ~ t/3 t/5]",
+    -- "[t ~ ~ t/3 ~ t ~ ~ t ~ t/3 ~ t ~ t t]"
+    "[t*4]"
+  ]) $ s "k"
+    + n 21
+    + cut "-1"
+    + gain 1
+    + shape 0.4
+
+d3
+  $ jux rev
+  $ (1 <~)
+  $ struct (slow 4 $ cat [
+    degradeBy 0.5 $ "[t t t t t t t t t t t t t t t t]"
+  ])
+  $ s "s"
+    + n 1
+    + room 0.2 + sz 0.1
+    + gain 0.8
+    + shape 0.3
+    + up (choose [0, 3, -2])
+    + lpf (rangex 200 20000 $ slow 8 $ perlin2 cosine)
+    -- + crush 4
+
+d4
+  $ shuffle 2
+  $ loopAt 8
+  $ striate' 64 (1/32)
+  $ s "8synth"
+    |> n 1
+    |> gain 1
+    |> shape 0.5
+
+---
+
+bpm 140
+
+resetCycles
+
+d1
+  $ every 128 (
+    superimpose $ (const $ s "fx" |> cut "-1" |> n (choose [13, 0]) * delay 0.3 * delayt 0.3 * delayfb 0.3 # orbit 11)
+  )
+  $ whenmod 64 (64 - 16) (superimpose $ const $ loopAt 16 $ drop "crash:0")
+  $ struct (slow 4 $ cat [
+    "[t ~ ~ t ~ t ~ ~ t ~ ~ ~ t ~ t/5 t/4]"
+  ])
+  $ s "sub"
+    + cut "1" + n 9 + crush (choose [3, 4, 5, 6])
+    + speed (choose [0.95, 0.96..1.1])
+
+d2
+  $ shuffle 8
+  $ (loopAt 16 $ striate' 64 (1/128) $ s "8vox")
+    |> n 1
+    |- speed (choose [0, 0.0001..0.001])
+    |> delay 0.3 |> delayt 0.3 |> delayfb 0.3
+
+d3
+  $ whenmod 128 (128 - 16) (fast (slow 4 "<1 2 4 8>"))
+  $ stutWith 2 (1/4) (+ speed 0.5)
+  $ scramble 4
+  $ slow 4 $ (1 <~) $ struct "t" $ s "cp"
+    + n 0
+    * gain (range 0.9 1.1 $ rand)
+    + speed (range 0.9 1.1 $ rand)
+    + room 0.2 * sz 0.1
+
+---
+
+bpm 132
+
+d1
+  $ jux rev
+  $ shuffle 32
+  $ (loopAt 16 $ striate' 64 (1/32) $ s "txt" + n 7)
+    + cut "-1"
+    + dl 0.3 + dlt 0.3 + dlfb 0.3
+    + vl 1
+
+d2
+  $ shuffle 4
+  $ iter 4
+  $ (loopAt 8 $ striate' 128 (1/128) $ s "8synth" + n 3)
+    + cut "-1"
+    + vl 1.4
+
+d3
+  $ whenmod 128 (128 - 16) (|> vl 0)
+  $ whenmod 28 25 (shuffle 2)
+  $ struct (slow 4 $ cat [
+    "[t ~ ~ t ~ ~ ~ t ~ ~ t ~ t ~ ~ ~]",
+    "[t*4]"
+  ])
+  $ s "k"
+    + cut "-1"
+    + n 32
+    + vl (range 0.9 1.1 $ perlin2 sine)
+
+d4
+  $ every 64 (superimpose $ const $ s "crash:2")
+  $ whenmod 64 (64 - 16) (const $ loopAt 16 $ drop "crash:2")
+  $ jux rev
+  -- $ degradeBy 0.5
+  $ struct (slow 4 $ cat [
+    "t(<9 11 7 13>, 16, <0 2 3>)"
+  ])
+  $ s "hh" + n (irand 2)
+    + speed "2.5"
+    |+ speed (range 0.01 0.03 $ perlinWith cosine)
+    * vl 1
+    * vl (range 0.9 1.1 $ perlin2 sine)

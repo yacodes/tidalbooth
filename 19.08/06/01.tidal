@@ -12,3 +12,27 @@ d3 $ (0.5 <~) $ (striate 8 $ s "ewavfm-sn")
 hush
 
 d1 $ s "sfm-lindrum-bass" |> n 15 |> cut "-1" -- |> note "<e4 g4 f4 c4>"
+
+d1 $ slow 4 $ s "tyrelln6"
+    |>| n "<e5 g5 f5 c5>"
+    |> cut "-1"
+    |> pan 1
+    |> gain 0.6
+    |> cutoff 2000
+
+d2 $ s "k:23" |> cut "-1"
+
+d3
+  $ inside 2 (+ speed 2)
+  -- $ sometimes ((iter 2))
+  -- $ sometimes ((|+ up (choose [12, 24])))
+  $ s "sub"
+    >| note (slow 4 $ cat [
+      "e5 ~ g5 ~ ~ e5 ~ g5 e5 ~ ~ ~ e5 ~ g5 ~",
+      "g5 ~ ~ e5 ~ g5 ~ ~ e5 ~ e5 ~ g5 ~ a5 f5"
+    ])
+    |> cut "-1"
+    |> n 1
+    |> gain 1
+    |> lpf 2000 |> lpq (choose [0.1, 0.11..0.3])
+    * room 0.2 * sz 0.2
