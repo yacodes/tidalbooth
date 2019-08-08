@@ -1,0 +1,42 @@
+bpm 132
+
+d1
+  -- $ whenmod 64 (64 - 8) (const $ (loopAt 16 $ s "sfm-lindrum-crash" |>| speed "-2"))
+  -- $ whenmod 5 3 (|* speed 16)
+  $ whenmod 9 7 (|* speed 16)
+  $ (
+    slow 4 $
+    striate 32 $
+    s "k k")
+      |> n 15
+      * delay 0.3 * delayt 0.3 * delayfb 0.3
+      * room 0.2 * sz 0.2
+      |* gain (choose [0.9, 0.91..1.1])
+      |* speed (choose [0.8, 0.91..1.2])
+      -- |* gain 1
+      * crush 4
+      * lpf 5000
+
+d2
+  $ (
+    scramble 4 $
+    iter 4 $
+    sl 8 $
+    striate 16 $
+    s "8perc")
+      |> cut "-1"
+      |> n 0
+      * gain 1.4
+      -- * hpf 100
+      -- |* lpf (trigger 2 $ slow 16 $ rangex 200 15000 $ envEqR)
+
+d3
+  $ struct "t"
+  $ s "k"
+
+d4
+  $ jux rev
+  $ struct (sl 4 $ "t(<3 5 7>, 16, 11)")
+  $ s "hh"
+    + n ((irand 2) + 55)
+    + cut "-1"

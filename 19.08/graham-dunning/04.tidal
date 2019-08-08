@@ -1,9 +1,9 @@
 bpm 80
 
--- @TODO Add breaks
 d1
-  -- $ sometimes (rev)
-  $ shuffle 64
+  $ iter 4
+  $ sometimes (rev)
+  $ shuffle 32
   $ (loopAt 16 $ striate' 64 (1/32) $ s "fx")
     + cut "-1"
     + dl 0.3 + dlt 0.3 + dlfb 0.3
@@ -21,14 +21,18 @@ d2
     + crush (segment 4 $ range 3 8 $ perlin2 sine)
     + g 1.4
     + shape 0.6
+    + hpf 40
 
 d3
-  $ brak
+  -- $ brak
+  $ whenmod 128 (128 - 32) (|* g 0)
   $ struct (sl 4 $ cat [
-    "[t*2] [~ t _] t? [t t? t?]"
+    "t*4"
+    -- "[t*2] [~ t _] t? [t t? t?]"
   ])
   $ s "sub"
     + n 1
+    + cut "-1"
     + g 1.1
     + shape 0.5
     + speed (range 0.8 1.2 $ perlinWith saw)
@@ -38,44 +42,13 @@ d4
   $ every 128 (superimpose $ const $ s "fx" # cut "-1")
   $ whenmod 128 (128 - 32) (superimpose $ (const $ loopAt 32 $ drop "crash:3" # g 1.3))
   $ struct (sl 4 $ cat [
-    -- "t/2",
-    "[t ~] [t? t] ~ [~ [t]?]"
+    "t/2",
+    -- "[t ~] [t? t] ~ [~ [t]?]"
   ])
   $ s "s"
-    + n 3
-    + room 0.4 + sz 0.2
+    + n 22
+    + room 0.8 + sz 0.1
     * g 0.9
-    + speed (range 0.8 1.4 $ perlin2 cosine)
+    + speed (range 0.9 1.1 $ perlin2 cosine)
     * shape 0.5
-
----
-
-bpm 128
-
-d1
-  $ iter 4
-  $ (>| up (scale "minor" $ sl 4 $ cat [
-    "[0 ~ 3 3 0 ~ ~ ~ 0 ~ ~ ~ 0 ~ ~ ~]",
-    "[0 ~ 3 3 0 ~ 1 ~ ~ 0 0 ~ 3 1 1 ~]"
-  ]))
-  $ s "[bass, vortex:9]"
-    + room 0.2 + sz 0.1
-    + n 5
-    + cut "-1"
-    + g 0.7
-    + shape 0.8
-    + lpf 3000 -- + lpq 0.1
-    + hpf 40
-
-d2
-  $ struct "t"
-  $ "sub"
-    + n 1
-    * g 1.2
-
-d3
-  $ (1 <~)
-  $ struct "t/2"
-  $ s "cp"
-    + n 2
-    + room 0.2 + sz 0.1
+    + lpf 8000

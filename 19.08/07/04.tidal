@@ -1,0 +1,40 @@
+bpm 144
+
+d1
+  $ whenmod 256 (256 - 64) (superimpose $ const $ loopAt 64 $ drop "fx:15")
+  $ jux rev
+  $ shuffle 8
+  $ iter 8
+  $ (loopAt 32 $ striate' 128 (1/64) $ s "txt" # n 12)
+    * distort 0.1
+    * krush 4 * kcutoff 4000
+    * dl 0.2 * dlt 0.2 * dlfb 0.2
+    * room 0.4 * sz 0.8
+
+d2
+  $ sl 8
+  $ scramble 16
+  $ stutWith 8 (1/16) ((|* spd 2) . (|+ spd (rng 0.01 0.05 $ perlin2 sine)))
+  $ struct "t"
+  $ s "k"
+    * shape 0.9
+    * n 1
+    * room 0.4 * sz 0.9
+    * dl 0.7 * dlt 0.7 * dlfb 0.7
+    * g 1.2
+    -- * distort 0.7
+    -- * krush 12 * kcutoff 7000
+
+d3
+  $ whenmod 64 (64 - 16) (const $ loopAt 16 $ drop "fx:20")
+  $ s "sub"
+    * shape 0.9
+    * g 1.3
+
+d4
+  $ sometimesBy 0.2 (# g 0.9)
+  $ struct "t/4"
+  $ s "crash"
+    * g 0
+    * distort 0.2
+    * dl 0.5 * dlt 0.5 * dlfb 0.5

@@ -1,0 +1,115 @@
+bpm 140
+
+d1
+  -- $ sometimesBy 0.2 (|+ speed 0.01)
+  -- $ iter 4
+  $ (0.25 <~)
+  $ (loopAt 16 $ striate' 32 (1/16) $ s "8drum" # n 2)
+    * shape 0.2
+    * g 1
+    * hpf 500
+
+d2
+  $ degradeBy 0.25
+  $ iter 4
+  $ (loopAt 16 $ striate' 32 (1/16) $ s "8bass" # n 8)
+    * g 0.9
+    * dl 0.2 * dlt 0.2 * dlfb 0.2
+
+d3
+  $ sl 2
+  -- $ degradeBy 0.25
+  -- $ stutWith 8 (1/2) ((|+ krush 3) . (# gain 0.8))
+  $ struct "t*2"
+  $ s "k"
+    + n 6
+    + cut "-1"
+    + krush 0
+
+
+---
+
+bpm 140
+
+d1
+  $ (loopAt 32 $ striate' 32 (1/16) $ s "txt" # n 17)
+
+d2
+  $ iter 2
+  $ sometimes (|+ speed (range 0.001 0.002 $ perlin2 saw))
+  $ (loopAt 64 $ striate' 32 (1/16) $ s "8bass" # n 7)
+
+d3
+  -- $ degradeBy 0.2
+  $ struct (sl 4 $ cat [
+    -- "t*2",
+    "t*4"
+    -- "[t ~] [~ [t*2]?] t [t _]"
+  ])
+  $ s "k"
+    * n 1
+    * cut "-1"
+    -- * crush 4
+    -- * speed (range 0.9 1.1 $ perlin2 sine)
+
+d4
+  $ (1 <~)
+  $ struct (sl 4 $ cat [
+    -- "t*2",
+    "~ [t t?] [~ t?] [t [t*2]?]"
+  ])
+  $ s "s"
+    * n 15
+    * room 0.1 * sz 0.8
+    * speed (range 0.9 1.2 $ perlinWith cosine)
+
+d5
+  $ jux rev
+  $ struct (sl 4 $ cat [
+    "t(<3 5 7>, 8, 0)"
+  ])
+  $ s "hh"
+    + n 30
+    + cut "-1"
+
+---
+
+bpm 132
+
+d1
+  $ (loopAt 16 $ striate' 64 (1/32) $ s "8perc" # n 7 # cut "-1")
+    -- * g 1
+    -- * dl 0.3 * dlt 0.3 * dlfb 0.3
+    * shape 0.4
+    -- * hpf 20
+
+d2
+  $ struct (sl 4 $ cat [
+    -- "t",
+    "t(3, 8)"
+  ])
+  $ s "k:17"
+    + krush 15
+    + cut "-1"
+
+d3
+  -- $ degradeBy 0.2
+  $ struct (sl 4 $ cat [
+    -- "t/2",
+    "t [t?] [t? t?] [t _]"
+  ])
+  $ s "s"
+    * n 21
+    * shape 0.4
+    * room 0.1
+    * sz 0.8
+    * speed (rng 0.9 1.1 $ perlin2 sine)
+
+d4
+  $ degradeBy 0.2
+  $ jux rev
+  $ sl 4
+  $ s "hh(11, 16)"
+    * n ((irand 3) + 40)
+    * shape 0.4
+    * gain 1
