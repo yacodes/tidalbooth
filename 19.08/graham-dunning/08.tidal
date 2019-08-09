@@ -1,9 +1,9 @@
 bpm 132
 
 d1
-  -- $ every 64 (const $ s "fx:5" * orbit 11 * dl 0.5 * dlt 0.5 * dlfb 0.5)
-  -- $ whenmod 64 (64 - 16) (const $ loopAt 16 $ drop "crash:1")
-  -- $ degradeBy 0.5
+  $ every 64 (const $ s "fx:5" * orbit 11 * dl 0.5 * dlt 0.5 * dlfb 0.5 * g 1.4)
+  $ whenmod 64 (64 - 16) (const $ loopAt 16 $ drop "crash:1" * g 1.4)
+  $ degradeBy 0.5
   $ struct (sl 4 $ cat [
     "t [~ t] [t?] [t t/3]*2"
     -- "t*4"
@@ -11,22 +11,23 @@ d1
   $ s "sub"
     + n 10
     + cut "-1"
-    -- + krush (choose [6..16]) + kcutoff 4000
+    + krush (choose [6..16]) + kcutoff 4000
     + speed (range 0.9 1.1 $ perlin2 sine)
-    -- + hpf 300
+    + hpf 300
     + shape 0.8
+    + g 1.3
 
 d2
-  $ sometimesBy 0.2 (# g 0.9)
+  -- $ sometimesBy 0.2 (# g 0.9)
   $ degradeBy 0.25
   $ struct "t/8"
   $ s "crash"
-    * g 0.8
+    * g 1.4
     * distort 0.2
     * dl 0.5 * dlt 0.5 * dlfb 0.5
 
 d3
-  -- $ whenmod 64 (64 - 16) (# g 0)
+  $ whenmod 64 (64 - 16) (# g 0)
   $ struct (slow 4 $ cat [
     -- "t*4"
     "[t ~ t/2 t ~ t/4 ~ t/5 t ~ ~ t/5 t ~ t/5 t/3]"
@@ -35,28 +36,28 @@ d3
     * n 6
     * cut "-1"
     -- * shape 0.8
-    * gain 1.4
+    * gain 2
     * hpf 100
 
 d4
-  -- $ shuffle 4
-  -- $ iter 4
+  $ shuffle 4
+  $ iter 4
   $ sometimes (|+ speed (range 0.002 0.01 $ perlin2 saw))
-  -- $ whenmod 128 (128 - 16) (# g 0)
+  $ whenmod 128 (128 - 16) (# g 0)
   $ (loopAt 16 $ striate' 128 (1/64) $ s "8synth" # n 2)
-    * g 1.4
-    -- + speed 0.01
-    -- * distort 0.2
-    -- * shape 0.4
+    * g 2
+    + speed 0.01
+    * distort 0.2
+    * shape 0.4
     * lpf 1000
     * hpf 200
 
 d5
-  $ whenmod 64 (64 - 16) (# g 0)
+  -- $ whenmod 64 (64 - 16) (# g 0)
   $ jux rev
   $ iter 4
   $ struct (sl 4 $ "t(<5 3 7 11>, 16, <0 0 2 4>)")
   $ s "hh"
-    * g 1
+    * g 1.6
     * speed (range 0.8 1.3 $ perlin2 sine)
     * n (irand 2)

@@ -1,34 +1,38 @@
 bpm 132
 
-d1 $ (loopAt 32 $ striate' 128 (1/64) $ s "txt:8" # cut "-1")
-
-d2
-  $ struct (sl 4 $ cat [
-    "t*4"
-  ])
-  $ s "k"
-    * n 23
-    * cut "-1"
-
-d3
-  $ jux rev
-  $ struct (sl 4 $ cat [
-    "t(<7 11 7 9 13>, 16)"
-  ])
-  $ s "perc"
-    * n ((irand 3) + 23)
-    * cut "1"
-    * spd (rng 0.9 1.1 $ perlin2 sine)
-    * g 0.9
-
-d4
-  $ iter 4
-  $ up (scale "augmented" $ sl 4 $ cat [
-    "0 ~ ~ 0 ~ 2 ~ 0 ~ ~ ~ 0 ~ ~ 0 ~",
-    "0 ~ ~ 4 ~ 0 2 ~ ~ 2 ~ 0 ~ -2 0 ~"
-  ])
-  # s "bass"
-    * n 12
-    * cut "-1"
-    * gain 1
-    * distort 0.3
+do
+  d1
+    $ whenmod 128 (128 - 32) (superimpose $ const $ loopAt 32 $ s "crash:4" * g 1.4)
+    $ (loopAt 32 $ striate' 128 (1/64) $ s "txt:8" # cut "-1") # gain 1.6
+  d2
+    $ whenmod 128 (128 - 32) (const $ loopAt 32 $ s "crash:4" * g 1.4)
+    $ struct (sl 4 $ cat [
+      "t*4"
+    ])
+    $ s "k"
+      * n 23
+      * cut "-1"
+      * gain 1.9
+  d3
+    $ whenmod 128 (128 - 32) (superimpose $ const $ loopAt 32 $ s "crash:4" * g 1.4)
+    $ jux rev
+    $ struct (sl 4 $ cat [
+      "t(<7 11 7 9 13>, 16)"
+    ])
+    $ s "perc"
+      * n ((irand 3) + 23)
+      * cut "1"
+      * spd (rng 0.9 1.1 $ perlin2 sine)
+      * g 1.3
+  d4
+    $ whenmod 128 (128 - 32) (superimpose $ const $ loopAt 32 $ s "crash:4" * g 1.4)
+    $ iter 4
+    $ up (scale "augmented" $ sl 4 $ cat [
+      "0 ~ ~ 0 ~ 2 ~ 0 ~ ~ ~ 0 ~ ~ 0 ~",
+      "0 ~ ~ 4 ~ 0 2 ~ ~ 2 ~ 0 ~ -2 0 ~"
+    ])
+    # s "bass"
+      * n 12
+      * cut "-1"
+      * gain 1.4
+      * distort 0.3

@@ -1,8 +1,8 @@
 bpm 132
 
 d1
-  -- $ whenmod 64 (64 - 8) (const $ (loopAt 16 $ s "sfm-lindrum-crash" |>| speed "-2"))
-  -- $ whenmod 5 3 (|* speed 16)
+  $ whenmod 64 (64 - 16) (const $ loopAt 16 $ drop "crash:4" * g 1.5)
+  $ whenmod 5 3 (|* speed 16)
   $ whenmod 9 7 (|* speed 16)
   $ (
     slow 4 $
@@ -16,23 +16,28 @@ d1
       -- |* gain 1
       * crush 4
       * lpf 5000
+      * g 1.8
+      * hpf 40
 
 d2
   $ (
     scramble 4 $
     iter 4 $
     sl 8 $
-    striate 16 $
+    striate' 32 (1/32) $
     s "8perc")
       |> cut "-1"
       |> n 0
-      * gain 1.4
+      * gain 1.8
+      * shape 0.8
+      * lpf 20000
       -- * hpf 100
       -- |* lpf (trigger 2 $ slow 16 $ rangex 200 15000 $ envEqR)
 
 d3
   $ struct "t"
   $ s "k"
+    * g 1.8
 
 d4
   $ jux rev
@@ -40,3 +45,4 @@ d4
   $ s "hh"
     + n ((irand 2) + 55)
     + cut "-1"
+    * g 1.5

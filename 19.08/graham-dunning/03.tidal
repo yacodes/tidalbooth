@@ -7,11 +7,12 @@ d1
   $ (loopAt 16 $ striate' 64 (1/32) $ s "txt" + n 7)
     + cut "-1"
     + dl 0.3 + dlt 0.3 + dlfb 0.3
-    + g 0.9
+    + g 1.4
     + shape 0.3
 
 d2
-  -- $ sometimes (|+ speed (choose [0.01, 0.011..0.022]))
+  $ whenmod 64 (64 - 32) (|+ speed 0.01)
+  $ sometimes (|+ speed (choose [0.01, 0.011..0.022]))
   $ shuffle 4
   $ iter 4
   $ (loopAt 8
@@ -19,29 +20,30 @@ d2
     $ striate' 128 (1/128)
     $ s "8synth" + n 3)
       + cut "-1"
-      + g 0.8
+      + g 1.2
       + krush 10
+      |+ spd (range 0.01 0.09 $ perlin2 sine)
 
 d3
-  $ every (128 - 16) (superimpose $ const $ s "fx:2")
+  $ every (128 - 16) (superimpose $ const $ s "fx:2" # gain 1.3)
   $ whenmod 128 (128 - 16) (|> g 0)
-  -- $ whenmod 28 25 (shuffle 2)
+  $ whenmod 28 25 (shuffle 2)
   $ struct (sl 4 $ cat [
-    -- "[t ~ ~ t ~ t? ~ t ~ ~ t ~ t ~ t? ~]",
-    -- "[t ~ t ~ t ~ t ~ t? t? t ~ t t/5 t t/4]"
-    "[t*4]"
+    "[t ~ ~ t ~ t? ~ t ~ ~ t ~ t ~ t? ~]",
+    "[t ~ t ~ t ~ t ~ t? t? t ~ t t/5 t t/4]"
+    -- "[t*4]"
   ])
   $ s "k"
     + cut "-1"
     + n 42
     * spd (range 0.9 1.2 $ perlinWith cosine)
     * g (range 0.9 1.1 $ perlin2 sine)
-    * g 0.9
+    * g 2.2
     -- * lpf 3000
 
 d4
-  $ every 64 (superimpose $ const $ s "crash:2")
-  $ whenmod 64 (64 - 16) (const $ loopAt 16 $ drop "crash:2")
+  $ every 64 (superimpose $ const $ s "crash:2" # g 1.4)
+  $ whenmod 64 (64 - 16) (const $ loopAt 16 $ drop "crash:2" # g 1.4)
   $ jux rev
   $ degradeBy 0.5
   $ struct (sl 4 $ cat [
@@ -50,5 +52,5 @@ d4
   $ s "hh" + n (irand 2)
     + speed "2.5"
     |+ speed (range 0.01 0.03 $ perlinWith cosine)
-    * g 1
+    * g 1.3
     * g (range 0.9 1.1 $ perlin2 sine)

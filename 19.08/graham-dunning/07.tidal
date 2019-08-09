@@ -5,25 +5,30 @@ d1
   $ iter 4
   $ (loopAt 16 $ striate 64 $ s "8perc" # cut "-1" # n 2)
     * shape 0.6
+    * g 1.4
 
 d2
   $ scramble 8
   $ (loopAt 32 $ striate 128 $ s "txt" # n 15)
     * dl 0.3 * dlt 0.3 * dlfb 0.3
     * room 0.2 * sz 0.1
+    * g 1.6
 
 d3
   $ whenmod 128 (128 - 32) (# g 0)
   $ s "k"
     + n 4
-    + gain 1.1
+    + gain 1.5
 
 d4
   $ whenmod 128 (128 - 32) (# g 0)
   $ (1 <~)
-  $ struct "t/4"
+  $ struct (sl 4 $ cat [
+    "t*2"
+    -- "t ~ ~ t ~ t ~ ~ t ~ ~ ~ t ~ ~ ~"
+  ])
   $ s "cp"
     * n 1
     * room 0.4 * sz 0.8
     * speed (range 0.9 1.2 $ perlin2 sine)
-    * g 0.9
+    * g 1.3

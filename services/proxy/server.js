@@ -6,7 +6,7 @@ const SERVER_PORT = 8765;
 const SERVER_HOST = '127.0.0.1';
 
 const CLIENT_PORT = 10000;
-const CLIENT_HOST = '192.168.0.100';
+const CLIENT_HOST = '192.168.43.65';
 
 const server = new osc.Server(SERVER_PORT, SERVER_HOST);
 const client = new osc.Client(CLIENT_HOST, CLIENT_PORT);

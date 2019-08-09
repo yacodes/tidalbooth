@@ -4,11 +4,11 @@ resetCycles
 
 d1
   $ every 128 (
-    superimpose $ (const $ s "fx:1" |> cut "-1" * delay 0.3 * delayt 0.3 * delayfb 0.3 # orbit 11)
+    superimpose $ (const $ s "fx:1" |> cut "-1" * delay 0.3 * delayt 0.3 * delayfb 0.3 # orbit 11 # gain 1)
   )
-  $ whenmod 64 (64 - 16) (const $ loopAt 16 $ drop "crash:0")
-  $ iter 2
-  -- $ shuffle 2
+  $ whenmod 64 (64 - 16) (const $ loopAt 16 $ drop "crash:0" # gain 1.2)
+  -- $ iter 2
+  $ scramble 4
   $ struct (sl 4 $ cat [
     "[t ~ ~ t ~ t ~ ~ t ~ ~ ~ t ~ t/5 t/4]"
   ])
@@ -16,26 +16,26 @@ d1
     + cut "1"
     + n 9
     + crush (choose [3, 4, 5, 6])
-    + speed (choose [0.95, 0.96..1.1])
+    + speed (choose [0.9, 0.91..1.1])
     + shape 0.4
-    + gain 0.9
+    + gain 1.6
 
 d2
-  $ degradeBy 0.2
-  $ rev
+  -- $ degradeBy 0.2
+  -- $ rev
   -- $ whenmod 64 (64 - 16) (# g 0)
   $ sometimes (|- speed (range 0.001 0.002 $ perlin2 cosine))
-  $ scramble 4
+  -- $ scramble 4
   -- $ whenmod 16 (16 - 8) (* gain 0)
   $ iter 4
   $ (loopAt 16 $ gap 64 $ s "8vox")
     |> n 1
-    |+ spd 0.03
+    |+ spd 0.05
     |- spd (choose [0, 0.0001..0.001])
     |> dl 0.3 |> dlt 0.3 |> dlfb 0.3
-    * distort 0.6
+    * distort 0.5
     -- * djf 0.5
-    * g 0.8
+    * g 1.2
 
 d3
   $ whenmod 128 (128 - 16) ((fast (slow 4 "<1 2 4 8>")) . (|* gain 0.9))
@@ -49,13 +49,14 @@ d3
   ])
   $ s "cp"
     + n 0
-    * g 0.7
+    * g 1.2
     * g (range 0.9 1.1 $ rand)
     + spd (range 0.9 1.1 $ rand)
     + room 0.8 * sz 0.1
 
 d4
+  $ jux rev
   $ (0.5 <~)
   $ struct "t"
   $ s "hh"
-    * gain 0.9
+    * gain 1

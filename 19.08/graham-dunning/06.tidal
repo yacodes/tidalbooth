@@ -1,12 +1,12 @@
 bpm 136
 
 d1
-  -- $ scramble 4
-  -- $ iter 4
+  $ scramble 4
+  $ iter 4
   $ (loopAt 16 $ chop 32 $ s "8perc" # cut "-1" # n 0)
     + shape 0.6
     + hpf 40
-    + gain 1.2
+    + gain 1.7
 
 d2
   -- $ every 64 brak
@@ -21,7 +21,7 @@ d2
     + cut "-1"
     * g (range 0.9 1.1 $ perlin2 sine)
     + speed (range 0.9 1.1 $ perlin2 cosine)
-    * g 0.8
+    * g 1.4
     * shape 0.4
     * crush 5
     + lpf 5000
@@ -29,15 +29,19 @@ d2
 
 d3
   $ whenmod 128 (128 - 16) (|+ speed 0.05)
-  -- $ shuffle 4
+  $ shuffle 4
   $ (loopAt 8 $ striate 32 $ s "8bass" # cut "-1" # n 1)
     * shape 0.4
-    * g 1.3
+    * g 1.6
+    + speed 0.2
 
 d4
-  $ every 128 (superimpose $ const $ (s "k:42" * orbit 11 * dl 0.5 * dlt 0.5 * dlfb 0.5 # g 1.2))
-  $ whenmod 128 (128 - 32) (superimpose $ (const $ loopAt 32 $ drop "crash:4" # g 1))
-  $ whenmod 128 (128 - 16) (# g 0)
+  $ every 128 (superimpose $ const $ (s "k:42" * orbit 11 * dl 0.5 * dlt 0.5 * dlfb 0.5 # g 1.6))
+  $ whenmod 128 (128 - 32) (superimpose $ (const $ loopAt 32 $ drop "crash:4" # g 1.6))
+  -- $ whenmod 128 (128 - 16) (# g 0)
+  $ foldEvery [30..32] (scramble 2)
   $ struct "t"
   $ s "k"
     * shape 0.8
+    * g 1.5
+    * spd (rng 0.9 1.1 $ perlin2 sine)

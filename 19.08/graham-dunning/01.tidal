@@ -2,25 +2,25 @@ bpm 132
 
 d1
   -- $ sometimes (|+ speed (choose [0.0001, 0.0002..0.005]))
-  -- $ scramble 32
-  -- $ sometimes (rev)
+  $ scramble 32
+  $ sometimes (rev)
   $ (loopAt 32 $ striate' 64 (1/32) $ s "fx")
     |+ n 6
     |+ cut "-1"
     + delay 0.3 + delayt 0.3 + delayfb 0.3
     + room 0.2 + sz 0.2
     -- |+ lpf (trigger 1 $ rangex 40 15000 $ slow 128 $ envEqR)
-    |+ lpf 3000
+    -- |+ lpf 3000
     -- |+ lpq 0
-    -- |+ lpq (range 0.1 0.4 $ slow 32 $ perlinWith cosine)
+    |+ lpq (range 0.1 0.2 $ slow 32 $ perlinWith cosine)
     |+ hpf 40
     |+ shape 0.4
-    |+ g 0.7
+    |+ g 1.2
     |+ pan (range 0 1 $ slow 8 $ perlinWith sine)
 
 d2
   -- $ shuffle 2
-  $ whenmod 128 (128 - 32) (superimpose $ const $ loopAt 32 $ drop "crash:0" * shape 0.9 * g 0.7)
+  $ whenmod 128 (128 - 32) (superimpose $ const $ loopAt 32 $ drop "crash:0" * shape 0.9 * g 1.3)
   $ struct (sl 4 $ cat [
     -- degradeBy 0.9 $ "[t t t t t t t t t t t t t t t t]"
     "[t ~ t ~ t ~ ~ t ~ t ~ ~ t ~ t/3 t/5]",
@@ -29,7 +29,7 @@ d2
   ]) $ s "k"
     + n 21
     + cut "-1"
-    + g 0.85
+    + g 1.8
     + shape 0.7
     + crush (choose [5, 6, 7])
 
@@ -41,22 +41,23 @@ d3
     "t ~ t ~ ~ t ~ ~ t ~ ~ t ~ t ~ t"
   ])
   $ s "s"
-    -- + n (irand 2)
+    + n (irand 2)
     + room 0.8 + sz 0.2
-    + gain 0.7
+    + gain 1.5
     + shape 0.3
     + distort 0.3
-    -- + up (choose [0, 3, -2])
+    + up (choose [0, 3, -2])
     + lpf (rangex 2000 20000 $ slow 8 $ perlin2 cosine)
     + crush 4
 
 d4
-  -- $ shuffle 4
+  $ shuffle 4
   $ iter 4
   $ loopAt 8
-  -- $ gap 8
-  $ striate' 64 (1/32)
+  $ gap 8
+  -- $ striate' 64 (1/32)
   $ s "8synth"
     |> n 1
-    |> gain 0.7
+    |> gain 1
     |> shape 0.8
+    * dl 0.3 * dlt 0.3 * dlfb 0.3
