@@ -20,12 +20,12 @@ d1
 
 d2
   -- $ shuffle 2
-  $ whenmod 128 (128 - 32) (superimpose $ const $ loopAt 32 $ drop "crash:0" * shape 0.9 * g 1.3)
+  $ whenmod 128 (128 - 32) (superimpose $ const $ loopAt 32 $ drop "crash:0" * shape 0.9 * g 1.4)
   $ struct (sl 4 $ cat [
     -- degradeBy 0.9 $ "[t t t t t t t t t t t t t t t t]"
-    "[t ~ t ~ t ~ ~ t ~ t ~ ~ t ~ t/3 t/5]",
-    "[t ~ ~ t/3 ~ t ~ ~ t ~ t/3 ~ t ~ t t]"
-    -- "[t*4]"
+    -- "[t ~ t ~ t ~ ~ t ~ t ~ ~ t ~ t/3 t/5]",
+    -- "[t ~ ~ t/3 ~ t ~ ~ t ~ t/3 ~ t ~ t t]"
+    "[t*4]"
   ]) $ s "k"
     + n 21
     + cut "-1"
@@ -54,8 +54,8 @@ d4
   $ shuffle 4
   $ iter 4
   $ loopAt 8
-  $ gap 8
-  -- $ striate' 64 (1/32)
+  -- $ gap 8
+  $ striate' 64 (1/32)
   $ s "8synth"
     |> n 1
     |> gain 1

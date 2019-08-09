@@ -38,7 +38,7 @@ d3
 d4
   $ every 128 (superimpose $ const $ (s "k:42" * orbit 11 * dl 0.5 * dlt 0.5 * dlfb 0.5 # g 1.6))
   $ whenmod 128 (128 - 32) (superimpose $ (const $ loopAt 32 $ drop "crash:4" # g 1.6))
-  -- $ whenmod 128 (128 - 16) (# g 0)
+  $ whenmod 128 (128 - 16) (# g 0)
   $ foldEvery [30..32] (scramble 2)
   $ struct "t"
   $ s "k"

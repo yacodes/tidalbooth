@@ -28,13 +28,15 @@ d2
     s "8perc")
       |> cut "-1"
       |> n 0
-      * gain 1.8
+      * gain 1.7
       * shape 0.8
-      * lpf 20000
+      * lpf 5000
       -- * hpf 100
       -- |* lpf (trigger 2 $ slow 16 $ rangex 200 15000 $ envEqR)
 
 d3
+  $ whenmod 64 (64 - 16) (# g 0)
+  $ whenmod 29 27 (scramble 4)
   $ struct "t"
   $ s "k"
     * g 1.8
