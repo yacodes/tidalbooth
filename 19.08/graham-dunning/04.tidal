@@ -10,7 +10,7 @@ d1
     + room 0.2 + sz 0.1
     -- |+ lpf (rangex 40 20000 $ trigger 1 $ slow 32 $ envEqR)
     -- |+ lpq 0
-    + g 1.4
+    + g 1
 
 d2
   $ loopAt 16 $ striate' 32 (1/16)
@@ -18,13 +18,13 @@ d2
     + n 1
     + cut "-1"
     + crush (segment 4 $ range 3 8 $ perlin2 sine)
-    + g 1.3
+    + g 1.2
     + shape 0.6
     + hpf 40
 
 d3
-  $ brak
-  -- $ whenmod 128 (128 - 32) (|* g 0)
+  -- $ brak
+  $ whenmod 128 (128 - 32) (|* g 0)
   $ struct (sl 4 $ cat [
     -- "t*4"
     "[t*2] [~ t _] t? [t t? t?]"
@@ -32,17 +32,17 @@ d3
   $ s "sub"
     + n 1
     + cut "-1"
-    + g 1.6
+    + g 1.1
     + shape 0.5
     + speed (range 0.8 1.2 $ perlinWith saw)
     + krush (choose [3..6])
 
 d4
   $ (1 <~)
-  $ every 128 (superimpose $ const $ s "fx" # cut "-1" # g 1.2)
-  $ whenmod 128 (128 - 32) (superimpose $ (const $ loopAt 32 $ drop "crash:3" # g 1.2))
-  -- $ sl 4
-  -- $ stutWith 4 (1/4) (|+ speed 0.2)
+  $ every 128 (superimpose $ const $ s "fx" # cut "-1" # g 1)
+  $ whenmod 128 (128 - 32) (superimpose $ (const $ loopAt 32 $ drop "crash:3" # g 1))
+  $ sl 4
+  $ stutWith 4 (1/4) (|+ speed 0.2)
   $ struct (sl 4 $ cat [
     -- "t/2"
     "[t ~] [t? t] ~ [~ [t]?]"
@@ -50,8 +50,10 @@ d4
   $ s "s"
     + n 22
     + room 0.8 + sz 0.1
-    * g 1.4
+    * g 0.8
     + speed (range 0.9 1.1 $ perlin2 cosine)
     * shape 0.5
     + lpf 8000
     + dl 0.2 + dlt 0.2 + dlfb 0.2
+    + distort 0.5
+    + krush 3

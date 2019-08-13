@@ -1,38 +1,37 @@
-
-
 bpm 128
 
 d1
-  $ every 64 (superimpose $ const $ s "fx:15" # g 1.4)
-  $ whenmod 64 (64 - 16) (const $ loopAt 16 $ drop "crash:4" # g 1.4)
+  $ every 64 (superimpose $ const $ s "fx:15" # g 1)
+  $ whenmod 64 (64 - 16) (const $ loopAt 16 $ drop "crash:4" # g 1)
   $ iter 4
   $ (>| up (scale "minor" $ sl 4 $ cat [
     "[0 ~ 3 3 0 ~ ~ ~ 0 ~ ~ ~ 0 ~ ~ ~]",
     "[0 ~ 3 3 0 ~ 1 ~ ~ 0 0 ~ 3 1 1 ~]"
   ]))
-  $ s "[bass, vortex:9]"
+  $ s "[bass]"
     + room 0.2 + sz 0.1
     + n 5
     + cut "-1"
-    + g 1.7
+    + g 1
     + shape 0.8
     + lpf 3000 -- + lpq 0.1
     + hpf 40
     + distort 0.4
 
 d2
-  -- $ whenmod 64 (64 - 16) ((sl 2) . brak)
+  $ whenmod 64 (64 - 16) ((sl 2) . brak)
   $ struct (sl 4 $ cat [
     "t*4"
   ])
   $ "sub"
     + n 1
-    * g 1.5
+    * g 1.2
     * hpf 60
 
 d3
   $ (1 <~)
   $ whenmod 64 (64 - 16) (struct (sl 4 $ "t ~ t/3 t ~ t ~ t ~ ~ t ~ t t/2 t/3 t/4"))
+  $ brak
   $ struct (sl 4 $ cat [
     "t*2"
   ])

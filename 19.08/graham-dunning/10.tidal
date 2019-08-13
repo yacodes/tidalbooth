@@ -1,7 +1,7 @@
 bpm 132
 
 d1
-  $ whenmod 64 (64 - 16) (const $ loopAt 16 $ drop "crash:4" * g 1.5)
+  $ whenmod 64 (64 - 16) (const $ loopAt 16 $ drop "crash:4" * g 1)
   $ whenmod 5 3 (|* speed 16)
   $ whenmod 9 7 (|* speed 16)
   $ (
@@ -16,7 +16,7 @@ d1
       -- |* gain 1
       * crush 4
       * lpf 5000
-      * g 1.8
+      * g 1.2
       * hpf 40
 
 d2
@@ -28,7 +28,7 @@ d2
     s "8perc")
       |> cut "-1"
       |> n 0
-      * gain 1.7
+      * gain 1.1
       * shape 0.8
       * lpf 5000
       -- * hpf 100
@@ -39,7 +39,7 @@ d3
   $ whenmod 29 27 (scramble 4)
   $ struct "t"
   $ s "k"
-    * g 1.8
+    * g 1.1
 
 d4
   $ jux rev
@@ -47,4 +47,4 @@ d4
   $ s "hh"
     + n ((irand 2) + 55)
     + cut "-1"
-    * g 1.5
+    * g 1

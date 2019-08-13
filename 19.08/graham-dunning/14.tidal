@@ -2,19 +2,19 @@ bpm 140
 
 d1
   $ whenmod 9 7 (
-      (|+ gain (choose [1.5, 1.51..1.61]))
+      (|+ gain (choose [1, 1.1..1.21]))
     . (|+ speed (choose [0.9, 0.91..1.1]))
     . (sometimesBy 0.5 (|> crush (choose [4, 5, 6])))
   )
   $ slow 4
   $ struct "t(13, 16)"
   $ s "k:1"
-    + gain 0
+    + gain 0.1
     -- * hpf 100
 
-d3
+d2
   $ whenmod 3 1 (
-      (|+ gain (choose [1.3, 1.31..1.5]))
+      (|+ gain (choose [1, 1.1..1.3]))
     . (|+ speed (choose [0.9, 0.91..1.1]))
   )
   $ slow 4
@@ -22,11 +22,11 @@ d3
   $ s "hh"
     |>| n (irand 7)
     |> pan (range 0 1 $ slow 4 $ perlin2With sine cosine)
-    + gain 0
+    + gain 0.1
 
-d4
+d3
   $ whenmod 8 4 (
-      (|+ gain (choose [1.3, 1.4..1.5]))
+      (|+ gain (choose [1, 1.1..1.3]))
     . (|* speed (choose [0.9, 0.91..1.1]))
     . (sometimesBy 0.5 (|> crush (choose [4, 5, 6])))
   )
@@ -36,12 +36,13 @@ d4
   $ s "bass:2"
     * up (scale "minPent" $ choose [-2, -1..2])
     * room 0.1 * sz 0.1
-    + gain 0.6
+    + gain 0.1
     * hpf 200
+    * krush 5
     * cut "-1"
 
 d4
   $ s "k"
     |> n 20
     |> cut "-1"
-    * gain 1.7
+    * gain 1.2

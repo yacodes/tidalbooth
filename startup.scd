@@ -3,11 +3,11 @@
 
 (
   s.options.inDevice = "Scarlett 2i4 USB";
-  s.options.outDevice = "Scarlett 2i4 USB";
+  // s.options.outDevice = "Scarlett 2i4 USB";
   s.options.memSize = 262144;
   s.options.sampleRate = 44100;
   s.options.blockSize = 256;
-  // s.options.inDevice = "A2I2";
+  s.options.outDevice = "Soundflower (64ch)";
   // s.options.outDevice = "MOTU UltraLite mk3 Hybrid";
   // s.options.outDevice = "Soundflower (2ch)";
   // s.options.outDevice = "Built-in Output";
@@ -21,11 +21,11 @@
     ~dirt = SuperDirt(2, s);
     ~dirt.loadSoundFiles(PathName.new("./samples").fullPath ++ "/*");
     s.sync;
-    // ~dirt.start(57120, 12.collect({|i| 2 * i})); // 12 hardware channels
-    ~dirt.start(57120, 12.collect({0})); // 12 virtual channels
+    ~dirt.start(57120, 12.collect({|i| 2 * i})); // 12 hardware channels
+    // ~dirt.start(57120, 12.collect({0})); // 12 virtual channels
   };
 
-  s.latency = 0.3;
+  s.latency = 0.5;
 );
 
 // (
