@@ -1,0 +1,51 @@
+bpm 150
+
+d1 $ s "k" + n 4
+
+d2 $ (0.5 <~) $ s "s" + n 3
+
+d1
+  $ someCyclesBy 0.2 (shuffle 2)
+  $ slow 8
+  $ iter 4
+  $ (striate 16 $ s "8bass")
+    |+ up (choose [-3, -2..3])
+    + gain 0.9
+
+d2
+  $ s "k"
+    + n 2
+    + gain 1
+
+d3
+  $ whenmod 64 (64 - 8) ((fa 4) . (1 ~>))
+  $ whenmod 64 (64 - 16) ((fa 2) . (1 ~>))
+  $ (1 <~)
+  $ struct "t/2"
+  $ s "s"
+    + room 0.1 + sz 0.4
+    + n 1
+
+d4
+  $ jux rev
+  $ struct (sl 4 $ cat [
+    "t(7, 16)"
+  ])
+  $ s "hh"
+    + n (irand 3)
+    + g (sl 4 $ rng 0.8 1.1 $ perlinWith sine)
+
+d5
+  $ scramble 2
+  $ iter 4
+  $ up (sl 4 $ scale "minor" $ cat [
+    "0 ~ 2 ~ ~ 3 ~ 2 0 ~ 3 ~ ~ 2 2/3 3/4"
+  ])
+  |> s "bass"
+    + n 5
+    + legato 1
+    + cut "-1"
+
+d6
+  $ whenmod 64 (64 - 16) (+ g 1)
+  $ (loopAt 16 $ rev $ striate 32 $ s "crash") + g 0
