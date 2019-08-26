@@ -26,7 +26,7 @@
     ~dirt.start(57120, 12.collect({0})); // 12 virtual channels
   };
 
-  s.latency = 0.5;
+  s.latency = 0.05;
 );
 
 // (

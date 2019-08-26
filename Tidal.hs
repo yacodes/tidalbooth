@@ -7,7 +7,7 @@ import Sound.Tidal.Context
 -- customTarget = OSCTarget {oName = "OSC-Proxy", oAddress = "127.0.0.1", oPort = 8765, oPath = "/tidal", oShape = Nothing, oLatency = 0.02, oPreamble = [], oTimestamp = MessageStamp}
 
 -- total latency = oLatency + cFrameTimespan
-tidal <- startTidal (superdirtTarget {oLatency = 0.5, oAddress = "127.0.0.1", oPort = 57120}) (defaultConfig {cFrameTimespan = 1/10})
+tidal <- startTidal (superdirtTarget {oLatency = 0.05, oAddress = "127.0.0.1", oPort = 57120}) (defaultConfig {cFrameTimespan = 1/10})
 -- tidal <- startTidal customTarget (defaultConfig {cFrameTimespan = 1/20})
 -- tidal <- startMulti [customTarget, (superdirtTarget {oLatency = 0.1, oAddress = "127.0.0.1", oPort = 57120})] (defaultConfig {cFrameTimespan = 1/20})
 
@@ -59,6 +59,7 @@ let d12 = p 12 . (|< orbit 11)
 let bpm i = setcps (i / 60)
 let drop sampleName = rev $ striate' 64 (1/32) $ s sampleName # cut "-1"
 let drop' sampleName striateL striateC = rev $ striate' striateL striateC $ s sampleName # cut "-1"
+let rise riseLength sampleName = const $ loopAt riseLength $ rev $ striate' 64 (1/32) $ sampleName # cut "-1"
 let g = gain
 let dl = delay
 let dlt = delayt
@@ -67,6 +68,10 @@ let sl = slow
 let fa = fast
 let spd = speed
 let rng = range
+let o = orbit
+let mod' a b = whenmod a (a - b)
+let mu = (# gain 0)
+let si = superimpose
 
 bpm 120
 

@@ -1,0 +1,86 @@
+do
+  let t = "schläfrigkeit"
+  bpm 128
+  --
+  let mx = [1, 1, 0, 0, 0]
+  --
+  p (t++"k")
+    $ struct (sl 4 $ cat [
+      -- "t*4"
+      -- "t [~ t] t [~ t*2?]"
+    ]) $ (s "k" # cut "-1" # orbit 0)
+      * g (mx!!0)
+  p (t++"bs")
+    -- $ iter 4
+    $ trunc 0.25
+    $ struct (sl 4 $ cat [
+      "t ~ t ~ t/2 t t ~ t t t ~ t t t ~"
+    ]) $ (s "superreese" # orbit 1)
+      * g (mx!!1)
+      -- * shape 0.1
+      + n (scale "augmented" (choose [0..7]))
+      - n "16"
+
+bpm 121
+
+d1
+  -- $ iter 4
+  -- $ jux rev
+  -- $ someCyclesBy 0.5 (linger 0.25)
+  $ (loopAt 16 $ striate 8 $ s "pievox" # cut "-1")
+    * dl 0.3 * dlt 0.3 * dlfb 0.3
+    * shape 0.3
+    * g 1.2
+    -- + speed 0.01
+
+d2
+  $ struct (sl 8 $ cat [
+    "t*4"
+    -- "t ~ ~ t ~ ~ ~ t ~ ~ ~ t ~ ~ ~ t"
+  ])
+  $ (s "sub:14" # cut "-1")
+    * shape 0.3
+
+d3
+  $ (2 <~)
+  $ struct (sl 8 $ cat [
+    "t*2"
+    -- "t*4"
+    -- "t*8"
+    -- "t*16"
+  ]) $ s "s:6"
+  * g 0.9
+
+d4
+  $ degradeBy 0.5
+  $ jux rev
+  $ s "hh"
+    # n ((irand 3) + 4)
+    -- * shape 0.6
+
+d5
+  $ loopAt 16
+    $ s "pievox:1"
+
+d6 $ loopAt 32
+    $ striate 32
+    $ s "pievox:2"
+      * g 1.5
+      * hpf 1000
+
+do
+  bpm 122
+  let mx = [0, 1.2, 1.5, 0.9, 0]
+  d1
+    $ (loopAt 16 $ striate 32 $ s "pievox:1")
+      * g (mx!!0) * hpf 1500 * shape 0.5
+  d2 $ s "k/2" |* g (mx!!1)
+  -- @TODO
+  -- combine drums in d2 $ stack []
+  -- add synth with melody
+  -- add effects to vocals
+  d3 $ (loopAt 16 $ striate 32 $ s "pievox:2")
+    * g (mx!!2) * hpf 500 * hpq 0.3 * shape 0.2 * distort 0.9
+  d4 $ (2 <~) $ struct "t/16" $ s "crash:1" * room 0.2 * sz 0.8 * g (mx!!3)
+  d5 $ sl 32 $ (loopAt 32 $ s "pievox:3")
+    * g (mx!!4) * hpf 1000 # cut "-1"
