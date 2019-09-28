@@ -1,9 +1,7 @@
 do
   let t = "schläfrigkeit"
   bpm 128
-  --
   let mx = [1, 1, 0, 0, 0]
-  --
   p (t++"k")
     $ struct (sl 4 $ cat [
       -- "t*4"
@@ -16,8 +14,8 @@ do
     $ struct (sl 4 $ cat [
       "t ~ t ~ t/2 t t ~ t t t ~ t t t ~"
     ]) $ (s "superreese" # orbit 1)
-      * g (mx!!1)
-      -- * shape 0.1
+      # g (mx!!1)
+      # shape 0.1
       + n (scale "augmented" (choose [0..7]))
       - n "16"
 
@@ -25,56 +23,68 @@ bpm 121
 
 d1
   -- $ iter 4
+  -- $ shuffle 2
   -- $ jux rev
+  -- $ someCyclesBy 0.25 (+ speed 0.01)
   -- $ someCyclesBy 0.5 (linger 0.25)
-  $ (loopAt 16 $ striate 8 $ s "pievox" # cut "-1")
+  $ (loopAt 8 $ striate 8 $ s "pievox" # cut "-1")
     * dl 0.3 * dlt 0.3 * dlfb 0.3
-    * shape 0.3
-    * g 1.2
+    * shape 0.5
+    * g 1
     -- + speed 0.01
 
 d2
-  $ struct (sl 8 $ cat [
+  -- $ stutWith 4 (1/4) ((* g 0.9) . (+ spd 1.2))
+  $ sl 4
+  $ struct (cat [
     "t*4"
     -- "t ~ ~ t ~ ~ ~ t ~ ~ ~ t ~ ~ ~ t"
   ])
   $ (s "sub:14" # cut "-1")
-    * shape 0.3
+    * shape 0.5
 
 d3
+  $ stutWith 2 (1/2) ((+ crush 4) . (* spd 1.2) . (* g 0.9))
+  $ sl 8
   $ (2 <~)
-  $ struct (sl 8 $ cat [
+  $ struct ( cat [
     "t*2"
     -- "t*4"
     -- "t*8"
     -- "t*16"
   ]) $ s "s:6"
-  * g 0.9
+  * g 1
 
 d4
+  $ (0.5 <~)
   $ degradeBy 0.5
   $ jux rev
-  $ s "hh"
+  $ s "hh*4"
     # n ((irand 3) + 4)
     -- * shape 0.6
 
 d5
-  $ loopAt 16
-    $ s "pievox:1"
+  $ (loopAt 8 $ chop 4 $ s "pievox:1")
+    * g 1
+    * shape 0.3
 
-d6 $ loopAt 32
-    $ striate 32
-    $ s "pievox:2"
-      * g 1.5
-      * hpf 1000
+clutchIn 1 64
+
+d1
+  $ sometimesBy 0.75 ((+ spd 0.05) . (# g 1))
+  $ (loopAt 16 $ striate 16 $ s "pievox:2")
+    # g 0
+    * krush 7
+    * hpf 1000
+    * dl 0.5 * dlt 0.3 * dlfb 0.3
 
 do
   bpm 122
-  let mx = [0, 1.2, 1.5, 0.9, 0]
+  let mx = [1, 1, 0, 0, 0]
   d1
     $ (loopAt 16 $ striate 32 $ s "pievox:1")
       * g (mx!!0) * hpf 1500 * shape 0.5
-  d2 $ s "k/2" |* g (mx!!1)
+  d2 $ s "k" |* g (mx!!1) # n 8
   -- @TODO
   -- combine drums in d2 $ stack []
   -- add synth with melody
@@ -84,3 +94,16 @@ do
   d4 $ (2 <~) $ struct "t/16" $ s "crash:1" * room 0.2 * sz 0.8 * g (mx!!3)
   d5 $ sl 32 $ (loopAt 32 $ s "pievox:3")
     * g (mx!!4) * hpf 1000 # cut "-1"
+
+
+d1 $ s "sub:3" * shape 0.5 * g 1 * cut "-1"
+
+d2 $ s "perc"
+
+d3 $ shuffle 4 $ (loopAt 16 $ striate' 16 (1/8) $ s "8vox")
+
+d4 $ shuffle 4 $ (loopAt 32 $ striate 4 $ s "8top") # n 2
+
+d5 $ shuffle 2 $ (loopAt 32 $ striate 4 $ s "8drum")
+
+d6 $ (loopAt 16 $ striate 4 $ s "8bass") # n 3

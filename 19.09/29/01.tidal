@@ -1,0 +1,37 @@
+bpm 140
+
+d1
+  $ struct (sl 4 $ cat [
+    -- "t ~ t ~"
+    -- "t*4"
+    "[[t t?] t? [t _] [~? t?]]"
+  ])
+  $ s "k"
+    # n 1
+    * g 1.2
+
+d2
+  $ jux rev
+  $ struct (sl 4 $ "t(9, 16)")
+  $ s "hh"
+    # n 1
+    * g 1.2
+
+d3
+  $ sl 4
+  $ s "s"
+    # n 4
+    * g 0.9
+    * room 0.2 * sz 0.8
+
+d4
+  $ loopAt 32
+  $ s "pievox"
+    # g 1.42
+
+d5
+  $ sl 4
+  $ note "e2"
+    # s "supersaw"
+    # legato 1
+    * g 1.2
