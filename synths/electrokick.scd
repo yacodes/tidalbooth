@@ -1,5 +1,5 @@
-/* By Nathan Ho aka Snappizz
-   http://sccode.org/1-523 */
+// By Nathan Ho aka Snappizz
+// http://sccode.org/1-523
 
 // @TODO Add controls
 SynthDef(\electrokick, {|out, pan|
@@ -26,5 +26,5 @@ SynthDef(\electrokick, {|out, pan|
   snd = body + pop + click;
   snd = snd.tanh;
 
-  OffsetOut.ar(out, DirtPan.ar(snd, ~dirt.numChannels, pan, bodyAmp));
+  OffsetOut.ar(out, DirtPan.ar(snd, ~dirt.numChannels, pan));
 }).add;

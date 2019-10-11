@@ -22,6 +22,7 @@
     "./synths/moogbass.scd".load;
     "./synths/electrokick.scd".load;
     "./synths/soskick.scd".load;
+    "./synths/soshats.scd".load;
 
     // MIDI Initializations
     MIDIClient.init;
