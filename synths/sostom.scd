@@ -5,7 +5,7 @@
 // SOStom -------
 // http:www.soundonsound.com/sos/Mar02/articles/synthsecrets0302.asp
 // Modified by Bruno Ruviaro and Josh Mitchell 8/19.
-SynthDef(\sosTom, {
+SynthDef(\sostom, {
   arg out = 0, pan = 0, drumRel = 0.4, stickRel = 0.01, drumModeAmp = 0.25, freq = 250, timbreIndex = 0.77, amp = 1, att = 0.005, curve = -6;
 
   var drumMode, drumModeEnv, stick, stickEnv, snd;

@@ -1,0 +1,11 @@
+bpm 140
+
+d1 $ every 8 (fa 2) $ note "a2" # s "soskick"
+
+d2
+  $ every 8 (fa 2 . ply 2)
+  $ struct "t/2" $ s "sossnare" * g 1.2 # room 0.1 # sz 0.7
+
+d3 $ note "a2*2?0.75" # s "moogbass" # sustain "0.8..1" # shape 0.5 * g 1.2
+
+d4 $ shuffle 2 $ iter 2 $ jux rev $ sl 4 $ note "[a3(11, 16)]" # s "soshats"
