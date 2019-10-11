@@ -24,6 +24,7 @@
     "./synths/soskick.scd".load;
     "./synths/soshats.scd".load;
     "./synths/sossnare.scd".load;
+    "./synths/sostom.scd".load;
 
     // MIDI Initializations
     MIDIClient.init;
