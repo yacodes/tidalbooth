@@ -23,6 +23,7 @@
     "./synths/electrokick.scd".load;
     "./synths/soskick.scd".load;
     "./synths/soshats.scd".load;
+    "./synths/sossnare.scd".load;
 
     // MIDI Initializations
     MIDIClient.init;
