@@ -60,3 +60,20 @@ d3
     # resonance 0.2
     # hpf 20
 
+bpm 128
+
+d1
+  $ brak
+  $ every 4 (fa 4)
+  $ note "e3"
+  # stack [
+    s "soskick" # g 1.3 # sustain 0.4,
+    s "moogbass" # g 1.4 # sustain 0.9 |+ note "e3"
+  ]
+
+d2
+  $ shuffle 4
+  -- $ iter 8
+  $ sl 1
+  $ note ("[e3 [g3 ~] [f3 f3?] e3]" + "<0 0 0 7>")
+    # s "moogbass" # shape 0.6 # sustain 0.4 # room 0.05 # sz 0.8
