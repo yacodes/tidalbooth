@@ -1,0 +1,28 @@
+bpm 180
+
+d1
+  $ whenmod 16 12 (scramble 2)
+  $ every 4 (fa "<2 4>")
+  $ s "k"
+    # shape 0.4 -- # scram 0.2
+    -- # distort 0.5
+
+d2
+  -- $ (0.25 <~)
+  $ whenmod 16 12 (scramble 2)
+  $ every 4 (fa "<2 4>")
+  $ note "c3"
+    # s "supergrind"
+    # attack 0.05
+    # release 0.4
+    # sustain 0.2
+    # g 1.2
+    # distort 0.5
+
+d2
+  $ sl 2
+  $ s "superclap"
+    -- # speed 10
+    # voice 0.25
+    # shape 0.4
+    -- # distort 0.2

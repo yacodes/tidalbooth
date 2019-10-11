@@ -1,0 +1,62 @@
+bpm 180
+
+d1
+  $ whenmod 128 (128 - 32) (# g 0)
+  $ every 8 ((fa (choose [1.5, 2])) . (shuffle 2))
+  $ struct "t"
+  $ stack [
+    s "k",
+    s "s:3",
+    s "hh"
+  ] # distort 0.5
+
+d2
+  $ (0.5 <~)
+  $ s "hh:1"
+    # shape 0.5
+
+d3
+  $ loopAt 32
+  $ striate 32
+  $ s "8synth:1"
+    # shape 0.8
+
+d1
+  -- $ sometimes (shuffle 2 . fa 2)
+  $ sl 2
+  $ iter 2
+  -- $ sometimes (fa 2)
+  $ n ("[e3 [g3 g3?] [e3? e4?] c3]" + "12")
+    # s "moogbass"
+    # release 0.7
+    # sustain 1.5
+    * shape 0.3
+    * g 1.1
+
+d2
+  -- $ every 16 (fa 2)
+  -- $ shuffle 4
+  $ struct (sl 4 "[t t?] [~ t] [t? _] t")
+  $ s "k:4"
+    |* shape (range 0 0.5 $ slow 12 $ perlinWith cosine)
+
+d3 $ s "k"
+
+d4
+  $ jux rev
+  $ s "hh:6(4, 8)"
+    |* g (range 0.5 0.8 $ slow 12 $ perlinWith cosine)
+
+d3
+  $ repeatCycles 2
+  $ n "e2"
+  # s "superpwm"
+    # semitone (choose [3, 5, 7, 12])
+    # sustain 1
+    # legato 1
+    # voice (range 0 0.8 $ slow 24 $ perlinWith sine)
+    # lfo (range 0 0.2 $ slow 32 $ perlinWith sine)
+    # speed (range 0 0.002 $ slow 32 $ perlinWith cosine)
+    # resonance 0.2
+    # hpf 20
+

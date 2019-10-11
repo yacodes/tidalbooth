@@ -1,40 +1,82 @@
 // ServerOptions.outDevices.do {|d| d.postln}
 // ServerOptions.inDevices.do {|d| d.postln}
 
-
-MIDIClient.init;
-
 (
-  // s.options.inDevice = "Scarlett 2i4 USB";
-  // s.options.inDevice = "Built-in Microph";
-  s.options.inDevice = "TCVST";
+  s.options.inDevice = "Scarlett 2i4 USB";
   s.options.outDevice = "Scarlett 2i4 USB";
-  s.options.memSize = 262144;
   s.options.sampleRate = 44100;
   s.options.blockSize = 128;
   s.options.hardwareBufferSize = 128;
-  // s.options.outDevice = "Soundflower (64ch)";
-  // s.options.outDevice = "MOTU UltraLite mk3 Hybrid";
-  // s.options.outDevice = "Soundflower (2ch)";
-  // s.options.outDevice = "Built-in Output";
   s.options.numBuffers = 1024 * 256;
   s.options.memSize = 8192 * 16;
   s.options.maxNodes = 1024 * 32;
   s.options.numOutputBusChannels = 64;
   s.options.numInputBusChannels = 2;
 
+  SynthDef(\moogbass, {
+    arg out, sustain = 1, pan, freq = 440, n, chor = 0.7, lagamount = 0.01, coff = 2000;
+    var osc, filter, env, filterenv, snd, chorusfx;
+
+    osc = Mix(
+      VarSaw.ar(
+        freq: freq.lag(lagamount) * [1.0, 1.001, 2.0],
+        iphase: Rand(0.0, 1.0)!3,
+        width: Rand(0.5, 0.75)!3, mul: 0.5
+      )
+    );
+
+    filterenv = EnvGen.ar(
+      envelope: Env.new(levels: [0, 1, 0], times: [0.2, 0.2, 0.2], curve: -4),
+      timeScale: sustain,
+      doneAction: Done.freeSelf
+    );
+
+    filter =  MoogFF.ar(
+      in: osc,
+      freq: 1000 * (1.0 + (0.5 * filterenv)),
+      gain: 2
+    );
+
+    env = EnvGen.ar(
+      envelope: Env.new(levels: [0, 1, 1, 0.9, 0], times: [0.001, 0.001, 0.25, 0.2], curve: -4),
+      timeScale: sustain,
+      doneAction: Done.freeSelf
+    );
+
+    snd = (0.7 * filter + (0.3 * filter.distort)) * env;
+
+    chorusfx = Mix.fill(7, {
+      var maxdelaytime = rrand(0.005, 0.02);
+      DelayC.ar(
+        in: snd,
+        maxdelaytime: maxdelaytime,
+        delaytime: LFNoise1.kr(
+          freq: Rand(4.5, 10.5),
+          mul: 0.25 * maxdelaytime,
+          add: 0.75 * maxdelaytime
+        )
+      )
+    });
+
+    snd = snd + (chorusfx * chor);
+
+    OffsetOut.ar(out, DirtPan.ar(snd, ~dirt.numChannels, pan, env));
+  }).add;
+
   s.waitForBoot {
+    // Samples
     ~dirt = SuperDirt(2, s);
     ~dirt.loadSoundFiles(PathName.new("./samples").fullPath ++ "/*");
 
+    // MIDI Initializations
     MIDIClient.init;
-    ~podolskiMidiOut = MIDIOut.newByName("IAC Driver", "Tidal Cycles");
-    ~dirt.soundLibrary.addMIDI(\podolski, ~podolskiMidiOut);
-    ~podolskiMidiOut.latency = 0.45;
+    ~iacMIDI = MIDIOut.newByName("IAC Driver", "Tidal Cycles");
+    ~dirt.soundLibrary.addMIDI(\podolski, ~iacMIDI);
+    ~iacMIDI.latency = 0.45;
 
-    ~microfreakMIDIOut = MIDIOut.newByName("Arturia MicroFreak", "");
-    ~dirt.soundLibrary.addMIDI(\microfreak, ~microfreakMIDIOut);
-    ~microfreakMIDIOut.latency = 0.45;
+    // ~microfreakMIDIOut = MIDIOut.newByName("Arturia MicroFreak", "");
+    // ~dirt.soundLibrary.addMIDI(\microfreak, ~microfreakMIDIOut);
+    // ~microfreakMIDIOut.latency = 0.45;
 
     s.sync;
     // ~dirt.start(57120, 12.collect({|i| 2 * i})); // 12 hardware channels
