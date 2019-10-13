@@ -1,0 +1,16 @@
+bpm 120
+
+d1
+  $ sl 2
+  $ iter 4
+  $ note "{e3 g3 a3}%8"
+    |< s "pluckbass"
+    |< djf (range 0.2 0.8 $ sl 4 $ perlinWith sine)
+
+d2
+  $ every 8 (fa 2)
+  $ s "k"
+
+d3 $ every 8 (fa 2 . brak) $ struct "t/2" $ (0.5 <~) $ note "e6" # s "sossnare" |* g 1 |* room 0.2 |* sz 0.8 * shape 0.5
+
+d4 $ sl 2 $ note "e2 g3" # s "acidOto3091"

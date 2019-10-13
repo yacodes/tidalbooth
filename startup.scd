@@ -19,18 +19,26 @@
     ~dirt.loadSoundFiles(PathName.new("./samples").fullPath ++ "/*");
 
     // Synths
-    "./synths/moogbass.scd".load;
+    // Drums
     "./synths/electrokick.scd".load;
     "./synths/soskick.scd".load;
     "./synths/soshats.scd".load;
     "./synths/sossnare.scd".load;
     "./synths/sostom.scd".load;
 
+    // Bass
+    "./synths/moogbass.scd".load;
+    "./synths/pluckbass.scd".load;
+    "./synths/ikedaBass.scd".load;
+    "./synths/bassWarsaw.scd".load;
+    "./synths/acid0to3091.scd".load;
+    "./synths/acid0to3092.scd".load;
+
     // MIDI Initializations
-    MIDIClient.init;
-    ~iacMIDI = MIDIOut.newByName("IAC Driver", "Tidal Cycles");
-    ~dirt.soundLibrary.addMIDI(\podolski, ~iacMIDI);
-    ~iacMIDI.latency = 0.45;
+    // MIDIClient.init;
+    // ~iacMIDI = MIDIOut.newByName("IAC Driver", "Tidal Cycles");
+    // ~dirt.soundLibrary.addMIDI(\podolski, ~iacMIDI);
+    // ~iacMIDI.latency = 0.45;
 
     // ~microfreakMIDIOut = MIDIOut.newByName("Arturia MicroFreak", "");
     // ~dirt.soundLibrary.addMIDI(\microfreak, ~microfreakMIDIOut);
@@ -120,14 +128,14 @@
 // @TODO Adopt for SuperDirt
 // (
 //   SynthDef("kik", {|basefreq = 50, ratio = 7, sweeptime = 0.05, preamp = 1, amp = 1, decay1 = 0.3, decay1L = 0.8, decay2 = 0.15, out|
-//     var fcurve = EnvGen.kr(Env([basefreq * ratio, basefreq], [sweeptime], \exp)),
-//         env = EnvGen.kr(Env([1, decay1L, 0], [decay1, decay2], -4), doneAction: 2),
+//     var fcurve = EnvGen.kr(Env([0.001, basefreq * ratio, basefreq], [0.001, sweeptime], \exp)),
+//         env = EnvGen.kr(Env([0.001, 1, decay1L, 0], [0.001, decay1, decay2], -4), doneAction: 2),
 //         sig = SinOsc.ar(fcurve, 0.5pi, preamp).distort * env * amp;
 //     Out.ar(out, sig ! 2);
 //   }).add;
 // )
 
-// Synth(\kik, [\basefreq, 40, \decay1, 0.9, \decay1L, 0.9, \decay2, 0.45, \sweeptime, 0.25, \ratio, 2])
+// Synth(\kik, [\basefreq, 55, \decay1, 0.8, \decay1L, 0.75, \decay2, 0.5, \sweeptime, 0.1, \ratio, 2])
 
 // (
 //   SynthDef(\tutorial1, {|out, sustain=1, pan, accelerate, n |

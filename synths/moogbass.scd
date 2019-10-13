@@ -1,5 +1,5 @@
 SynthDef(\moogbass, {
-  arg out, sustain = 1, pan, freq = 440, n, chor = 0.7, lagamount = 0.01, coff = 2000;
+  arg out, sustain = 1, pan, freq = 440, chor = 0.7, lagamount = 0.01, coff = 2000;
   var osc, filter, env, filterenv, snd, chorusfx;
 
   osc = Mix(
