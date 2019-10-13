@@ -9,7 +9,7 @@ SynthDef(\soskick, {
   var beaterSource, beaterHpf, beaterLpf, lpfCutoffContour, beaterEnv;
   var kickMix, snd;
 
-  pitchContour = Line.kr(freq*2, freq, 0.02);
+  pitchContour = Line.kr(freq * 2, freq, 0.02);
   drumOsc = PMOsc.ar(pitchContour, modFreq, modIndex / 1.3, mul: 1, add: 0);
   drumLpf = LPF.ar(in: drumOsc, freq: 1000, mul: 1, add: 0);
   drumEnv = drumLpf * EnvGen.ar(Env.perc(0.005, sustain), 1.0, doneAction: Done.freeSelf);

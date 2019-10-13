@@ -55,6 +55,10 @@ let d10 = p 10 . (|< orbit 9)
 let d11 = p 11 . (|< orbit 10)
 let d12 = p 12 . (|< orbit 11)
 
+-- SynthDef controls
+let modFreq = pF "modFreq"
+let modIndex = pF "modIndex"
+
 -- Helpers
 let bpm i = setcps (i / 60)
 let drop sampleName = rev $ striate' 64 (1/32) $ s sampleName # cut "-1"
@@ -72,6 +76,7 @@ let o = orbit
 let mod' a b = whenmod a (a - b)
 let mu = (# gain 0)
 let si = superimpose
+let sus = sustain
 
 bpm 120
 
