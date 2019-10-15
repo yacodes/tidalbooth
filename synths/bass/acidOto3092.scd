@@ -3,17 +3,11 @@
 // Filter sweep is calculated in octaves
 // Modified by Bruno Ruviaro and Josh Mitchell, August 2019.
 SynthDef(\acidOto3092, {
-	arg
-	// Standard Arguments
-	out = 0, freq = 440, amp = 0.1, pan = 0, att = 0.001, rel = 0.5,
-	// Other Controls
-	// width is 0 to 1
-	// filterRange is in octaves
-	lagTime = 0.12, filterRange = 6, width = 0.51, rq = 0.3;
+	arg out = 0, freq = 440, amp = 0.1, pan = 0, att = 0.001, rel = 0.5, filterRange = 6, width = 0.51, rq = 0.3;
 
 	var ampEnv, filterEnv, snd, pitch;
 
-	pitch = freq.cpsmidi; // Lag only useful if synth is played with Pmono
+	pitch = freq.cpsmidi;
 
 	ampEnv = Env.perc(
 		attackTime: att,

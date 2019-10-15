@@ -19,7 +19,6 @@ SynthDef("hihatElectro", {
   snd = Mix(snd) * env;
 
   Out.ar(out, Pan2.ar(snd, pan));
-
 },
 metadata: (
   credit: "By Nathan Ho aka Snappizz",

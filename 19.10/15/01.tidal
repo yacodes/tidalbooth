@@ -30,3 +30,65 @@ d2 $ note "e3 a3" # s "sostoms" # sustain 10 # release 2 * g 1.2
 
 
 d3 $ note "e4" # s "sossnare" * g 1.5 # pF "timbreIndex" 3 # pF "modHarmonic" 0.24 # pF "snareRez" 8000 # pF "ffreq" 1000 * room 0.2 * attack 0.2
+
+d1 $ s "supernoise/8" # midinote ((irand 10) + 30) # sustain "8"
+ # accelerate "0.5" # voice "0.5" # pitch1 "0.15" # slide "-0.5" # resonance "0.7"
+ # attack "1" # release "20" # room "0.9" # size "0.9" # orbit "1"
+
+d2 $ every 4 (echo (negate 3/32)) $ n "c5*4" # s "supernoise"
+ # accelerate "-2" # speed "1" # sustain "0.1 ! ! 1" # voice "0.0"
+
+d1 $ n "[c2 e3 g4 c5 c4 c3]*4/3" # s "superchip" # sustain "0.1"
+ # pitch2 "[1.2 1.5 2 3]" # pitch3 "[1.44 2.25 4 9]"
+ # voice (slow 4 "0 0.25 0.5 0.75") # slide "[0 0.1]/8" # speed "-4"
+
+d1 $ every 16 (density 24 . (|+| midinote "24") . (# sustain "0.3") . (# attack "0.05"))
+ $ s "supercomparator/4" # midinote ((irand 24) + 24)
+ # sustain "8" # attack "0.5" # hold "4" # release "4"
+ # voice "0.5" # resonance "0.9" # lfo "1" # speed "30" # pitch1 "4"
+
+d1 $ n "[c2 e3 g4 c5 c4 c3]/3" # s "[superpwm supersaw supersquare]/24" # sustain "0.5"
+ # voice "0.9" # semitone "7.9" # resonance "0.3" # lfo "3" # pitch1 "0.5" # speed "0.25 1"
+
+d1 $ n (slow 8 $ "[[c4,e4,g4,c5]*4 [e4,g4,b5,e5]*4]" + "<12 7>") # s "superpiano"
+ # velocity (slow 8 $ range 0.8 1.1 sine) # sustain "8"
+
+do
+  d1 $ sl 2 $ n (arp "<converge diverge>" "<d'maj7'5 e'min7'7 d'maj7'5 g'maj'7>") # sound "superpiano" # velocity (sl 8 $ range 0.8 1.1 sine) # sustain 1.2 * g 1.1
+  d2 $ s "k"
+
+d1 $ sl 4 $ n ("c'maj7'16 e'min7'11" |+ "12") # s "supermandolin" # sustain 4
+
+d1
+  $ s "supermandolin"
+  <| n ("0 0 0 0" + "[<d'maj7 e'min7>]/4")
+
+d2 $ s "k" # cut 1
+
+resetCycles
+
+d1
+  $ sl 4
+  $ s "acidOto3092"
+    +| n "[0 ~!2 0] [~!2 0 ~] 0*2 <~ 0*2>"
+    |+ n "<d3'maj7 e3'min'5 g3'maj7 a3'min7>"
+    |+ sustain 2
+    |+ pF "lagTime" 0.08
+    |+ pF "rel" 1
+    -- |+ pF "rq" (range 0.3 0.4 $ sl 32 $ perlinWith sine)
+    |+ pF "width" (range 0.2 1 $ sl 32 $ cosine)
+    -- |+ pF "filterRange" (segment 4 $ range 4 8 $ sl 8 $ sine)
+    |* shape 0.2
+    |* g 1
+
+
+d2
+  -- $ whenmod 8 (8 - 4) (* g 0)
+  $ sl 4
+  $ struct "t*4"
+  $ s "k"
+  -- $ s "[k ~!2 k] [~!2 k ~] k*2 <~ k*2>"
+    # n 2
+    |* shape 0.8
+
+d3 $ s "s/2"

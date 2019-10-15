@@ -20,19 +20,19 @@
 
     // Synths
     // Drums
-    "./synths/electrokick.scd".load;
-    "./synths/soskick.scd".load;
-    "./synths/soshats.scd".load;
-    "./synths/sossnare.scd".load;
-    "./synths/sostoms.scd".load;
+    // "./synths/electrokick.scd".load;
+    // "./synths/soskick.scd".load;
+    // "./synths/soshats.scd".load;
+    // "./synths/sossnare.scd".load;
+    // "./synths/sostoms.scd".load;
 
     // Bass
-    "./synths/moogbass.scd".load;
-    "./synths/pluckbass.scd".load;
-    "./synths/ikedaBass.scd".load;
-    "./synths/bassWarsaw.scd".load;
-    "./synths/acid0to3091.scd".load;
-    "./synths/acid0to3092.scd".load;
+    "./synths/bass/moogbass.scd".load;
+    "./synths/bass/pluckbass.scd".load;
+    "./synths/bass/ikedaBass.scd".load;
+    "./synths/bass/bassWarsaw.scd".load;
+    "./synths/bass/acidOto3091.scd".load;
+    "./synths/bass/acidOto3092.scd".load;
 
     // MIDI Initializations
     // MIDIClient.init;

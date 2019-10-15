@@ -1,7 +1,7 @@
 // Retrieved from acid_oto309.scd
 // Envelopes from original changed to ADSR, filterRange calculated in octaves
 // Modified by Bruno Ruviaro and Josh Mitchell 8/19.
-SynthDef(\acid0to3091, {
+SynthDef(\acidOto3091, {
 	arg
 	// Standard Arguments
 	out = 0, gate = 1, freq = 440, amp = 0.1, pan = 0, att = 0.001, dec = 0.5, sus = 0.1, rel = 0.5, curve = -4,
