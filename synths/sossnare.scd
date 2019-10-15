@@ -15,7 +15,7 @@ SynthDef(\sossnare, {
 
   var drumMode, drumModeEnv, snares, snareEnv, snd;
 
-  drumModeEnv = Env.perc(attackTime: att, releaseTime: rel, level: 0.5, curve: curve).kr;
+  drumModeEnv = Env.perc(attackTime: att, releaseTime: rel, level: 0.5, curve: curve).kr(doneAction: Done.freeSelf);
   drumMode = SinOsc.ar(freq: freq * 0.53, mul: drumModeEnv);
   drumMode = drumMode + SinOsc.ar(freq: freq, mul: drumModeEnv);
   drumMode = drumMode + PMOsc.ar(carfreq: Saw.ar(freq * 0.85), modfreq: freq * modHarmonic, pmindex: timbreIndex, mul: drumModeEnv * 10);
@@ -32,45 +32,10 @@ SynthDef(\sossnare, {
 
   snd = Mix.new(drumMode + snares) * amp;
 
-  DetectSilence.ar(in: snd, doneAction: Done.freeSelf);
-
-  OffsetOut.ar(out, DirtPan.ar(snd, ~dirt.numChannels, pan));
+  OffsetOut.ar(out, DirtPan.ar(snd, ~dirt.numChannels, pan, drumModeEnv));
 },
 metadata: (
   credit: "Renick Bell",
   category: \drums,
   tags: [\pitched, \snare, \sos]
 )).add;
-
-(
-SynthDef("bassWarsaw", {
-	arg
-	// Standard Values:
-	out = 0, freq = 440, gate = 1, amp = 0.5, pan = 0, att = 0.01, dec = 0.3, sus = 0.4, rel = 0.1,
-	// Other Controls:
-	slideTime = 0.17, cutoff = 1100, width = 0.15, detune = 1.005, preamp = 4;
-
-	var snd, env;
-
-	env = Env.adsr(att, dec, sus, rel).kr(gate: gate, doneAction: 2);
-	freq = Lag.kr(freq, slideTime);
-	snd = VarSaw.ar(freq: [freq, freq * detune], width: width, mul: preamp);
-	snd = Mix(snd).distort;
-	snd = snd * env;
-	snd = LPF.ar(snd, cutoff, amp);
-
-	Out.ar(out, Pan2.ar(snd, pan));
-},
-metadata: (
-	credit: "James Harkins",
-	category: \bass,
-	tags: [\bass, \synth, \pitched]
-	)
-).add;
-)
-
-s.boot
-
-Synth(\bassWarsaw, [\freq, 55])
-
-s.freeAll

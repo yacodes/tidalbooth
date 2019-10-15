@@ -1,0 +1,32 @@
+d3
+  $ degrade
+  $ struct "{t t t}%4"
+  $ note "{e3 a3 c3}%4"
+  -- $ note (choose [-30, -34, -40])
+    # s "soskick"
+    -- # sustain 3
+    -- # attack 0.75
+    # modIndex (range 1 2 $ sl 12 $ perlinWith sine)
+    # modFreq (range 1 2 $ sl 12 $ perlinWith sine)
+    # hpf 30
+
+d1 silence
+
+d1
+  -- $ sometimes (fa 2)
+  -- $ struct "{t t*3 t}%4"
+  -- $ struct "{t t t}%8"
+$ sl 4
+  $ struct "t(<11 15 9>, 16)"
+  $ note "[e7 e9]*8"
+  # s "soshats"
+  # sustain (choose [0.1, 0.2..0.5])
+    |> pan (range 0 1 $ perlinWith cosine)
+    |> distort 3
+    # lpf 500
+    -- |> distort (range 0 1 $ sl 32 $ perlinWith sine)
+
+d2 $ note "e3 a3" # s "sostoms" # sustain 10 # release 2 * g 1.2
+
+
+d3 $ note "e4" # s "sossnare" * g 1.5 # pF "timbreIndex" 3 # pF "modHarmonic" 0.24 # pF "snareRez" 8000 # pF "ffreq" 1000 * room 0.2 * attack 0.2

@@ -24,7 +24,7 @@
     "./synths/soskick.scd".load;
     "./synths/soshats.scd".load;
     "./synths/sossnare.scd".load;
-    "./synths/sostom.scd".load;
+    "./synths/sostoms.scd".load;
 
     // Bass
     "./synths/moogbass.scd".load;
