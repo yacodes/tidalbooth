@@ -1,23 +1,25 @@
 -- GN1
 do
   bpm 180
-  let mx = [1, 0, 1, 1.2]
+  let mx = [1, 1, 1, 01]
   d1 -- back
     $ wm16 128 (superimpose $ const $ lsp 16 "fx_riser:5")
     $ (lsp 32 "lp_music:3" * g (mx!!0))
       + speed 0.02
   d2 -- build
+    $ shuffle 2
     $ (lsp 64 "beat_build" * g (mx!!1))
-      -- * hpf 500
-      -- + speed 0.002
+      * hpf 500
+      + speed 0.002
   d3 -- drums
     $ wm16 128 (* g 0)
     $ sl 4 $ stack [
       struct "[t <~ t?>] <t [t!2? ~!2]> t <t t*2>" $ s "osd_kick" * shape 0.2,
-      sometimes (fa "<2 4>") $ (1 <~) $ struct "t*2" $ s "osd_clap:2" * shape 0.2 * rvb 0.2,
-      struct "t(<2..4>, 4, <0..4>) [~ t(<0..3>, 3)] t*4? [~ t!3?]" $ s "osd_hat" * shape 0.2 * pan (range 0.2 0.8 $ perlinWith sine)
+      fa 2 $ sometimes (fa "<2 4>") $ (1 <~) $ struct "t*2" $ s "osd_clap:2" * shape 0.2 * rvb 0.2,
+      fa 2 $ struct "t(<2..4>, 4, <0..4>) [~ t(<0..3>, 3)] t*4? [~ t!3?]" $ s "osd_hat" * shape 0.2 * pan (range 0.2 0.8 $ perlinWith sine)
     ] * g (mx!!2)
   d4 -- fx
+    $ iter 2
     $ (lsp 16 "lp_synth:6" * g (mx!!3))
 
 do
@@ -29,18 +31,18 @@ do
 -- GN2
 do
   bpm 180
-  let mx = [1.2, 1, 1, 1]
+  let mx = [0, 1, 0, 1]
   d1 $ shuffle 2
      $ (lsp 8 "lp_hoover:1" * g (mx!!0))
     + speed (range 0.00001 0.03 $ sl 8 $ perlinWith sine)
-  d2 $ (lsp 64 "beat_build:5" * g (mx!!1))
+  d2 $ (lsp 64 "beat_build:5" * g (mx!!1)) * shape 0.3
   d3 $ (lsp 16 "lp_seq:1" * g (mx!!2))
   d4
     $ wm32 128 (const $ lsp 32 "fx_riser")
     $ stack [
       every 8 (fa 2) $ s "osd_kick:3" * shape 0.4,
-      sometimes (fa 4) $
-        s "osd_clap"
+      s "osd_clap" * shape 0.3,
+      s "hh*4" # pan (range 0 1 $ sine)
     ] * g (mx!!3)
 
 do
@@ -52,17 +54,20 @@ do
 -- GN3
 do
   bpm 180
-  let mx = [0, 0, 0, 1, 1.3]
-  d1 $ lsp 16 "osv_phrase_sing" * g (mx!!0) + speed 0.02
-  d2 $ gap 64 $ lsp 128 "idea_melody:12" * g (mx!!1) - g 0.2
-  d3 $ wm32 64 (# g 0) $ sl 4 $ stack [
-      struct "t [t t/2] t <t [t*2]/3 [~ t!3?]>"
-        $ s "osd_kick:5" * shape 0.5, -- * distort 0.5,
+  let mx = [0, 0, 1, 0, 1]
+  d1 $ lsp 16 "osv_phrase_sing" * shape 0.5 * g (mx!!0)  + speed 0.02
+  d2 $ lsp 128 "idea_melody:12" * g (mx!!1) - g 0.2
+  d3
+    -- $ wm32 64 (# g 0)
+    $ shuffle 8
+    $ sl 4 $ stack [
+      struct "t [t t/2] t <t [t*2]/3 [~ t!3?]>" $
+        s "osd_kick:5" * shape 0.3 * distort 0.3,
       fa 1 $ (1 <~) $ s "osd_clap/2:4" * shape 0.2,
       struct "t(<11 13 15>, 16)" $ s "osd_hat:6" * shape 0.7 |* pan (range 0 1 $ perlinWith sine)
     ] * g (mx!!2)
   d4 $ wm32 64 (# g (mx!!3)) $ lsp 32 "fx_riser:5" # g 0
-  d5 $ lsp 32 "lp_complete:12" * g (mx!!4)
+  d5 $ iter 2 $ shuffle 8 $ lsp 32 "lp_complete:12" * g (mx!!4) * shape 0.7
 
 do
   clutchIn 1 64 $ lsp 32 "lp_complete:8" * g 1.2
@@ -74,21 +79,23 @@ do
 -- GN4
 do
   bpm 180
-  let mx = [1, 0, 0, 1, 0]
+  let mx = [0, 1.2, 1, 1, 0]
   d1 $ lsp 32 "lp_complete:8" * g (mx!!0)
-  d2 $ wm32 128 (superimpose $ const $ lsp 32 "fx_riser:4" + g 0.2)
-     -- $ gap 4
+  d2
+     $ wm32 128 (superimpose $ const $ lsp 32 "fx_riser:4" + g 0.2)
+     $ gap 4
      $ lsp 32 "lp_complete:7" * g (mx!!1) * shape 0.3
   d3
-     $ wm8 16 (* g 0)
-     -- $ wm32 128 (* g 0)
-     $ sl 4 $ struct "t [t <~ t [~ t ~]>] t [t <~ [t!2]>]"
+     -- $ wm8 16 (* g 0)
+     $ wm32 128 (* g 0)
+     $ sl 4
+     $ struct "t [t <~ t [~ t ~]>] t [t <~ [t!2]>]"
      $ stack [
       s "k" * shape 0.9 * distort 0.4,
       s "osd_ride" * shape 0.7 # cut "-1"
     ] * g (mx!!2)
   d4 $ lsp 32 "idea_melody:4" * g (mx!!3)
-  d5 $ sl 4 $ s "fx_impact:0" * g (mx!!4) * shape 0.4 # cut "-1"
+  d5 $ sl 1 $ s "fx_impact:0" * g (mx!!4) * shape 0.4 # cut "-1"
 
 do
   clutchIn 1 64 $ lsp 64 "lp_complete:9" * shape 0.2
@@ -100,11 +107,11 @@ do
 -- GN5
 do
   bpm 180
-  let mx = [0, 0, 0, 0]
+  let mx = [0, 1, 1, 1.2]
   d1 $ lsp 64 "lp_complete:9" * shape 0.2 * g (mx!!0)
-  d2 $ lsp 64 "lp_complete:11" * shape 0.2 * g (mx!!1)
-  d3 $ sl 4 $ stack [
-      -- struct "[t t?0.1] [t <~ t/4 t>] t [t t?0.25]" $
+  d2 $ shuffle 3 $ lsp 64 "lp_complete:11" * shape 0.3 * g (mx!!1)
+  d3 $ wm32 128 (# g 0) $ sl 4 $ stack [
+      struct "[t t?0.1] [t <~ t/4 t>] t [t t?0.25]" $
         s "os_boom*4" * shape 0.2 * distort 0.3,
       fa 4 $ s "~ osd_cymbal:1" # cut "-1"
     ] * g (mx!!2)
@@ -120,20 +127,25 @@ do
 -- GN6
 do
   bpm 180
-  let mx = [1, 0, 0, 1, 1]
+  let mx = [0, 1, 1, 1, 1]
   d1
     $ wm16 32 (superimpose $ const $ lsp 16 "fx_alarm:0" * g (mx!!0))
     $ lsp 32 "lp_complete:18" * g (mx!!0)
-  d2 $ iter 4 $ gap 2 $ lsp 8 "pievox" * shape 0.2 * g (mx!!1) -- + speed 0.009
-  d3 $ sl 0.5 $ s "k:7" * distort 0.6 * g (mx!!2)
+  d2
+    -- $ iter 4
+    -- $ gap 2
+    $ lsp 8 "pievox"
+      * shape 0.2 * g (mx!!1) -- + speed 0.009
+  d3 $ wm16 64 (# g 0) $ sl 0.5 $ s "k:7" * distort 0.6 * g (mx!!2)
   d4
     -- $ shuffle 2
+    $ wm32 128 (# g 0)
     $ stack [ -- drums
       lsp 16 "lp_clap:0" * shape 0.2,
-      lsp 16 "lp_drum",
-      every 4 (fa 2)
-        $ wm16 64 (# g 0)
-        $ s "[[k ~!2 s] [k, s] k [k k/2]]/4" * distort 0.3
+      lsp 16 "lp_drum"
+      -- every 4 (fa 2)
+      --   $ wm16 64 (# g 0)
+      --   $ s "[[k ~!2 s] [k, s] k [k k/2]]/4" * distort 0.3
     ] * g (mx!!3)
   d5 $ lsp 16 "lp_synth:26" * shape 0.3 * g (mx!!4) -- lead
 
@@ -145,17 +157,27 @@ do
   xfadeIn 5 64 $ silence
 
 -- GN7
-  do
-    bpm 180
-    let mx = [0, 0, 1, 1, 1]
-    d1 $ lsp 16 "lp_synth___something:11" * shape 0.2 * g (mx!!0)
-    d2
-      -- $ wm32 64 (superimpose $ const $ lsp 32 "fx_riser" * shape 0.4 * g (mx!!1))
-      $ lsp 32 "pievox:2" * shape 0.8 * distort 0.4 * hpf 300 * g (mx!!1)
-    d3 $ wm16 128 (# g 0) $ stack [
-        sl 4 $ struct "[t t/4] [t t/3] t <t t*2 t>" $ s "k" * distort 0.4 # cut "-1", -- * shape 0.2,
-        sl 4 $ (1 <~) $ s "s:4/2" * rvb 0.3
-        -- s "hh*2" # pan (range 0 1 $ sine) * shape 0.4
-      ] * g (mx!!2)
-    d4 $ lsp 16 "lp_synth___something:17" * shape 0.4 * g (mx!!3)
-    d5 $ shuffle 2 $ lsp 8 "lp_synth___something:28" * shape 0.6 * g (mx!!4) + speed 0.005
+do
+  bpm 180
+  let mx = [0, 1.2, 1, 0, 1]
+  d1 $ lsp 16 "lp_synth___something:11" * shape 0.2 * g (mx!!0)
+  d2
+    -- $ wm32 64 (superimpose $ const $ lsp 32 "fx_riser" * shape 0.4 * g (mx!!1))
+    $ lsp 16 "pievox:2" * shape 0.4 * distort 0.4 * hpf 300 * g (mx!!1)
+  d3 $ wm16 128 (# g 0) $ stack [
+      sl 4 $ struct "[t t/4] [t t/3] t <t t*2 t>" $ s "k" * distort 0.7 # cut "-1", -- * shape 0.2,
+      sl 4 $ (1 <~) $ s "s:4/2" * rvb 0.3,
+      s "hh*2" # pan (range 0 1 $ sine) * shape 0.4
+    ] * g (mx!!2)
+  d4 $ lsp 16 "lp_synth___something:17" * shape 0.4 * g (mx!!3)
+  d5
+    $ shuffle 2
+    $ lsp 8 "lp_synth___something:28" * shape 0.3 * g (mx!!4)
+      + speed 0.005
+
+do
+  xfadeIn 1 64 $ silence
+  xfadeIn 2 64 $ silence
+  xfadeIn 3 64 $ silence
+  xfadeIn 4 64 $ silence
+  xfadeIn 5 64 $ silence
