@@ -69,6 +69,7 @@ resetCycles
 
 d1
   $ sl 4
+  -- $ struct "[t ~!2 t] [~!2 t ~] t*2 <~ t*2>"
   $ s "acidOto3092"
     +| n "[0 ~!2 0] [~!2 0 ~] 0*2 <~ 0*2>"
     |+ n "<d3'maj7 e3'min'5 g3'maj7 a3'min7>"
@@ -80,7 +81,6 @@ d1
     -- |+ pF "filterRange" (segment 4 $ range 4 8 $ sl 8 $ sine)
     |* shape 0.2
     |* g 1
-
 
 d2
   -- $ whenmod 8 (8 - 4) (* g 0)

@@ -61,7 +61,7 @@ let modIndex = pF "modIndex"
 
 -- Helpers
 let bpm i = setcps (i / 60)
-let drop sampleName = rev $ striate' 64 (1/32) $ s sampleName # cut "-1"
+let drop sampleName = rev $ striate' 32 (1/16) $ s sampleName # cut "-1"
 let drop' sampleName striateL striateC = rev $ striate' striateL striateC $ s sampleName # cut "-1"
 let rise riseLength sampleName = const $ loopAt riseLength $ rev $ striate' 64 (1/32) $ sampleName # cut "-1"
 let g = gain
@@ -77,6 +77,14 @@ let mod' a b = whenmod a (a - b)
 let mu = (# gain 0)
 let si = superimpose
 let sus = sustain
+
+let lsp t n = (loopAt t $ striate 32 $ s n)
+let wm8 t = whenmod t (t - 8)
+let wm16 t = whenmod t (t - 16)
+let wm32 t = whenmod t (t - 32)
+let wm64 t = whenmod t (t - 64)
+let wm128 t = whenmod t (t - 128)
+let rvb a = room a # size a
 
 bpm 120
 
