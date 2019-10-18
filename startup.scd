@@ -2,8 +2,8 @@
 // ServerOptions.inDevices.do {|d| d.postln}
 
 (
-  s.options.inDevice = "Scarlett 2i4 USB";
-  s.options.outDevice = "Scarlett 2i4 USB";
+  // s.options.inDevice = "Scarlett 2i4 USB";
+  // s.options.outDevice = "Scarlett 2i4 USB";
   s.options.sampleRate = 44100;
   s.options.blockSize = 128;
   s.options.hardwareBufferSize = 128;
