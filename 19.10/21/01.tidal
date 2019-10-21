@@ -1,0 +1,11 @@
+bpm 144
+
+d1 $ jux (rev . (0.25 <~)) $ s "soshats" # pitch1 1200 # voice 1 # sustain 0.2 -- # n "b7"
+
+d2 $ s "sossnare" -- # resonance 0.6 # note "e6" # voice 0.4 # sustain 1 # semitone 0.45 # pitch1 8000 -- * room 0.1
+
+d3 $ s "super808" -- # sustain "{0.8 1.2 0.5 0.7}%17" # voice "{0.2, 0.5..1}%17" -- 1.4
+
+d3 $ sl 8 $ s "soskick*8" # n "b2" # pitch1 0 # voice 8 -- # note "e2" # pitch1 "<0.1..10>" # voice "<0.1..10>"
+
+d4 $ s "sostoms" # note "e5" # voice 2.22 -- # note "e2" # pitch1 "<0.1..10>" # voice "<0.1..10>"

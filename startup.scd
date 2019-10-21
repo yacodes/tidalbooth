@@ -2,8 +2,8 @@
 // ServerOptions.inDevices.do {|d| d.postln}
 
 (
-  // s.options.inDevice = "Scarlett 2i4 USB";
-  // s.options.outDevice = "Scarlett 2i4 USB";
+  s.options.inDevice = "Scarlett 2i4 USB";
+  s.options.outDevice = "Scarlett 2i4 USB";
   s.options.sampleRate = 44100;
   s.options.blockSize = 128;
   s.options.hardwareBufferSize = 128;
@@ -18,12 +18,11 @@
     ~dirt = SuperDirt(2, s);
     ~dirt.loadSoundFiles(PathName.new("./samples").fullPath ++ "/*");
 
-    // Synths
     // Drums
     // "./synths/electrokick.scd".load;
-    // "./synths/soskick.scd".load;
-    // "./synths/soshats.scd".load;
-    // "./synths/sossnare.scd".load;
+    // "./synths/drums/kick/soskick.scd".load;
+    // "./synths/drums/hh/soshats.scd".load;
+    // "./synths/drums/snare/sossnare.scd".load;
     // "./synths/sostoms.scd".load;
 
     // Bass
