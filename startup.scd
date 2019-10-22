@@ -5,9 +5,9 @@
   s.options.inDevice = "Scarlett 2i4 USB";
   s.options.outDevice = "Scarlett 2i4 USB";
   s.options.sampleRate = 44100;
-  s.options.blockSize = 128;
-  s.options.hardwareBufferSize = 128;
-  s.options.numBuffers = 1024 * 256;
+  s.options.blockSize = 512;
+  s.options.hardwareBufferSize = 512;
+  s.options.numBuffers = 1024 * 512;
   s.options.memSize = 8192 * 16;
   s.options.maxNodes = 1024 * 32;
   s.options.numOutputBusChannels = 64;
