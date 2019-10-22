@@ -1,10 +1,26 @@
-d1 $ struct "t/2" $ s "cs80" # attack 0.5 # n "e3" # sustain 1 # accelerate 1 # lfo 0 -- # speed 0 # attack 0.1
+do
+  bpm 180
+  d1
+    $ every 4 (fa 2)
+    $ s "[gabberkick, ek]"
+      <| n "e2"
+      -- # sustain 1
+      -- # sustain "{0.5 1 1.5 2}%3"
+      * shape 0.3
+      -- |* djf (range 0.2 0.8 $ sl 8 $ perlinWith cosine)
+      -- |* pitch1 (range 100 8000 $ sl 64 $ perlinWith sine)
 
 d1
-  $ s "cymbal808*4" * n "e5 f5" * shape 0.5
+  $ s "super808"
+    <| (sl 4 $ n "[0 ~!2 0] [~ 0] [0 ~ 0/3 ~] [0 _ ~ 0]")
+      # sustain 0.5
+      -- |> pitch1 (range 0 4 $ sl 32 $ perlinWith cosine)
+      |> voice (range 1 2 $ sl 32 $ perlinWith sine)
+      |> lpf 400
+      |> pF "nl" 0.01
 
-d2 $ s "super808"
 
-d1 $ s "sosbell*2" # n (choose [1..20]) # sustain 1
-
-d2 $ s "super808" * shape 0.75 * sustain 1
+d2 $ chunk 4 (|- note 5) $ jux rev $
+  arp "<pinkyup down thumbup up>" $ n "<c'maj'4 e4'min'8 f4'maj'4>"
+  # sound "supermandolin"
+  # sustain 2 # room 0.3 # sz 0.9

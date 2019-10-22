@@ -10,7 +10,7 @@ SynthDef(\acidOto3091, {
 	// filterRange is in octaves
 	lagTime = 0.12, filterRange = 8, width = 0.51, rq = 0.3;
 
-	var ampEnv, filterEnv, snd;
+	var ampEnv, filterEnv, signal;
 
 	freq = Lag.kr(freq, lagTime);
 
@@ -28,13 +28,13 @@ SynthDef(\acidOto3091, {
     offset: 1
   ));
 
-	snd = LFPulse.ar(freq: freq, width: width).range(-1, 1);
+	signal = LFPulse.ar(freq: freq, width: width).range(-1, 1);
 
-	snd = RLPF.ar(snd, freq * filterEnv, rq);
+	signal = RLPF.ar(signal, freq * filterEnv, rq);
 
-	snd = snd * ampEnv;
+	signal = signal;
 
-	Out.ar(out, Pan2.ar(snd, pan));
+  OffsetOut.ar(out, DirtPan.ar(signal, ~dirt.numChannels, pan, ampEnv));
 },
 metadata: (
 	credit: "08091500Acid309 by otophilia",

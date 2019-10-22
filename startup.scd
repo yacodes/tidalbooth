@@ -19,13 +19,18 @@
     ~dirt.loadSoundFiles(PathName.new("./samples").fullPath ++ "/*");
 
     // Drums
-    // "./synths/electrokick.scd".load;
+    "./synths/drums/kick/ek.scd".load;
+    "./synths/drums/kick/gabberkick.scd".load;
     // "./synths/drums/kick/soskick.scd".load;
     // "./synths/drums/hh/soshats.scd".load;
     // "./synths/drums/snare/sossnare.scd".load;
     "./synths/drums/cymbal/cymbal808.scd".load;
     "./synths/drums/bells/sosbell.scd".load;
     "./synths/drums/perc/kalimba.scd".load;
+    "./synths/drums/kick/k1.scd".load;
+    "./synths/drums/kick/k2.scd".load;
+    "./synths/drums/kick/k3.scd".load;
+    "./synths/drums/kick/kick808.scd".load;
 
     // Bass
     "./synths/bass/moogbass.scd".load;
@@ -35,7 +40,9 @@
     "./synths/bass/acidOto3091.scd".load;
     "./synths/bass/acidOto3092.scd".load;
 
+    // Leads
     "./synths/leads/cs80.scd".load;
+    "./synths/leads/fm7.scd".load;
 
     // MIDI Initializations
     // MIDIClient.init;

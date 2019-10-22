@@ -1,7 +1,7 @@
 SynthDef(\fm7, {
   arg out = 0, pan = 0, freq = 220, sustain = 0.5, lfo = 5;
 
-  var ctls, mods, chans,signal,gate,
+  var ctls, mods, chans,signal,
 
   coars1= 1 ,fine_1= 1.995 ,detun1= 39 ,noteBlok1= 0 ,
   coars2= 0.5 ,fine_2= 1.0 ,detun2= 14 ,noteBlok2= 1 ,
@@ -12,21 +12,20 @@ SynthDef(\fm7, {
   envAmp1,envAmp2,envAmp3,envAmp4,envAmp5,envAmp6,env1,
   envEnv1,envEnv2,envEnv3,envEnv4,envEnv5,envEnv6,envAmp,envEnv,lfoSig;
 
-  gate = Trig1.kr(1, sustain);
-  envEnv1 = Env.new([0.0002 ,1.0 ,1.0 ,1.0 ,0.0002], [0.0309 ,0.0 ,0.0 ,3.2796], [3.0 ,-3.0 ,-3.0 ,-3.0],3);
-  envAmp1 = EnvGen.kr(envEnv1,gate,doneAction: 0);
-  envEnv2 = Env.new([0.0001 ,0.2296 ,0.3535 ,0.2296 ,0.0001], [0.0836 ,0.185 ,3.9328 ,5.4112], [3.0 ,3.0 ,-3.0 ,-3.0],3);
-  envAmp2 = EnvGen.kr(envEnv2,gate,doneAction: 0);
-  envEnv3 = Env.new([0.0002 ,1.0 ,0.8414 ,0.6494 ,0.0002], [0.0348 ,0.0632 ,0.4163 ,2.8341], [3.0 ,-3.0 ,-3.0 ,-3.0],3);
-  envAmp3 = EnvGen.kr(envEnv3,gate,doneAction: 0);
-  envEnv4 = Env.new([0.0 ,0.1059 ,0.2304 ,0.1496 ,0.0], [0.008 ,0.2794 ,1.8094 ,3.7047], [3.0 ,3.0 ,-3.0 ,-3.0],3);
-  envAmp4 = EnvGen.kr(envEnv4,gate,doneAction: 0);
-  envEnv5 = Env.new([0.0 ,0.0244 ,0.0531 ,0.0376 ,0.0], [0.0045 ,0.1397 ,1.8094 ,2.7788], [3.0 ,3.0 ,-3.0 ,-3.0],3);
-  envAmp5 = EnvGen.kr(envEnv5,gate,doneAction: 0);
-  envEnv6 = Env.new([0.0002 ,0.4597 ,1.0 ,0.6494 ,0.0002], [0.0136 ,0.6447 ,1.8094 ,9.5991], [3.0 ,3.0 ,-3.0 ,-3.0],3);
-  envAmp6 = EnvGen.kr(envEnv6,gate,doneAction: 0);
-  envEnv = Env.new([0,1,1,0], [0.0001,sustain,0.5],[0,0,0]);
-  envAmp = EnvGen.kr(envEnv,gate,doneAction:2);
+  envEnv1 = Env.new([0.002 ,1.0 ,1.0 ,1.0 ,0.002], [0.0309 ,0.0 ,0.0 ,3.2796], [3.0 ,-3.0 ,-3.0 ,-3.0],3);
+  envAmp1 = EnvGen.kr(envEnv1,doneAction: 0);
+  envEnv2 = Env.new([0.001 ,0.2296 ,0.3535 ,0.2296 ,0.001], [0.0836 ,0.185 ,3.9328 ,5.4112], [3.0 ,3.0 ,-3.0 ,-3.0],3);
+  envAmp2 = EnvGen.kr(envEnv2,doneAction: 0);
+  envEnv3 = Env.new([0.002 ,1.0 ,0.8414 ,0.6494 ,0.002], [0.0348 ,0.0632 ,0.4163 ,2.8341], [3.0 ,-3.0 ,-3.0 ,-3.0],3);
+  envAmp3 = EnvGen.kr(envEnv3,doneAction: 0);
+  envEnv4 = Env.new([0.002 ,0.1059 ,0.2304 ,0.1496 ,0.002], [0.008 ,0.2794 ,1.8094 ,3.7047], [3.0 ,3.0 ,-3.0 ,-3.0],3);
+  envAmp4 = EnvGen.kr(envEnv4,doneAction: 0);
+  envEnv5 = Env.new([0.002 ,0.0244 ,0.0531 ,0.0376 ,0.002], [0.0045 ,0.1397 ,1.8094 ,2.7788], [3.0 ,3.0 ,-3.0 ,-3.0],3);
+  envAmp5 = EnvGen.kr(envEnv5,doneAction: 0);
+  envEnv6 = Env.new([0.002 ,0.4597 ,1.0 ,0.6494 ,0.002], [0.0136 ,0.6447 ,1.8094 ,9.5991], [3.0 ,3.0 ,-3.0 ,-3.0],3);
+  envAmp6 = EnvGen.kr(envEnv6,doneAction: 0);
+  envEnv = Env.new([0.01,1,1,0], [0.01,sustain,0.5]);
+  envAmp = EnvGen.kr(envEnv,doneAction:2);
   lfoSig = LFTri.kr(lfo);
   lfoSig = LinLin.ar(lfo, 0, 1, 0.neg.midiratio  , 0.midiratio);
 
