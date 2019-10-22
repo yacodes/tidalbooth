@@ -1,58 +1,3 @@
-// @TODO
-(
-SynthDef("cs80lead_mh", {
-	arg freq=880, amp=0.5, att=0.75, decay=0.5, sus=0.8, rel=1.0, fatt=0.75, fdecay=0.5, fsus=0.8, frel=1.0,
-		cutoff=200, pan=0, dtune=0.002, vibrate=4, vibdepth=0.015, gate=1.0, ratio=1,out=0,cbus=1;
-	var env,fenv,vib,ffreq,sig;
-	cutoff=In.kr(cbus);
-	env=EnvGen.kr(Env.adsr(att,decay,sus,rel),gate,levelScale:1,doneAction:2);
-	fenv=EnvGen.kr(Env.adsr(fatt,fdecay,fsus,frel,curve:2),gate,levelScale:1,doneAction:2);
-	vib=SinOsc.kr(vibrate).range(-1*vibdepth,vibdepth)+1;
-	freq=Line.kr(freq,freq*ratio,5);
-	freq=freq*vib;
-	sig=Mix.ar(Saw.ar([freq,freq*(1+dtune)],mul:env*amp));
-	// keep this below nyquist!!
-	ffreq=max(fenv*freq*12,cutoff)+100;
-	sig=LPF.ar(sig,ffreq);
-	Out.ar(out, Pan2.ar(sig,pan) );
-},
-metadata: (
-	credit: "Vangelis/Blade Runner lead sound, based on tutorial by meastempo @ http://www.youtube.com/watch?v=Fne0oIEv-WI",
-	tags: [\lead, \modulation, \analog, \cs80, \vangelis, \bladerunner]
-	)
-).add
-)
-Synth(\cs80lead_mh)
-
-(
-SynthDef(\cymbal808_ryan, {
-	arg out=0, baseFreq = 300, time = 250, amp=0.1;
-	//var freqs = [baseFreq, baseFreq*1.3420, baseFreq*1.2312, baseFreq*1.6532, baseFreq*1.9523, baseFreq*2.1523];
-	//var freqs = [78.6, 140.44, 123.87, 219.4, 787.5, 531.3];
-	//var freqs = [205.35, 254.29, 294.03, 304.41, 369.64, 522.71];
-	var freqs = [205.35, 304.41, 369.64, 522.71, 540.54, 812.21];
-	var signal, pulseEnv;
-
-	pulseEnv = EnvGen.ar(Env.new([1.0, 0.6], [time], [-0.5]), timeScale:(1/1000));
-	signal = Mix.new(LFPulse.ar(freqs * 4.09));
-	signal = (BinaryOpUGen('==', signal, 6.0) * 0.6) + (BinaryOpUGen('==', signal, 2.0) * 0.2) + (BinaryOpUGen('==', signal, 1.0) * 0.9); // XOR
- 	signal = (signal * pulseEnv) + (Mix.new(LFPulse.ar(freqs, width:0.55)) * 0.9);
-	signal = RLPF.ar(signal, 7000, 0.6);
- 	signal = RHPF.ar(signal, 6800, 1.5);
-	signal = RHPF.ar(signal, 6800, 1.5);
-	signal = RHPF.ar(signal, 1200, 1.5);
-	signal = signal + FreeVerb.ar(signal);
-	signal = signal * EnvGen.ar(Env.new([0, 1, 0.4, 0, 0], [2, time, 50, 500], [0, -0.5, 0, -50]), timeScale:(1/1000), doneAction:2);
-	signal = [signal, DelayN.ar(signal, 0.005, 0.005)];
-	OffsetOut.ar(out, signal*4*amp);
-},
-metadata: (
-	credit: "Published on sc-users 2007-08-25 by Ryan Brown",
-	tags: ['808', \hihat, \percussion, \cymbal]
-	)
-).add
-)
-
 /*
 Based on the example at
 http://www.mcld.co.uk/cymbalsynthesis/
@@ -87,6 +32,8 @@ metadata: (
 )
 Synth(\cymbalic_mcld)
 
+s.boot
+
 (
 SynthDef(\oneclap_thor, {arg out=0, t_trig=1, amp=0.1, filterfreq=100, rq=0.1, pan=0;
 var env, signal, attack,Ê noise, hpf1, hpf2;
@@ -110,39 +57,6 @@ metadata: (
 ).add
 )
 Synth(\oneclap_thor)
-
-(
-SynthDef(\sos_bell, { |freq=440, out=0, amp=0.1, pan=0|
-var son, strike, hum;
-
-// Stretched harmonic series
-son = SinOsc.ar(#[2, 3, 4.1, 5.43, 6.8, 8.21] * freq, 0,
-		 #[1, 0.9, 0.8, 0.7, 0.6, 0.5] * 0.1);
-
-son = son * EnvGen.ar(Env.new([0,1,0.3, 0.2, 0], [0, 0.3, 0.3, 0.3]));
-
-// A bit of FM adds 'warble'
-son = son * LFTri.ar({Rand(1.0, 1.8)}.dup(6), 1, 0.3, 0.7);
-
-// Mix down the partials in the main sound
-son = son.mean;
-
-strike = SinOsc.ar(LFNoise1.ar(freq * 36, 100, freq*8), 1, 0.1) *
-			EnvGen.ar(Env.new([0,1,0.2, 0.1, 0], [0, 0.01, 0, 0.04]));
-
-hum = SinOsc.ar([freq*1.01, freq*0.47], 0, EnvGen.ar(Env.new([0,0.05,0.05,0], [0.5,0.5,1]), doneAction:2)).mean;
-
-Out.ar(out, Pan2.ar((son + strike + hum) * 4 * amp, pan));
-
-
-},
-metadata: (
-	credit: "by dan stowell. based on a sound-on-sound 'synth secrets' tutorial",
-	tags: [\bell, \percussion, \pitched, \additive]
-	)
-).add
-)
-Synth(\sos_bell)
 
 (
 SynthDef(\kalimba, {
@@ -531,3 +445,47 @@ metadata: (
 )
 Synth(\rissetBell, [\freq, 220, \rel, 8])
 
+(
+SynthDef(\kick3, {
+    var snd;
+    snd = DC.ar(0);
+    snd = snd + (SinOsc.ar(XLine.ar(1500, 800, 0.01)) * Env.perc(0.0005, 0.01, curve: \lin).ar);
+    snd = snd + (BPF.ar(Impulse.ar(0) * SampleRate.ir / 48000, 6100, 1.0) * 3.dbamp);
+    snd = snd + (BPF.ar(Hasher.ar(Sweep.ar), 300, 0.9) * Env.perc(0.001, 0.02).ar);
+    snd = snd + (SinOsc.ar(XLine.ar(472, 60, 0.045)) * Env.perc(0.0001, 0.3, curve: \lin).delay(0.005).ar(2));
+    snd = snd.tanh;
+    Out.ar(\out.kr(0), Pan2.ar(snd, \pan.kr(0), \amp.kr(0.1)));
+}).add;
+)
+
+Synth(\kick3, [amp: 0.4]);
+
+
+(
+SynthDef(\kick2, {
+    var snd;
+    snd = DC.ar(0);
+    snd = snd + (HPF.ar(Hasher.ar(Sweep.ar), 1320) * Env.perc(0.003, 0.03).ar * 0.5);
+    snd = snd + (SinOsc.ar(XLine.ar(750, 161, 0.02)) * Env.perc(0.0005, 0.02).ar);
+    snd = snd + (SinOsc.ar(XLine.ar(167, 52, 0.04)) * Env.perc(0.0005, 0.3).ar(2));
+    snd = snd.tanh;
+    Out.ar(\out.kr(0), Pan2.ar(snd, \pan.kr(0), \amp.kr(0.1)));
+}).add;
+)
+
+Synth(\kick2, [amp: 0.4]);
+
+
+(
+SynthDef(\kick1, {
+    var snd;
+    snd = DC.ar(0);
+    snd = snd + (SinOsc.ar(XLine.ar(800, 400, 0.01)) * Env.perc(0.0005, 0.01).ar);
+    snd = snd + (BPF.ar(Hasher.ar(Sweep.ar), XLine.ar(800, 100, 0.01), 0.6) * Env.perc(0.001, 0.02).delay(0.001).ar);
+    snd = snd + (SinOsc.ar(XLine.ar(172, 50, 0.01)) * Env.perc(0.0001, 0.3, 1, \lin).delay(0.005).ar(2));
+    snd = snd.tanh;
+    Out.ar(\out.kr(0), Pan2.ar(snd, \pan.kr(0), \amp.kr(0.1)));
+}).add;
+)
+
+Synth(\kick1, [amp: 0.4]);

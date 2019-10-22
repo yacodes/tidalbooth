@@ -1,0 +1,6 @@
+d1 $ struct "t/2" $ s "cs80" # attack 0.5 # n "e3" # sustain 1 # accelerate 1 # lfo 0 -- # speed 0 # attack 0.1
+
+d1
+  $ s "cymbal808*4" * n "e5 f5" * shape 0.5
+
+d2 $ s "super808"

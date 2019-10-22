@@ -23,7 +23,8 @@
     // "./synths/drums/kick/soskick.scd".load;
     // "./synths/drums/hh/soshats.scd".load;
     // "./synths/drums/snare/sossnare.scd".load;
-    // "./synths/sostoms.scd".load;
+    "./synths/drums/cymbal/cymbal808.scd".load;
+    "./synths/drums/bells/sosbell.scd".load;
 
     // Bass
     "./synths/bass/moogbass.scd".load;
@@ -32,6 +33,8 @@
     "./synths/bass/bassWarsaw.scd".load;
     "./synths/bass/acidOto3091.scd".load;
     "./synths/bass/acidOto3092.scd".load;
+
+    "./synths/leads/cs80.scd".load;
 
     // MIDI Initializations
     // MIDIClient.init;
