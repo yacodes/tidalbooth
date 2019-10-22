@@ -25,6 +25,7 @@
     // "./synths/drums/snare/sossnare.scd".load;
     "./synths/drums/cymbal/cymbal808.scd".load;
     "./synths/drums/bells/sosbell.scd".load;
+    "./synths/drums/perc/kalimba.scd".load;
 
     // Bass
     "./synths/bass/moogbass.scd".load;
