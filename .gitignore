@@ -1,3 +1,4 @@
 *.wav
 node_modules
 samples
+_samples
