@@ -4,6 +4,8 @@
 (
   // s.options.inDevice = "Scarlett 2i4 USB";
   // s.options.outDevice = "Scarlett 2i4 USB";
+  s.options.inDevice = "Built-in Microph";
+  s.options.outDevice = "Built-in Output";
   s.options.sampleRate = 44100;
   s.options.blockSize = 512;
   s.options.hardwareBufferSize = 512;
