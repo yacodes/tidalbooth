@@ -1,0 +1,9 @@
+do
+  bpm 140
+  d1 $ stack [
+      sl 2 $ s "[dk <~ dk/4> <~ dk?0.25> [dk?0.9]] ~" # n 8 * shape 0.4,
+      sl 2 $ s "~ ds:1",
+      sl 8 $ s "timpact" * g 0.9 * shape 0.2 # n (irand 8) # cut "-1"
+    ]
+  d2 $ lsp 8 "8dtops:1" * g 1.4 * shape 0.4
+  d3 $ every 4 (* g 0) $ sl 4 $ s "dbsyn*8" # n (irand 8) * g 0.9

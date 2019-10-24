@@ -1,0 +1,14 @@
+do
+  bpm 176
+  let md = [0]
+  let mx = [0, 0]
+  d1 $ sl 4 $ stack [
+      s "t808:2" * shape 0.4 * distort 0.1,
+      struct "t ~ [~!2 t ~] ~" $ s "dk:1",
+      struct "[~!2 t ~] ~ t ~" $ s "dk",
+      shuffle 2 $ struct "~ <~ t> ~ <~ t? t*2?>" $ s "ds:1" # end 0.1,
+      scramble 2 $ struct "~ [t ~!2 t] [~ t ~!2] t" $ s "ds",
+      struct "t*8" $ s "dbhh" # n "[0 1]*4",
+      struct "[~ t]!2" $ s "hohh" # n 1
+    ]
+  d2 $ lsp 32 "8tarp:2" -- # lpf 2000

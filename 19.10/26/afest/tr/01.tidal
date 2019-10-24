@@ -1,0 +1,15 @@
+do
+  bpm 160
+  d1 $ stack [
+      s "f808",
+      sl 4 $ struct "t [~!2 t ~] <~ t ~ [[t ~]!2]> ~" $ s "tk:5",
+      sl 4 $ struct "<~!3 [~!2 t ~]> ~ t <~ [~!2 t ~]>" $ s "hclap:2",
+      sl 4 $ someCyclesBy 0.4 ((fa (repeatCycles 2 $ choose[1..3])) . (# (speed $ range 1.5 0.5 $ sl 4 $ isaw))) $ s "thh:1*8" * g 1.2,
+      sl 8 $ s "~ hcrash:8" # n (irand 8)
+    ]
+  d2
+    $ jux rev
+    -- $ gap 4
+    $ lsp 32 "8tsyn:4" -- |- speed (range 0 0.003 $ sl 8 $ sine)
+
+once $ s "timpact:2"

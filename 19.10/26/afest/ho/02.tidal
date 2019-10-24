@@ -1,0 +1,4 @@
+do
+  bpm 128
+  let md = [1]
+  let mx = [1, 1]

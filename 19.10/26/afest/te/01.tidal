@@ -1,0 +1,9 @@
+do
+  bpm 134
+  d1 $ stack [
+      every 4 (fa (choose[1, 2])) $ s "hk" # n 3 * g 1.1,
+      s "hhh:4*4" |* g (range 0.9 1.2 $ sl 2 $ saw),
+      s "~!2 tohh:5 ~" * g 1.1,
+      every 4 (fa (choose[1, 2])) $ s "tsyn:4*4" # cut "-1" |* g (range 0.7 0.9 $ sl 16 $ perlinWith (isaw + 0.25)),
+      sl 2 $ s "~!3 hohh:5"
+    ]

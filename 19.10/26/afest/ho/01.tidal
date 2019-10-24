@@ -1,0 +1,21 @@
+do
+  bpm 128
+  let md = [1]
+  let mx = [1, 1]
+  d1
+    $ wm16 128 (if' (md!!0) (* g 0))
+    $ stack [
+      every 8 (fa (choose [1, 2])) $
+        s "hk:4" * g 1.2,
+      sl 2 $ s "~ ts" # n 1,
+      s "~!2 hohh ~",
+      someCyclesBy 0.2 (fa 2) $
+        s "hhh*4"
+          |* g (range 0.9 1.05 $ rand)
+    ] * g (mx!!0)
+  d2
+    $ shuffle 4
+    $ every 128 (if' (md!!0) (over $ s "timpact:1"))
+    $ wm16 128 (if' (md!!0) (over $ lsp 16 "triser:7"))
+    $ lsp 32 "8hsyn"
+      * g (mx!!1)

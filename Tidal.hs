@@ -85,6 +85,8 @@ let wm32 t = whenmod t (t - 32)
 let wm64 t = whenmod t (t - 64)
 let wm128 t = whenmod t (t - 128)
 let rvb a = room a # size a
+let over fn = superimpose $ const $ fn
+let if' sw func = if sw == 0 then id else func
 
 bpm 120
 
