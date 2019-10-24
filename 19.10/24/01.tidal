@@ -1,0 +1,27 @@
+bpm 128
+
+d1
+  $ sl 4
+  $ spin 2
+  $ stut "<2..8>" (1/16) 0.1
+  $ s "f808(3, 7, <0 0 1 0 1 1>)"
+
+d2
+  $ sl 4
+  -- $ wm32 64 (# g 0)
+  $ stut "<6..12>" (1/16) 0.4
+  -- $ someCycles (fa (choose [1, 2, 4, 8]))
+  $ struct "~ t ~ t"
+  $ s "fs"
+    * g 0.8
+    * speed (range 0.25 1 $ sl 8 $ perlinWith rand)
+    * pan (range 0 1 $ sl 32 $ rand)
+
+d3 $ s "soskick"
+  # n "c3"
+  # sustain 1
+  * shape 0.2
+  * g 1.1
+  # pitch1 0
+  # voice 0
+  # pF "nl" 0

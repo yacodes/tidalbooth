@@ -1,0 +1,95 @@
+-- https://youtu.be/zOVSOvsTXto
+
+-- Hip Hop
+do
+  bpm 100
+  d1 $ stack [
+      sl 4 $ s "dk [~!3 dk] [[dk ~]!2] ~" # n 1,
+      sl 4 $ s "~ ds ~ [ds ~ ds/8 ds/4]" * g 1 * n 3,
+      s "dbhh hohh" |< g (range 0.9 1.1 $ sl 8 $ perlinWith sine)
+    ] |< nudge (range 0 0.04 $ sl 8 $ rand) -- humanization
+
+-- Reggaeton/Dancehall
+do
+  bpm 100
+  d1 $ stack [
+      s "hk" # n 3,
+      sl 2 $ struct "[t?0.5 t/2?0.2 ~ t] [~!2 t ~]" $ s "ts" # n 2,
+      s "hhh*4" # n 1 # g (range 0.9 1.1 $ perlinWith saw) # pan 0.35
+    ]
+
+-- House
+do
+  bpm 128
+  d1 $ stack [
+      every 8 (fa (choose [1, 2])) $ s "hk:4" * g 1.2,
+      sl 2 $ s "~ ts" # n 1,
+      s "~!2 hohh ~",
+      someCyclesBy 0.2 (fa 2) $ s "hhh*4" |* g (range 0.9 1.05 $ rand)
+    ]
+  d2
+    $ sl 4
+    $ s "hsyn:6"
+      <| up ("0 [~ 0] 0 <~ [3*4?]>" + "<0!6 5!2>")
+      * g 1.1
+      * room 0.15 * sz 0.8
+      * shape 0.5
+
+-- Techno
+do
+  bpm 134
+  d1 $ stack [
+      every 4 (fa (choose[1, 2])) $ s "hk" # n 3 * g 1.1,
+      s "hhh:4*4" |* g (range 0.9 1.2 $ sl 2 $ saw),
+      s "~!2 tohh:5 ~" * g 1.1,
+      every 4 (fa (choose[1, 2])) $ s "tsyn:4*4" # cut "-1" |* g (range 0.7 0.9 $ sl 16 $ perlinWith (isaw + 0.25)),
+      sl 2 $ s "~!3 hohh:5"
+    ]
+
+-- Future bass
+-- @TODO
+
+
+-- R&B
+-- @TODO
+
+-- Dubstep
+do
+  bpm 140
+  d1 $ stack [
+      sl 2 $ s "[dk <~ dk/4> <~ dk?0.25> [dk?0.9]] ~" # n 8 * shape 0.4,
+      sl 2 $ s "~ ds:1",
+      sl 8 $ s "timpact" * g 0.9 * shape 0.2 # n (irand 8)
+    ]
+  d2 $ lsp 8 "8dtops:1" * g 1.4 * shape 0.4
+  d3 $ every 4 (* g 0) $ sl 4 $ s "dbsyn*8" # n (irand 8) * g 0.9
+
+-- Trap
+do
+  bpm 160
+  d1 $ stack [
+      s "f808/8",
+      sl 4 $ struct "t [~!2 t ~] <~ t ~ [[t ~]!2]> ~" $ s "tk:5",
+      sl 4 $ struct "<~!3 [~!2 t ~]> ~ t <~ [~!2 t ~]>" $ s "hclap:2",
+      sl 4 $ someCyclesBy 0.4 ((fa (repeatCycles 2 $ choose[1..3])) . (# (speed $ range 1.5 0.5 $ sl 4 $ isaw))) $ s "thh:1*8" * g 1.1,
+      sl 8 $ s "~ hcrash:8"
+    ]
+
+-- Drum'n'bass
+do
+  bpm 176
+  d1 $ sl 4 $ stack [
+      sl 2 $ s "t808" * shape 0.4 * distort 0.1,
+      struct "t ~ [~!2 t ~] ~" $ s "dk:1",
+      struct "[~!2 t ~] ~ t ~" $ s "dk",
+      struct "~ <~ t> ~ <~ t? t*2?>" $ s "ds:1" # end 0.1,
+      struct "~ [t ~!2 t] [~ t ~!2] t" $ s "ds",
+      struct "t*8" $ s "dbhh" # n "[0 1]*4",
+      struct "[~ t]!2" $ s "hohh" # n 1
+    ]
+
+-- Gabber
+-- @TODO
+
+-- Jungle
+-- @TODO

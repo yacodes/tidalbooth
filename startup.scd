@@ -2,8 +2,8 @@
 // ServerOptions.inDevices.do {|d| d.postln}
 
 (
-  s.options.inDevice = "Scarlett 2i4 USB";
-  s.options.outDevice = "Scarlett 2i4 USB";
+  // s.options.inDevice = "Scarlett 2i4 USB";
+  // s.options.outDevice = "Scarlett 2i4 USB";
   s.options.sampleRate = 44100;
   s.options.blockSize = 512;
   s.options.hardwareBufferSize = 512;
@@ -31,6 +31,8 @@
     "./synths/drums/kick/k2.scd".load;
     "./synths/drums/kick/k3.scd".load;
     "./synths/drums/kick/kick808.scd".load;
+    "./synths/drums/kick/kickOto309.scd".load;
+    "./synths/drums/kick/soskick.scd".load;
 
     // Bass
     "./synths/bass/moogbass.scd".load;
