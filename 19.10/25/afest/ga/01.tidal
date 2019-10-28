@@ -1,0 +1,22 @@
+do
+  bpm 180
+  let mx = [1, 1, 1, 1]
+  d1 -- back
+    $ wm16 128 (superimpose $ const $ lsp 16 "fx_riser:5")
+    $ (lsp 32 "lp_music:3" * g (mx!!0))
+      + speed 0.02
+  d2 -- build
+    $ shuffle 2
+    $ (lsp 64 "beat_build" * g (mx!!1))
+      * hpf 500
+      + speed 0.002
+  d3 -- drums
+    $ wm16 128 (* g 0)
+    $ sl 4 $ stack [
+      struct "[t <~ t?>] <t [t!2? ~!2]> t <t t*2>" $ s "osd_kick" * shape 0.2,
+      fa 2 $ sometimes (fa "<2 4>") $ (1 <~) $ struct "t*2" $ s "osd_clap:2" * shape 0.2 * rvb 0.2,
+      fa 2 $ struct "t(<2..4>, 4, <0..4>) [~ t(<0..3>, 3)] t*4? [~ t!3?]" $ s "osd_hat" * shape 0.2 * pan (range 0.2 0.8 $ perlinWith sine)
+    ] * g (mx!!2)
+  d4 -- fx
+    $ iter 2
+    $ (lsp 16 "lp_synth:6" * g (mx!!3))

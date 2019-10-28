@@ -1,0 +1,9 @@
+do
+  bpm 180
+  let mx = [0, 0, 0]
+  d1
+    $ stack [
+        degrade $ sl 4 $ s "t808!8 ~!2 t808!2 ~!4" # n 4 * shape 0.5 # cut "-1",
+        degrade $ sl 4 $ s "supernoise*8" # sus 0.1 # voice 1 # resonance (range 0 1 $ sl 8 $ sine),
+        lsp 16 "8htops:3" * g 1.6
+      ]

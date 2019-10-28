@@ -1,0 +1,28 @@
+do
+  bpm 176
+  let md = [0]
+  let mx = [1, 1, 1, 1.1]
+  d1
+    $ wm16 64 (if' (md!!0) (|* g 0))
+    $ sl 4
+    $ stack [
+      struct "t/2" $ s "tr808:2" * shape 0.4 * distort 0.1 # cut "-1",
+      struct "t ~ [~!2 t ~] ~" $ s "duk:1",
+      shuffle 2 $ struct "[~!2 t ~] ~ t ~" $ s "duk",
+      struct "~ <~ t> ~ <~ t? t*2?>" $ s "hs:4",
+      struct "~ [t ~!2 t] [~ t ~!2] t" $ s "hs" # n (irand 2),
+      struct "t*8" $ s "duhh" # n "[0 1]*4" |* g 1,
+      struct "[~ t]!2" $ s "hohh" # n 1 |* g 1
+    ] |* g (mx!!0)
+  d2
+    $ wm16 64 (if' (md!!0) (const $ lsp 16 "edmriser"))
+    $ iter 2
+    $ gap 4
+    $ (lsp 32 "8diasyn:3" # cut "-1")
+      |* g(mx!!1)
+  d3 $ lsp 16 "8dutops:1" * shape 0.4 |* g(mx!!2)
+  d4
+    $ wm16 64 (if' (md!!0) (|* g 0))
+    $ fa 2
+    $ shuffle 2
+    $ lsp 32 "8duchord:3" # cut "-1" |* g(mx!!3)

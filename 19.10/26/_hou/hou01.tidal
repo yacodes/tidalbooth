@@ -1,0 +1,34 @@
+do
+  bpm 128
+  let md = [1]
+  let mx = [1, 0, 1.2]
+  d1
+    $ wm16 128 (if' (md!!0) (* g 0))
+    $ stack [
+      every 8 (fa (choose [1, 2])) $
+        sl 4 $ struct "t t t [t t?]" $
+        s "hk:4" * g 1.2,
+      sl 2 $ s "~ trs" # n 1,
+      s "~!2 hohh ~" |* shape 0.2,
+      jux rev $
+      degradeBy 0.25 $
+      someCyclesBy 0.2 (fa 2) $
+        s "hhh*4"
+          |* g (range 0.9 1.05 $ rand)
+    ] * g (mx!!0)
+  d2
+    $ shuffle 8
+    -- $ iter 4
+    $ every 128 (if' (md!!0) (over $ s "trimpact:1"))
+    $ wm16 128 (if' (md!!0) (over $ lsp 16 "trriser:7"))
+    $ lsp 32 "8diasyn"
+      * g (mx!!1)
+      * shape 0.3
+      |+ speed (range 0.001 0.003 $ sl 8 $ perlinWith sine)
+  d3
+    $ degrade
+    $ iter 4
+    $ fa 8
+    $ lsp 64 "8edmarp:2"
+      # cut "-1"
+      |* g (mx!!2)

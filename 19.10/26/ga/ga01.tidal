@@ -1,0 +1,34 @@
+do
+  xfadeIn 1 64 $ silence
+  xfadeIn 2 64 $ silence
+  xfadeIn 3 64 $ silence
+  xfadeIn 4 64 $ silence
+  xfadeIn 5 64 $ silence
+
+do
+  bpm 180
+  let mx = [1.2, 1, 1, 1]
+  d1 -- back
+    -- $ wm16 128 (over $ lsp 16 "gariser:5")
+    $ shuffle 2
+    $ (lsp 32 "8gamusic:3" |* g (mx!!0))
+      -- + speed 0.02
+  d2 -- build
+    $ iter 2
+    $ shuffle 2
+    $ (lsp 64 "8gabuild" |* g (mx!!1))
+      * hpf 500
+      + speed 0.002
+  d3 -- drums
+    -- $ wm16 128 (* g 0)
+    $ shuffle 24
+    $ sl 4 $ stack [
+      struct "[t <~ t?>] <t [t!2? ~!2]> t <t t*2>" $ s "gak" * shape 0.2 * distort 0.5,
+      fa 2 $ sometimes (fa "<2 4>") $ (1 <~) $ struct "t*2" $ s "gac:2",
+      fa 2 $ struct "t(<2..4>, 4, <0..4>) [~ t(<0..3>, 3)] t*4? [~ t!3?]"
+        $ s "gahh" * shape 0.2 * pan (range 0.2 0.8 $ perlinWith sine)
+    ] |* g (mx!!2)
+  d4 -- fx
+    -- $ iter 2
+    $ (lsp 16 "8gasynth:6" |* g (mx!!3))
+      |* shape 0.3

@@ -1,0 +1,25 @@
+do
+  bpm 160
+  let md = [0]
+  let mx = [1, 1, 1]
+  d1
+    $ wm16 64 (if' (md!!0) (fa 2))
+    $ stack [
+        sl 4 $ s "san808:1",
+        shuffle 2 $ (lsp 16 "8trdrums:1" # cut "-1") * shape 0.2,
+        (lsp 32 "8trtops:2" # cut "-1") * shape 0.2
+      ] * g(mx!!0)
+  d2
+    $ wm16 64 (if' (md!!0) (const $ lsp 32 "8edmbuildup:2" |* g 0.9))
+    $ fa 4
+    $ shuffle 2
+    $ (lsp 128 "8loosyn:5" # cut "-1")
+      |* shape 0.4
+      |* g(mx!!1)
+      |* hpf 40
+      |* dl 0.3 |* dlfb 0.3 |* dlt 0.3
+  d3
+    $ wm64 128 (|* g 1)
+    $ shuffle 2
+    $ lsp 64 "8loofx" |* cut "-1"
+      |* g(mx!!2)

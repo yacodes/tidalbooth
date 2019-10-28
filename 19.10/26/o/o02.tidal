@@ -1,0 +1,44 @@
+do
+  xfadeIn 1 64 $ silence
+  xfadeIn 2 64 $ silence
+  xfadeIn 3 64 $ silence
+  xfadeIn 4 64 $ (lsp "[32|64]" "8trsyn" # cut "-1") |* shape 0.2
+  xfadeIn 5 64 $ silence
+
+do
+  bpm 168
+  let md = [1]
+  let mx = [1, 1, 1.1, 1.1]
+  d1
+    $ wm32 128 (if' (md!!0) (const $ lsp 32 "8trbuildup:3"))
+    $ stack [
+        sl 4
+          -- $ rarely (fa (choose [1..4]))
+          $ struct "t [~ t] [t ~!2 t?] t?"
+          $ s "hk:3",
+        sl 4
+          $ rarely (fa 2)
+          $ struct "[~!3 t?] [t ~!2 t?]"
+          $ s "hc" # n "[1 2]*2",
+        sl 4
+          $ s "~ fbs?" # n 6,
+        sl 4
+          $ sometimes (fa (choose [1, 2]))
+          $ sometimes (jux rev)
+          $ struct "t*4"
+          $ s "[hhh:1 trohh]*2",
+        sl 4 $ struct "t ~" $ s "tr808" # cut "-1"
+      ] |* g(mx!!0)
+  d2
+    $ wm16 32 (if' (md!!0) (|* g 0))
+    $ shuffle 2
+    $ (lsp 64 "8edmdrop" # n (irand 2) # cut "-1")
+      |* g(mx!!1)
+      |* lpf (rangex 100 10000 $ sl 8 $ perlinWith cosine)
+  d3 -- $ repeatCycles 4
+     $ (lsp 16 "8trdrums" # n (irand 2) # cut "1")
+       |* g(mx!!2) |* g 0.9
+  d4
+    $ shuffle 2
+    $ (lsp "[32|64]" "8trsyn" # cut "-1") |* shape 0.2
+      |* g(mx!!3)

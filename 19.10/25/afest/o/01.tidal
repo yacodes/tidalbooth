@@ -1,0 +1,11 @@
+do
+  bpm 144
+  let md = [0]
+  let mx = [0, 0, 0]
+  d1
+    $ stack [
+          sl 4 $ struct "[t ~ ~ t/2] [~ ~ t ~] [t ~ t ~] [~ t? t/2 ~]" $ s "trk" # n 2,
+          sl 4 $ struct "[~ [t ~ ~ t?] [~!3 t?] [t ~ t? t/2]]" $ s "hs" # n "3",
+          jux rev $ sl 8 $ struct "t(<[3|5|11|13|15]>, 16)" $ s "hhh" # n "[0 1]*8",
+          sometimes (fa 4) $ s "tr808" * shape 0.1 # cut "-1"
+        ]

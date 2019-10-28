@@ -1,0 +1,26 @@
+do
+  xfadeIn 1 64 $ silence
+  xfadeIn 2 64 $ (lsp 16 "8loobass:1" # cut "-1" * shape 0.2)
+  xfadeIn 3 64 $ silence
+  xfadeIn 4 64 $ silence
+  xfadeIn 5 64 $ silence
+
+do
+  bpm 168
+  let md = [1]
+  let mx = [1.2, 1, 1]
+  d1
+    -- $ wm32 128 (if' (md!!0) ((shuffle 4) . (fa 4)))
+    $ stack [
+        lsp 32 "8loodrums:1" # cut "-1",
+        lsp 32 "8loodrums:0" # cut "-1"
+      ] |* g(mx!!0)
+  d2
+    $ wm32 128 (if' (md!!0) (const $ lsp 64 "8hbuildup:4" # cut "-1" |* g 0.5))
+    $ (lsp 16 "8loobass:1" # cut "-1" * shape 0.4)
+      |* g(mx!!1) |* g 1.1
+  d3
+    $ wm32 128 (if' (md!!0) (|* g 0))
+    $ shuffle 2
+    $ (lsp 32 "8loofx:8" # cut "-1")
+      |* g(mx!!2) |* g 1.3

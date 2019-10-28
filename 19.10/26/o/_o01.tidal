@@ -1,0 +1,22 @@
+do
+  bpm 144
+  let md = [1]
+  let mx = [1, 1, 1]
+  d1
+    $ wm16 128 (if' (md!!0) (const $ lsp 16 "edmriser"))
+    $ stack [
+        sl 4 $ struct "[t ~ ~ t/2] [~ ~ t ~] [t ~ t ~] [~ t? t/2 ~]" $ s "hk" # n 3,
+        sl 4 $ struct "[~ [t ~ ~ t?] [~!3 t?] [t ~ t? t/2]]" $ s "hs" # n "3",
+        jux rev $ sl 8 $ struct "t(<[3|5|11|13|15]>, 16)" $ s "hhh" # n "[0 1]*8",
+        sl 4 $ s "tr808([3|5|7], 8)" # n (irand 3) # end 0.2 * shape 0.1 # cut "-1"
+      ] |* g(mx!!0)
+  d2
+    $ scramble 2
+    $ fa "[2|4|8]"
+    $ (lsp 32 "8trarp:9" # cut "-1")
+      |* g(mx!!1)
+      |* shape 0.2
+  d3
+    $ lsp 32 "8diatops:4"
+      |* g(mx!!2)
+

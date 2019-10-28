@@ -7,17 +7,17 @@ do
         sl 4
           $ rarely (fa (choose [1..4]))
           $ struct "t [~ t] [t ~!2 t?] t?"
-          $ s "hk:2" # speed 0.75,
+          $ s "hk:3",
         sl 4
           $ rarely (fa 2)
           $ struct "[~!3 t?] [t ~!2 t?]"
-          $ s "hclap" # n "[1 2]*2",
+          $ s "hc" # n "[1 2]*2",
         sl 4
-          $ s "~ fs?" # n 6,
+          $ s "~ fbs?" # n 6,
         sl 4
           $ sometimes (fa (choose [1, 2]))
           $ sometimes (jux rev)
           $ struct "t*4"
-          $ s "[hhh:1 tohh]*2",
-        sl 4 $ struct "t ~" $ s "t808" # cut "-1"
+          $ s "[hhh:1 trohh]*2",
+        sl 4 $ struct "t ~" $ s "tr808" # cut "-1"
       ]

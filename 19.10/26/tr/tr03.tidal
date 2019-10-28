@@ -1,0 +1,23 @@
+do
+  xfadeIn 1 64 $ silence
+  xfadeIn 2 64 $ lsp 64 "8loofx" # cut "-1"
+  xfadeIn 3 64 $ silence
+  xfadeIn 4 64 $ silence
+  xfadeIn 5 64 $ silence
+
+do
+  bpm 150
+  let md = [1]
+  let mx = [1, 1, 1.2]
+  d1
+    $ wm16 64 (if' (md!!0) (|* g 0))
+    $ stack [
+      (lsp 32 "8trdrums:4" # cut "-1"),
+      (sl 4 $ struct "[t ~!2 t?] [~ t? ~!2]" $ s "[tr808, hk]" # cut "-1") |* g 1.2
+    ] |* g(mx!!0)
+  d2
+    $ lsp 64 "8loofx" # cut "-1"
+      |* g(mx!!1)
+  d3
+    $ (lsp 16 "8trtops:7")
+      |* g(mx!!2)

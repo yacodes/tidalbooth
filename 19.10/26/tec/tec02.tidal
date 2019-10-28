@@ -1,0 +1,23 @@
+do
+  bpm 144
+  let md = [1]
+  let mx = [1, 1.2, 1.2]
+  d1
+    $ wm16 128 (if' (md!!0) (|* g 0))
+    $ sl 4 $ stack [
+      struct "t!3 [t|t*2|t(3, 16)]" $ s "[hk, san808]" # n 12 # cut "-1" * shape 0.1,
+      fa 2 $ s "~ hs:3",
+      jux rev $ struct "t([11|13|15], 16, <0 1 1 0 0>)" $ s "hhh:4" |* g 0.9,
+      every 8 (fa (choose[1, 2])) $ fa 2 $ s "~ [~ hohh:10]"
+    ] |* g(mx!!0)
+  d2
+    $ wm32 128 (if' (md!!0) (over $ lsp 32 "8hbuildup:6"))
+    $ shuffle 2
+    $ (lsp 32 "8trtops" # cut "-1")
+      |* g(mx!!1)
+  d3
+    $ wm16 128 (if' (md!!0) (fa "<2 2 2 4>"))
+    -- $ shuffle 4
+    $ iter 4
+    $ (lsp 64 "8trarp:7" # cut "-1")
+      |* g(mx!!2)

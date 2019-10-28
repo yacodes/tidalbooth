@@ -1,0 +1,15 @@
+do
+  bpm 180
+  let mx = [0, 1, 0, 1]
+  d1 $ shuffle 2
+     $ (lsp 8 "lp_hoover:1" * g (mx!!0))
+    + speed (range 0.00001 0.03 $ sl 8 $ perlinWith sine)
+  d2 $ (lsp 64 "beat_build:5" * g (mx!!1)) * shape 0.3
+  d3 $ (lsp 16 "lp_seq:1" * g (mx!!2))
+  d4
+    $ wm32 128 (const $ lsp 32 "fx_riser")
+    $ stack [
+      every 8 (fa 2) $ s "osd_kick:3" * shape 0.4,
+      s "osd_clap" * shape 0.3,
+      s "hh*4" # pan (range 0 1 $ sine)
+    ] * g (mx!!3)

@@ -1,0 +1,16 @@
+do
+  bpm 180
+  let mx = [0, 0, 1, 0, 1]
+  d1 $ lsp 16 "osv_phrase_sing" * shape 0.5 * g (mx!!0)  + speed 0.02
+  d2 $ lsp 128 "idea_melody:12" * g (mx!!1) - g 0.2
+  d3
+    -- $ wm32 64 (# g 0)
+    $ shuffle 8
+    $ sl 4 $ stack [
+      struct "t [t t/2] t <t [t*2]/3 [~ t!3?]>" $
+        s "osd_kick:5" * shape 0.3 * distort 0.3,
+      fa 1 $ (1 <~) $ s "osd_clap/2:4" * shape 0.2,
+      struct "t(<11 13 15>, 16)" $ s "osd_hat:6" * shape 0.7 |* pan (range 0 1 $ perlinWith sine)
+    ] * g (mx!!2)
+  d4 $ wm32 64 (# g (mx!!3)) $ lsp 32 "fx_riser:5" # g 0
+  d5 $ iter 2 $ shuffle 8 $ lsp 32 "lp_complete:12" * g (mx!!4) * shape 0.7

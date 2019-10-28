@@ -1,0 +1,29 @@
+do
+  bpm 140
+  let md = [1]
+  let mx = [1, 1, 1]
+  d1
+    $ wm16 128 (if' (md!!0) (* g 0))
+    $ stack [
+      sometimesBy 0.2 (shuffle 2) $
+      sometimesBy 0.2 (brak) $
+      sometimesBy 0.2 (fa 2) $
+        sl 2 $ struct "[t <~ t/4> <~ t?0.25> [t?0.9]] ~" $ s "duk" # n 8 * shape 0.4,
+      sl 2 $ s "~ dus:1",
+      sl 4 $ jux rev $ s "duhh*8" |* g 1.2 |* pan (sl 4 $ sine),
+      sl 8 $ s "trimpact" * g 0.9 * shape 0.2 # n (irand 8) # cut "2"
+    ] |* g (mx!!0)
+  d2
+    $ wm16 128 (if' (md!!0) (over $ lsp 32 "duriser"))
+    $ lsp 16 "8dutops" # n 1 # shape 0.5
+      |* g (mx!!1)
+  d3
+    $ wm16 128 (if' (md!!0) (* g 0))
+    $ sometimes (* g 0)
+    $ sl 4
+    $ struct "t*8"
+    $ s "dusyn"
+      # n ((irand 8) + 2)
+      |* g (mx!!2)
+      # cut "1"
+      * shape 0.3

@@ -1,0 +1,7 @@
+do
+  bpm 100
+  d1 $ stack [
+      s "hk" # n 3,
+      sl 2 $ struct "[t?0.5 t/2?0.2 ~ t] [~!2 t ~]" $ s "trs" # n 2,
+      s "hhh*4" # n 1 # g (range 0.9 1.1 $ perlinWith saw) # pan 0.35
+    ]

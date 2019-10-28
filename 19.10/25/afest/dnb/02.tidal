@@ -1,0 +1,13 @@
+do
+  bpm 168
+  let md = [0]
+  let mx = [0, 0, 0]
+  d1 $ stack [
+    ]
+  d2
+    $ sl 8 $ s "supersaw"
+      <| n "<e4'min g4'min c4'maj a3'min>"
+      * legato 1
+      * lpf 4000
+      * g 1
+      -- # voice (choose [1..5])

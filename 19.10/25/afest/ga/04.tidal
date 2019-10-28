@@ -1,0 +1,19 @@
+do
+  bpm 180
+  let mx = [0, 1.2, 1, 1, 0]
+  d1 $ lsp 32 "lp_complete:8" * g (mx!!0)
+  d2
+     $ wm32 128 (superimpose $ const $ lsp 32 "fx_riser:4" + g 0.2)
+     $ gap 4
+     $ lsp 32 "lp_complete:7" * g (mx!!1) * shape 0.3
+  d3
+     -- $ wm8 16 (* g 0)
+     $ wm32 128 (* g 0)
+     $ sl 4
+     $ struct "t [t <~ t [~ t ~]>] t [t <~ [t!2]>]"
+     $ stack [
+      s "k" * shape 0.9 * distort 0.4,
+      s "osd_ride" * shape 0.7 # cut "-1"
+    ] * g (mx!!2)
+  d4 $ lsp 32 "idea_melody:4" * g (mx!!3)
+  d5 $ sl 1 $ s "fx_impact:0" * g (mx!!4) * shape 0.4 # cut "-1"

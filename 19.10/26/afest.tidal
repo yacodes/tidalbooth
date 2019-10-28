@@ -1,0 +1,4 @@
+do
+  bpm 120
+  d1 $ lsp 64 "8gaatmos" # cut "-1"
+  d2 $ degrade $ s "hk*4"

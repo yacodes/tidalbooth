@@ -1,0 +1,6 @@
+do
+  xfadeIn 1 64 $ silence
+  xfadeIn 2 64 $ silence
+  clutchIn 3 64 $ lsp 16 "lp_seq:1"
+  xfadeIn 4 64 $ silence
+  xfadeIn 5 64 $ silence

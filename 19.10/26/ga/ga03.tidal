@@ -1,0 +1,19 @@
+do
+  bpm 180
+  let mx = [0, 1.1, 1, 0]
+  d1 $ lsp 32 "8gadrums:8" * g (mx!!0)
+  d2
+     $ wm32 128 (over $ lsp 32 "gariser:4" |+ g 0.5)
+     -- $ shuffle 4
+     -- $ gap 4
+     $ lsp 32 "8gadrums:7" * g (mx!!1) * shape 0.3
+  d3
+     -- $ wm8 16 (* g 0)
+     $ wm32 128 (* g 0)
+     $ sl 4
+     $ struct "t [t <~ t [~ t ~]>] t [t <~ [t!2]>]"
+     $ stack [
+      s "gak" * shape 0.4 * distort 0.4,
+      s "garide" * shape 0.4 # cut "-1"
+    ] * g (mx!!2)
+  d4 $ sl 1 $ s "gaimpact:0" * g (mx!!3) * shape 0.4 # cut "-1"

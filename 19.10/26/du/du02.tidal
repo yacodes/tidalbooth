@@ -1,0 +1,29 @@
+d1 $ s "hk"
+
+do
+  bpm 144
+  let md = [1]
+  let mx = [1, 1, 1, 1]
+  d1
+    $ wm32 128 (if' (md!!0) (* g 0))
+    $ stack [
+      sl 4 $ struct "[t ~!2 t?] [~!2 t ~] [t ~!2 t?] [[~|t] ~ t? ~]" $ s "duk" # n 1,
+      sl 4 $ struct "t(7, 16, [0|3|6])" $ s "dus" # n 5 |< speed (range 0.75 1.25 $ sl 8 $ perlinWith sine),
+      sl 4 $ struct "t([11|13], 16)" $ s "duhh" # n 1,
+      sl 2 $ struct "~ t" $ s "hohh" # n 13
+    ] |* g (mx!!0)
+  d2
+    $ wm32 128 (if' (md!!0) (over $ lsp 32 "duriser:3"))
+    $ sl 8 $ s "duimpact" # n ((irand 4) + 2) |* g (mx!!1) # cut "1"
+  d3
+    $ wm32 128 (if' (md!!0) (sometimes (|* g 0)))
+    $ shuffle 4
+    $ lsp 32 "8dubass"
+      # n 4
+      |* g (mx!!2)
+  d4
+    $ wm32 128 (if' (md!!0) (sometimes (|* g 0)))
+    $ scramble 4
+    $ lsp 16 "8diasyn"
+      # n 7
+      |* g (mx!!3)

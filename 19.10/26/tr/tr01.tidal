@@ -1,0 +1,34 @@
+do
+  xfadeIn 1 64 $ silence
+  xfadeIn 2 64 $ silence
+  xfadeIn 3 64 $ (lsp 128 "8hchord:1" # cut "-1")
+  xfadeIn 4 64 $ silence
+  xfadeIn 5 64 $ silence
+
+do
+  bpm 160
+  let md = [0]
+  let mx = [1, 0, 1]
+  d1
+    $ every 128 (if' (md!!0) (over $ s "trimpact" # n ((irand 2) + 2)))
+    $ wm32 128 (if' (md!!0) (const $ lsp 32 "trriser:4"))
+    $ sl 4
+    $ stack [
+      s "san808(3, 8)" # cut "-1",
+      struct "t [~!2 t ~] <~ t ~ [[t ~]!2]> ~" $ s "trk:5",
+      struct "<~!3 [~!2 t ~]> ~ t <~ [~!2 t ~]>" $ s "hc:2",
+      someCyclesBy 0.4 ((fa (repeatCycles 2 $ choose[1..3])) . (# (speed $ range 1.5 0.5 $ sl 4 $ isaw))) $ s "trhh:1*8" * g 1.2,
+      sl 2 $ s "~ hcrash:8" # n (irand 8)
+    ] |* g(mx!!0)
+  d2
+    -- $ shuffle 8
+    $ (lsp 128 "8trsyn:6" # cut "-1")
+      -- |- speed (range 0 0.003 $ sl 8 $ sine)
+      |* lpf 3000
+      |* g(mx!!1)
+  d3
+    $ fa 2
+    -- $ sometimes (|* g 0)
+    $ (lsp 128 "8hchord:1" # cut "-1")
+      |* g(mx!!2)
+      -- * shape 0.5

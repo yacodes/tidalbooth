@@ -1,0 +1,25 @@
+do
+  bpm 134
+  let md = [1]
+  let mx = [1, 1, 1.2]
+  d1
+    $ wm32 128 (if' (md!!0) ((shuffle 2) . (sometimes (|* g 0) . (fa (choose [1, 2])))))
+    $ stack [
+      every 4 (fa (choose[1, 2, 3])) $ s "hk" # n 3 * g 1.1,
+      s "hhh:4*4" |* g (range 0.9 1.2 $ sl 2 $ saw),
+      s "~!2 trohh:5 ~" * g 1.1,
+      every 4 (fa (choose[1, 2])) $ s "trsyn:4*4" # cut "-1" |* g (range 0.7 0.9 $ sl 16 $ perlinWith (isaw + 0.25)),
+      sl 2 $ s "~!3 hohh:5"
+    ] |* g(mx!!0)
+  d2
+    $ wm32 128 (if' (md!!0) (over $ lsp 32 "edmriser:5"))
+    $ shuffle 2
+    $ fa 2
+    $ (lsp 32 "8fbtops" # cut "-1")
+      |* g(mx!!1)
+  d3
+    $ wm32 128 (if' (md!!0) (|* g 0))
+    $ iter "[2|4|8]"
+    $ fa 16
+    $ (lsp 128 "8edmvoxarp:2" # cut "-1")
+      |* g(mx!!2) * shape 0.1
