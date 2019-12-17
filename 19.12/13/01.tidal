@@ -1,0 +1,42 @@
+bpm 120
+
+d1
+  -- $ jux rev
+  $ sl 4 $ struct "t(11, 16)"
+  $ (s $ choose[
+    "ek",
+    "k1"
+    -- "soshats",
+    -- "sossnare",
+    -- "cymbal808"
+  ])
+  |< n (choose [-40..(-20)])
+    + (o $ choose[0, 4, 8])
+    + g 1
+    + crush 2
+    + rvb "0.1..0.4"
+    + dl 0.3 + dlt 0.7 + dlfb 0.2
+
+d2
+  $ sl 16 $ struct "t"
+  $ (s "supersquare" + (o $ choose[1, 5, 9]))
+    + (n $ choose[-30, (-28)..(-10)])
+    # g 0.8
+    # release 4
+    # sustain 4
+    + lpf 2000 + lpq 0.5
+    + rvb 0.7
+    + dl 0.7 + dlt 0.7 + dlfb 0.5
+    + shape 0.2
+    + voice 0.7
+
+d3 $ degradeBy 0.5 $ sl 4 $ struct "t(11, 16)" $ s "kalimba" # n "<e6 c6 g6 f6>" * g 1.4
+  + o (choose [0, 2])
+
+
+do
+  clutchIn 1 32 $ s ""
+  clutchIn 2 32 $ s ""
+  clutchIn 3 32 $ s ""
+
+d1 $ s "ek" + o 6

@@ -19,6 +19,7 @@ SynthDef(\sosbell, {
   env = EnvGen.ar(Env.new([0, 0.05, 0.05, 0], [sustain, sustain, 1]), doneAction: Done.freeSelf);
   hum = SinOsc.ar([freq * 1.01, freq * 0.47], 0, env).mean;
   sound = (son + strike + hum) * 8;
+  sound = GVerb.ar(sound, 10, 3);
 
   OffsetOut.ar(out, DirtPan.ar(sound, ~dirt.numChannels, pan));
 },

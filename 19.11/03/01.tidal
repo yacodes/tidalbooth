@@ -1,0 +1,7 @@
+-- Violet said it's awesome
+-- and it's called "Svetoch"
+do
+  d1 $ degrade $ s "hk*4"
+  d2 $ s "hhh hohh"
+  d3 $ s "hs/2"
+  d4 $ s "diasyn*2" # cut "-1" # n (irand 9)

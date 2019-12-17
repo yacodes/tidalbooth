@@ -1,5 +1,6 @@
 // By Nathan Ho aka Snappiz
 // http://sccode.org/1-51l
+(
 SynthDef(\kalimba, {
   arg pan = 0, out = 0, freq = 440, sustain = 0.5;
 
@@ -16,5 +17,6 @@ SynthDef(\kalimba, {
     [0.8, 0.05, 0.07]
   ], PinkNoise.ar * EnvGen.ar(Env.perc(0.001, 0.01))) * mix);
 
-  OffsetOut.ar(out, DirtPan.ar(sound, ~dirt.numChannels, pan, env));
+  OffsetOut.ar(out, DirtPan.ar(sound * 4, ~dirt.numChannels, pan, env));
 }).add;
+)
