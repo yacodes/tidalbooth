@@ -29,3 +29,5 @@ metadata: (
 	)
 ).add
 )
+
+Synth(\sosbell)

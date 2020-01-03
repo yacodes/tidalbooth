@@ -2,7 +2,6 @@
 https://github.com/supercollider-quarks/SynthDefPool/blob/master/pool/snare_stein.scd
 Modified by Bruno Ruviaro and Josh Mitchell 8/19.
 */
-
 SynthDef(\snareStein, {
   arg
   //Standard Arguments

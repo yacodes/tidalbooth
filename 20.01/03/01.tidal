@@ -1,0 +1,42 @@
+bpm 140
+
+d1
+  $ struct (sl 2 ("t <t t*2>@q <~ t> t@h"))
+  $ s "k"
+    + n ("e2" + (scale "chromatic" (choose[0..4])))
+    + gain 1.4
+    + shape 0.4
+    + sustain 0.5
+    + release 0.5
+
+d2
+  $ degrade
+  $ sl 4
+  $ struct "t(<13 15>, 16, <0 1 0 0 3>)"
+  $ s "perc"
+    + n ("e3" + (scale "kumai" (choose [0..12])))
+    + gain 0.9
+    + shape 0.4
+    + sustain (range 0.2 0.8 $ rand)
+
+d3
+  $ jux rev
+  $ sl 4
+  $ struct "t(<11 13 15>, 16, <0 0 1 1 0 3>)"
+  $ s "hh"
+    + n (choose[40..60])
+    + sustain 0.05
+    + gain 0.8
+
+d4
+  $ sl 4
+  $ jux rev
+  $ whenmod 10 3 (# gain 1)
+  $ struct "t(11, 16)"
+  $ s "sq"
+    + n "e2"
+    + sustain 0.8
+    + gain 0
+    + lpf (rangex 50 12000 $ sl 2 $ perlinWith sine)
+    + room 0.2
+

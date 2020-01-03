@@ -24,3 +24,5 @@ metadata: (
 	tags: ['808', \hihat, \percussion, \cymbal]
 	)
 ).add
+
+Synth(\cymbal808)

@@ -25,7 +25,8 @@ SynthDef(\sossnare, {
   snares = BRF.ar(in: snares, freq: pitch1, mul: snareEnv, rq: resonance);
   snares = Resonz.ar(in: snares, freq: pitch1 / 2, bwr: bwr, mul: 40);
 
-  snd = (drumMode + snares) * 8;
+  snd = (drumMode + snares) * 4;
+  snd = GVerb.ar(snd);
 
   OffsetOut.ar(out, DirtPan.ar(snd, ~dirt.numChannels, pan, drumModeEnv));
 },

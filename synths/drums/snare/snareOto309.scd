@@ -1,6 +1,7 @@
 // Received from https://github.com/supercollider-quarks/SynthDefPool/blob/master/pool/snare_oto309.scd
 // from 08091500Acid309 by_otophilia
 // Modified by Bruno Ruviaro and Josh Mitchell 8/19.
+Synth(\snareOto309)
 SynthDef(\snareOto309, {
 	arg
 	// Standard Values

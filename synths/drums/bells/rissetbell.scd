@@ -14,3 +14,5 @@ SynthDef(\rissetBell, {
 
   OffsetOut.ar(out, DirtPan.ar(signal, ~dirt.numChannels, pan, env));
 }).add;
+
+Synth(\rissetBell, [\freq, 800])

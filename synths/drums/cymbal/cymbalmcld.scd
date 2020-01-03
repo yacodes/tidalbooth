@@ -17,10 +17,10 @@ SynthDef(\cymbalic_mcld, { |out=0, pan=0, amp=0.1|
 	// This bit will regenerate new freqs every time you evaluate the SynthDef!
 	freqs  = {exprand(300, 20000)}.dup(100);
 
-	res    = Ringz.ar(lodriver + hidriver + thwack, freqs).mean;
+	res = Ringz.ar(lodriver + hidriver + thwack, freqs).mean;
 
   sound = res * 1 + lodriver * 2 + thwack;
-  OffsetOut.ar(out, DirtPan.ar(sound, ~dirt.numChannels, pan, env));
+  OffsetOut.ar(out, DirtPan.ar(sound, ~dirt.numChannels, pan));
 },
 metadata: (
 	credit: "Based on the example at http://www.mcld.co.uk/cymbalsynthesis/ published 2008 by Dan Stowell",
@@ -28,3 +28,5 @@ metadata: (
 	)
 ).add
 )
+
+Synth(\cymbalic_mcld)

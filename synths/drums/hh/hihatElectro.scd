@@ -25,3 +25,4 @@ metadata: (
   category: \drums,
   tags: [\clap, \percussion, \hihat]
 )).add;
+Synth(\hihatElectro)
