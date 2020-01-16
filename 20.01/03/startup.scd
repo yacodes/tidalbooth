@@ -1,6 +1,6 @@
 (
-  s.options.inDevice = "SC140";
-  s.options.outDevice = "SC140";
+  s.options.inDevice = "TC";
+  s.options.outDevice = "TC";
   s.options.sampleRate = 44100;
   s.options.blockSize = 512;
   s.options.hardwareBufferSize = 512;
@@ -65,3 +65,47 @@
 
   s.latency = 0.3;
 );
+
+"e2".notemidi
+"e3".notemidi
+
+(
+SynthDef(\soskick, {
+  arg out, pan, freq = 65, pitch1 = 0, speed = 0.3, voice = 1, sustain = 1, pitch2 = 0.00;
+  var beater, source, env;
+
+  freq = Wrap.ir(freq, 28.midicps, 40.midicps);
+  env = Env.perc(0.005, sustain).ar(Done.freeSelf);
+
+  source = Line.ar(freq * 2, freq, 0.02);
+  source = PMOsc.ar(source, pitch1, voice);
+  source = LPF.ar(source, 1000);
+
+  beater = WhiteNoise.ar(pitch2.clip);
+  beater = HPF.ar(beater, 500);
+  beater = LPF.ar(beater, XLine.ar(6000, 500, speed.clip * 0.1));
+  beater = beater * Env.perc.ar;
+
+  OffsetOut.ar(out, DirtPan.ar((source + beater) * 3.dbamp, ~dirt.numChannels, pan, env));
+},
+metadata: (
+  credit: "Renick Bell",
+  category: \drums,
+  tags: [\pitched, \bass, \sos]
+)).add;
+)
+
+(36 + 12).midinote
+Synth(\soskick, [\freq, 440, \speed, 0.001, \pitch2, 0.2])
+36 + 12
+
+36.midinote
+
+28.midicps
+36.midicps
+48.midicps
+"e2".notemidi
+40.midinote
+
+28.midicps
+40.midicps

@@ -1,5 +1,7 @@
 bpm 140
 
+d1 $ s "soskick" # gain 1 # n "d" # pitch2 0.1 # speed 0.25
+
 d1
   $ struct (sl 2 ("t <t t*2>@q <~ t> t@h"))
   $ s "k"
@@ -40,3 +42,4 @@ d4
     + lpf (rangex 50 12000 $ sl 2 $ perlinWith sine)
     + room 0.2
 
+hush
