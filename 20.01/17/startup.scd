@@ -49,7 +49,7 @@ SynthDef(\soskick, {
   arg out, pan, freq = 65, attack = 0.005, pitch1 = 0, speed = 0.3, voice = 1, sustain = 1, pitch2 = 0.00;
   var beater, source, env;
 
-  freq = Wrap.ir(freq, 28.midicps, 40.midicps);
+  freq = Wrap.ir(freq, 28.midicps, 52.midicps);
   env = Env.perc(attack, sustain).ar(Done.freeSelf);
 
   source = Line.ar(freq * 2, freq, 0.02);

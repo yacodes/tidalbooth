@@ -10,26 +10,26 @@ d1
     + lpf (rangex 1000 8000 $ sl 8 $ perlinWith cosine) + lpq 0.25
     + hpf 100
     + djf (range 0.2 0.8 $ sl 8 $ perlin)
-    + gain (range 0.8 1.1 $ sl 8 $ sine)
+    + gain (range 0.6 0.9 $ sl 8 $ perlinWith sine)
     + pan (range 0 1 $ sl 4 $ perlin)
 
 d1 silence
 
 d2
   $ shuffle 2
-  $ sometimesBy 0.25 (fa 4)
-  $ struct "t/4" $ s "soskick"
-    + n "c"
-    + gain 1
-    + shape 0.75
+  $ sometimesBy 0.25 (fa 2)
+  $ struct "t" $ s "soskick"
+    + n "[c|f]"
+    + gain 1.1
+    + shape 0.5
 
 d3
   $ degrade
   $ shuffle 4
   $ struct "t*4" $ s "perc"
-    + gain 0
-    + room 0.05 + sz 0.2
-    + delay 0.01 + dlt 0.8 + dlfb 0.8
+    + gain 0.7
+    -- + room 0.05 + sz 0.2
+    -- + delay 0.05 + dlt 0.8 + dlfb 0.8
     + pan (perlin)
 
 hush

@@ -1,0 +1,27 @@
+d1
+  $ shuffle 2
+  $ sometimes (fa 2)
+  $ s "k"
+    # n "e2"
+      + gain 1
+      + shape 0.35
+
+d2
+  $ jux rev
+  $ degrade
+  $ shuffle 2
+  $ struct "t*4"
+  $ s "fs"
+    + n "<[c a] [f e]>" - n (choose[42, 46])
+    + room 0.2 + sz 0.1
+    + sus 0.5
+    + delay 0.1 + dlt 0.3 + dlfb 0.3
+
+d3
+  $ degrade
+  $ struct "t*4"
+  $ s "perc" # n "e3"
+    + pan (range 0 1 $ sl 4 $ perlin)
+    + gain 0.9
+    + lpf (rangex 200 7000 $ sl 8 $ perlinWith sine) + lpq 0.4
+    + djf (range 0 1 $ sl 4 $ perlin)
