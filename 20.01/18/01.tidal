@@ -1,0 +1,38 @@
+bpm 132
+
+d1
+  $ sometimes (fa 4)
+  $ struct "t"
+  $ s "kick"
+    + n "e3"
+  -- + sus 0.7
+    + shape 0.2
+
+d2
+  $ struct "[t?]"
+  $ s "perc"
+    + n (scale "minor" (choose[0..7])) + n "e5"
+    + delay 0.3 + dlt 0.8 + dlfb 0.9
+    + gain 1.1
+
+d3
+  $ degradeBy 0.2
+  $ struct (sl 4 "t([11|13|15], 16, [0|1|2|3])")
+  $ s "fb"
+    + n "e9"
+    + n (choose[(-2)..2])
+    + gain (range 0.75 0.9 $ sl 4 $ perlin)
+    + shape 0.4
+    -- + sus (range 1 2 $ sl 4 $ perlinWith sine)
+    + nudge (range 0 0.03 $ perlin)
+    + pan (choose[0.25,0.75])
+
+d4
+  $ degradeBy 0.2
+  $ whenmod 8 5 (+ gain 0.4)
+  $ struct "t*4"
+  $ s "test"
+    + n "e4"
+    + sus (range 0.1 0.5 $ sl 4 $ perlin)
+    + gain (range 0.8 1.2 $ sl 4 $ perlin)
+    + nudge (range 0 0.03 $ perlin)
