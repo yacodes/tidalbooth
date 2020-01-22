@@ -1,0 +1,6 @@
+d1 $ s "hick" # n "c3"
+  # voice 0.9
+  # pitch1 1
+  + accelerate 8
+  + speed 0.01
+  + sus 1.5
