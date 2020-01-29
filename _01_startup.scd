@@ -7,7 +7,7 @@ s.queryAllNodes
 (
   // Configuration
   ~config = (
-    \channels: 8,
+    \channels: 2,
     \out: 0,
   );
   Server.default.options.inDevice = "Scarlett 2i4 USB";
@@ -75,6 +75,39 @@ s.queryAllNodes
   s.latency = 0.3;
 );
 
+Synth(\pad)
+
+
+(
+  QtGUI.palette = QPalette.dark;
+  ~gui = ();
+  ~gui[\bounds] = Rect(0, Window.screenBounds.height - 380, 380, 380);
+  ~gui[\win] = Window.new("Channel strip", ~gui[\bounds]);
+  ~gui[\meter] = CustomMeterView.new(s, ~gui[\win], 0@0, 2, 16);
+  ~gui[\bounds].height = ~gui[\meter].view.bounds.height * 2;
+  ~gui[\win].bounds = ~gui[\bounds];
+
+  ~gui[\freqscope] = FreqScopeView(
+    ~gui[\win],
+    Rect(
+      0,
+      ~gui[\meter].view.bounds.height,
+      ~gui[\win].view.bounds.width,
+      200
+    )
+  );
+  ~gui[\freqscope].background = Color(0, 0, 0, 1);
+  ~gui[\freqscope].active_(true);
+  ~gui[\freqscope].freqMode_(1);
+  ~gui[\win].onClose_({~gui[\freqscope].kill});
+  ~gui[\win].view.background = Color(0, 0, 0, 1);
+  ~gui[\win].alwaysOnTop = true;
+  ~gui[\win].acceptsClickThrough = true;
+  ~gui[\win].front;
+
+  ~gui;
+)
+
 ~c = ControlValueEnvir(BusControlValue);
 ~c.use {
   ~amp.spec = [0, 1];
@@ -107,28 +140,6 @@ s.queryAllNodes
   ).play;
 )
 
-SynthDef(\dxkBd1, {|t_trig = 1, basefreq = 45, overdrive = 2, len=0.5, att = 0.002, fgprop =0.3, fgdprop = 0.9, noisiness=0.2, lop = 1250, amp = 1, pan = 0, out = 0|
-
-	//fgprop = frequency glide in proportion to freq
-	//fgdprop = freq glide duration in proportion to dur
-	//freq = fundamental
-	var freqenv, noise, main, fgdur, fgact, env;
-	fgdur = Clip.ir(len * fgdprop, 0, len); //real value of fgdprop
-	fgact = fgprop*basefreq; //actual hz to glide over
-	freqenv = EnvGen.ar(Env.perc(att, fgdur, fgact, -4),t_trig);
-	freqenv = (freqenv + basefreq) + PinkNoise.ar(noisiness);
-	main = SinOsc.ar(freqenv);
-	main = LPF.ar(main, lop);
-	env = EnvGen.ar(Env.perc(att, len, amp, -4), t_trig, doneAction: 2);
-	main = main * env;
-	main = (main * overdrive).tanh;
-	main = Pan2.ar(main, pan);
-	Out.ar(out, main);
-}).add;
-
-Synth(\dxkBd1)
-
-
 (
 SynthDef(\dxkCymb808, {|t_trig = 1, basefreq = 205.35, len = 0.25, sustain = 0.5, att = 0.001, out = 0, pan = 0, amp = 1|
 	var freqArray, sig1, sig2,env, sig1env, output, failsafe;
@@ -146,11 +157,12 @@ SynthDef(\dxkCymb808, {|t_trig = 1, basefreq = 205.35, len = 0.25, sustain = 0.5
 	output = SOS.ar(output, 0.669886, -1.33977, 0.669886, 0.968752, -0.710791 );
 	output = output * env;
 	output = DelayN.ar(output, 0.005, 0.005);
-	output = FreeVerb.ar(output, sustain);
+  output = FreeVerb.ar(output, sustain);
 	failsafe = FreeSelf.kr(Trig.kr(t_trig) * (amp <= 0));
 	DetectSilence.ar(output, time: 0.01, doneAction:2);
 	output = Pan2.ar(output*amp, pan);
+  output = Limiter.ar(output, 0.5);
 	Out.ar(out, output);
 }).add;
 )
-Synth(\dxkCymb808)
+Synth(\dxkCymb808, [\basefreq, 3000])

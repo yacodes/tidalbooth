@@ -1,0 +1,7 @@
+d1 $ repeatCycles 2 $ shuffle 2 $ fa 2 $ s "hick" # n "e2" * gain 1.8 |+ feedback 0.3 + sus 0.2 # nudge (sl 2 "[0 0.05]")
+
+let curve = pF "curve"
+
+let feedback = pF "feedback"
+
+:t at
