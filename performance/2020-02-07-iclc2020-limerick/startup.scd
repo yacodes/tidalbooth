@@ -47,30 +47,33 @@
 
 
 (
-SynthDef(\dxkCymb808, {|t_trig = 1, basefreq = 205.35, len = 0.25, sustain = 0.5, att = 0.001, out = 0, pan = 0, amp = 1|
-	var freqArray, sig1, sig2,env, sig1env, output, failsafe;
-	freqArray = basefreq * [ 1, 1.4823959094229, 1.800048697346, 2.545458972486, 2.6322863403944, 3.9552471390309 ];
+SynthDef(\cymbal, {
+  | freq = 205.35,
+    sustain = 0.25,
+    attack = 0.001,
+    curve = -16,
+    pan = 0, out = 0 |
+
+	var freqArray, sig1, sig2, env, source;
+	freqArray = freq * [1, 1.4823959094229, 1.800048697346, 2.545458972486, 2.6322863403944, 3.9552471390309];
 	sig2 = Pulse.ar(freqArray, 0.55, 0.9);
 	sig2 = Mix.ar(sig2);
 	sig1 = Pulse.ar(freqArray, 0.5);
 	sig1 = Mix.ar(sig1);
-	sig1 = ( BinaryOpUGen('==', sig1, 6) * 0.6) + ( BinaryOpUGen('==', sig1, 2)*0.2)+( BinaryOpUGen('==', sig1, 1)*0.9);
-	sig1env = EnvGen.ar(Env([1.0, 1.0, 0.6], [att, len], -4), t_trig);
-	env = EnvGen.ar(Env([1.0, 0.4, 0], [att, len, 0.05], -4), t_trig);
-	output = sig1 + sig2;
-	output = SOS.ar(output, 0.175812, 0.351623, 0.175812, 0.834059, -0.537305);
-	output = SOS.ar(output, 0.669886, -1.33977, 0.669886, 0.968752, -0.710791);
-	output = SOS.ar(output, 0.669886, -1.33977, 0.669886, 0.968752, -0.710791 );
-	output = output * env;
-	output = DelayN.ar(output, 0.005, 0.005);
-  output = FreeVerb.ar(output, sustain);
-	failsafe = FreeSelf.kr(Trig.kr(t_trig) * (amp <= 0));
-	DetectSilence.ar(output, time: 0.01, doneAction:2);
-	output = Pan2.ar(output*amp, pan);
-  output = Limiter.ar(output, 0.5);
-	Out.ar(out, output);
+	env = Env.perc(attack, sustain, curve).ar(Done.freeSelf);
+	source = sig1 + sig2;
+	source = SOS.ar(source, 0.175812, 0.351623, 0.175812, 0.834059, -0.537305);
+	source = SOS.ar(source, 0.669886, -1.33977, 0.669886, 0.968752, -0.710791);
+	source = SOS.ar(source, 0.669886, -1.33977, 0.669886, 0.968752, -0.710791);
+  source = source / 128;
+  source = Limiter.ar(source, 0.1);
+  // source = source / 256;
+
+  OffsetOut.ar(out, DirtPan.ar(source, ~dirt.numChannels, pan, env));
 }).add;
 )
+
+Synth(\cymbal, [\freq, 1000])
 
 // GUI
 (

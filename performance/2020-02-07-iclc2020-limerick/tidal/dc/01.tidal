@@ -1,4 +1,6 @@
-d1 $ repeatCycles 2 $ shuffle 2 $ fa 2 $ s "hick" # n "e2" * gain 1.8 |+ feedback 0.3 + sus 0.2 # nudge (sl 2 "[0 0.05]")
+d1 $ degradeBy 0.5 $ fa 4 $ s "hick" # n "e2" * gain 1.2 + sus 0.8 -- + lpf 500 -- + sus 0.3 -- |+ feedback 0.3 + sus 0.2 -- # nudge (sl 2 "[0 0.05]")
+
+d2 $ degradeBy 0.25 $ fa 2 $ s "cymbal*2" # n "[e6 e7 g7]/2" * sus 0.1 * gain 0.6 |+ curve (-128)
 
 let curve = pF "curve"
 
