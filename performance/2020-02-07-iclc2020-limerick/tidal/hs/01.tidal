@@ -1,0 +1,25 @@
+bpm 120
+
+d1
+  $ de' 0
+  $ ev 8 (fa 4 . de)
+  $ st "t"
+  $ s "hs1kk"
+    + cut "-1"
+    + n "3"
+
+d2
+  $ de' 0.25
+  $ st "[t*4]?"
+  $ s "hs1bs"
+    + cut "-1"
+    + n (re 3 $ sc 10 $ ru 20)
+
+d3
+  $ de' 0
+  $ la 64 "hs8sr:2"
+    + cut "-1"
+    + speed 0.025
+    + delay 0.3 + delayfb 0.3 + delayt 0.3
+    |+ pan (sl 4 $ perlin)
+    + ga 0.3

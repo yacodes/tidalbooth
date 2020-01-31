@@ -1,6 +1,6 @@
 (
   ~config = (
-    device: "Scarlett 2i4 USB",
+    device: "TC",
     channels: 2,
   );
   s.options.inDevice = ~config.device;
@@ -16,12 +16,15 @@
 
   s.waitForBoot {
     ~dirt = SuperDirt(~config.channels, s);
+    ~dirt.loadSoundFiles(File.getcwd +/+ "samples/*");
     s.sync;
     ~dirt.start(57120, 24.collect({0}));
   };
 
   s.latency = 0.05;
 );
+
+PathName.new(File.getcwd +/+ "samples");
 
 // Drums
 (

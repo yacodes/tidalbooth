@@ -64,8 +64,18 @@ let feedback = pF "feedback"
 let sl = slow
 let fa = fast
 let ra = range
+let st = struct
+let de = degrade
+let de' = degradeBy
+let sc = scramble
+let sh = shuffle
+
+-- Higher-order functions
+let ev = every
+let ev' = every'
 
 -- Control Functions
+let so = sound
 let sp = speed
 let su = sustain
 let at = attack
@@ -75,35 +85,32 @@ let fe = feedback
 let or = orbit
 let ga = gain
 let nu = nudge
+let ru = run
+let ra = range
+let re = repeatCycles
 
 -- High Order Functions
 
--- Helpers
+-- Custom functions
 -- let drop sampleName = rev $ striate' 32 (1/16) $ s sampleName # cut "-1"
 -- let drop' sampleName striateL striateC = rev $ striate' striateL striateC $ s sampleName # cut "-1"
 -- let rise riseLength sampleName = const $ loopAt riseLength $ rev $ striate' 64 (1/32) $ sampleName # cut "-1"
--- let g = gain
 -- let dl = delay
 -- let dlt = delayt
 -- let dlfb = delayfb
--- let sl = slow
--- let fa = fast
--- let spd = speed
--- let rng = range
--- let o = orbit
 -- let mod' a b = whenmod a (a - b)
 -- let mu = (# gain 0)
 -- let si = superimpose
--- let sus = sustain
--- let lsp t n = (loopAt t $ striate 32 $ s n)
+let lsp t n = (loopAt t $ striate 32 $ s n)
+let la t n = (loopAt t $ striate 32 $ s n)
 -- let wm8 t = whenmod t (t - 8)
 -- let wm16 t = whenmod t (t - 16)
 -- let wm32 t = whenmod t (t - 32)
 -- let wm64 t = whenmod t (t - 64)
 -- let wm128 t = whenmod t (t - 128)
 -- let rvb a = room a # size a
--- let over fn = superimpose $ const $ fn
--- let if' sw func = if sw == 0 then id else func
+let over fn = superimpose $ const $ fn
+let if' sw func = if sw == 0 then id else func
 
 bpm 120
 
