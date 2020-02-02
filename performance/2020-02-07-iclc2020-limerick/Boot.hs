@@ -73,9 +73,10 @@ let sh = shuffle
 -- Higher-order functions
 let ev = every
 let ev' = every'
+let so = sometimes
+let so' = sometimesBy
 
 -- Control Functions
-let so = sound
 let sp = speed
 let su = sustain
 let at = attack
@@ -87,29 +88,31 @@ let ga = gain
 let nu = nudge
 let ru = run
 let ra = range
-let re = repeatCycles
+let recy = repeatCycles
 
 -- High Order Functions
 
 -- Custom functions
--- let drop sampleName = rev $ striate' 32 (1/16) $ s sampleName # cut "-1"
--- let drop' sampleName striateL striateC = rev $ striate' striateL striateC $ s sampleName # cut "-1"
--- let rise riseLength sampleName = const $ loopAt riseLength $ rev $ striate' 64 (1/32) $ sampleName # cut "-1"
+let drop sampleName = rev $ striate' 32 (1/16) $ s sampleName # cut "-1"
+let drop' sampleName striateL striateC = rev $ striate' striateL striateC $ s sampleName # cut "-1"
+let rise riseLength sampleName = const $ loopAt riseLength $ rev $ striate' 64 (1/32) $ sampleName # cut "-1"
 -- let dl = delay
 -- let dlt = delayt
 -- let dlfb = delayfb
 -- let mod' a b = whenmod a (a - b)
 -- let mu = (# gain 0)
 -- let si = superimpose
-let lsp t n = (loopAt t $ striate 32 $ s n)
-let la t n = (loopAt t $ striate 32 $ s n)
--- let wm8 t = whenmod t (t - 8)
--- let wm16 t = whenmod t (t - 16)
--- let wm32 t = whenmod t (t - 32)
--- let wm64 t = whenmod t (t - 64)
--- let wm128 t = whenmod t (t - 128)
+let loa t n = (loopAt t $ striate 32 $ s n)
+let loa' t n s1 s2 = (loopAt t $ striate' s1 s2 $ s n)
+let mod = whenmod
+let mod8 t = whenmod t (t - 8)
+let mod16 t = whenmod t (t - 16)
+let mod32 t = whenmod t (t - 32)
+let mod64 t = whenmod t (t - 64)
+let mod128 t = whenmod t (t - 128)
 -- let rvb a = room a # size a
 let over fn = superimpose $ const $ fn
+let ov = over
 let if' sw func = if sw == 0 then id else func
 
 bpm 120

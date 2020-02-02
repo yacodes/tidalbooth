@@ -1,0 +1,45 @@
+-- gemmayzeh/yalla
+
+bpm 140
+
+do
+  let md = [0]
+  let mx = [1, 0, 0, 0, 0]
+  d1
+    $ ev 32 (if' (md!!0) (over $ s "so1fx" # n (choose[5..7]) # ga 0.9))
+    $ mod32 128 (if' (md!!0) (over $ loopAt 32 $ drop "so1fx:6"))
+    -- $ sometimes ((recy 3) . (sl 2))
+    -- $ sc 4
+    $ loa 8 "so8pe:4"
+      |* ga (mx!!0)
+  d2
+    -- $ sometimes (brak . fa 2)
+    $ mod32 128 (if' (md!!0) (# ga 0))
+    $ st (sl 2 "t(<[3|2]!3 5>, 8, <0!3 [1|2]>)")
+    -- $ gap 4
+    $ s "hs1kk:3" + n (choose[2..5])
+      |* ga (mx!!1)
+  d3
+    $ mod32 128 (if' (md!!0) (# ga 0))
+    $ sc 4
+    $ gap 4
+    $ loa "16" "so8to:3"
+      |+ pan (sl 4 $ perlin)
+      |* ga (mx!!2)
+  d4
+    $ mod16 128 (if' (md!!0) (# ga 0))
+    $ whenmod 8 6 (st $ sl 2 "t([3|5], 8, [0|1|2])")
+    $ (1 <~)
+    $ st "t/2"
+    $ s "so1sn:3"
+      + shape 0.2
+      * ga 0.8
+      |* ga (mx!!3)
+  d5
+    $ mod 13 11 (# ga 0)
+    $ st "t*4" $ s "so1cy:8"
+      + nu "[0 0.02]/4"
+      + sp "[1 0.9 1.1 1.5]/3"
+      + pan (sl 4 $ perlin)
+      + ga (ra 0.8 1 $ sl 8 $ perlin)
+      |* ga (mx!!4)

@@ -1,9 +1,12 @@
+ServerOptions.inDevices; // input devices
+ServerOptions.outDevices; // output devices
+
 (
   ~config = (
-    device: "TC",
+    device: "Scarlett 2i4 USB",
+    // device: "Built-in Output",
     channels: 2,
   );
-  s.options.inDevice = ~config.device;
   s.options.outDevice = ~config.device;
   s.options.sampleRate = 44100;
   s.options.blockSize = 2**9;

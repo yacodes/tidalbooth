@@ -1,0 +1,39 @@
+-- gemmayzeh/yalla
+
+bpm 132
+
+d1
+  $ sc 2
+  $ loa 8 "so8pe:36"
+   + ga 1.2
+
+d2
+  $ sh 2
+  $ fa 4
+  $ loa 32 "so8to:6"
+    # ga 0.9
+    # cut "-1"
+
+d3
+  $ mod32 64 (st $ sl 4 "[t ~!2 t?] [t? t] [t t? ~ t] [t(3, 8)]/2")
+  $ st "t"
+  $ s "hs1kk:2"
+    + cut "-1"
+
+d4
+  -- $ mod 2 1 (# ga 1)
+  $ de
+  -- $ jux rev
+  $ sc 2
+  -- $ ev 2 (|+ sp 0.07)
+  -- $ ev' 2 1 (|- sp 0.02)
+  $ fa 2
+  $ loa 16 "so8to:27"
+    # cut "-1"
+    -- # ga 0
+
+d5 $ ev' 8 2 (+ sp 0.07) $ ev' 8 1 (+ sp 0.06) $ ev 8 (+ sp 0.04) $ loa 8 "so8to:32"
+
+d5 $ loa 8 "so8to:45"
+
+d5 $ loa 8 "so8to:48"
