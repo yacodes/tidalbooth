@@ -1,2 +1,28 @@
 -- Hi from Moscow, everybody!
 
+bpm 160
+
+d1 $ s "k" # n ((irand 23) + 4) # cut "1"
+
+d2
+  $ mod 16 13 (recy 2 . li 0.25)
+  $ iter 2
+  $ st (sl 8 $ bi "<1342 231 874>")
+  $ s "p:10"
+    # n (fa 16 $ (irand 10) + 2)
+    + pan (perlin)
+    + ga 0.9
+
+d3 $ sh 2 $ iter 4 $ st (sl 4 $ "t(15, 16)") $ s "h" # pan (perlin) # n "20|21|22" # cut "3"
+
+d4 $ st (sl 4 $ "t(3, 8)") $ s "d" # cut "4" # n ((irand 20) + 20)
+
+d5 $ st (sl 2 $ "~ t") $ s "s:22"
+
+do
+  clutchIn 1 64 $ $ loa 8 "so8pe:36" * ga 1.2
+  clutchIn 2 64 $ silence
+  clutchIn 3 64 $ silence
+  clutchIn 4 64 $ silence
+  clutchIn 5 64 $ silence
+

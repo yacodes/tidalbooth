@@ -1,10 +1,15 @@
 -- Crossfade
-
-
--- Jump in
-
-
--- Jump mod
-
+do
+  xfadeIn 1 64 $ silence
+  xfadeIn 2 64 $ silence
+  xfadeIn 3 64 $ silence
+  xfadeIn 4 64 $ silence
+  xfadeIn 5 64 $ silence
 
 -- Clutch in
+do
+  clutchIn 1 64 $ silence
+  clutchIn 2 64 $ silence
+  clutchIn 3 64 $ silence
+  clutchIn 4 64 $ silence
+  clutchIn 5 64 $ silence

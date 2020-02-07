@@ -3,8 +3,8 @@ ServerOptions.outDevices; // output devices
 
 (
   ~config = (
-    device: "Scarlett 2i4 USB",
-    // device: "Built-in Output",
+    // device: "Scarlett 2i4 USB",
+    device: "Built-in Output",
     channels: 2,
   );
   s.options.outDevice = ~config.device;

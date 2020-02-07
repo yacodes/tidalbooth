@@ -1,0 +1,44 @@
+-- mills/varevo
+
+d1
+  $ so (palindrome)
+  $ loa 8 "ju8pe:4"
+    |+ cut "1"
+    |+ lpf (ra 200 4000 $ sl 4 $ perlin)
+    |+ lpq (ra 0 0.2 $ sl 4 $ perlinWith sine)
+    |+ pan (perlin)
+    |+ ga 0.9
+
+d2
+  -- $ so rev
+  -- $ so (fa 2)
+  $ loa 16 "so8pe:14"
+    |+ cut "2"
+    |+ pan (perlin)
+
+d3
+  $ ev 3 (|+ sp 0.03)
+  $ ev' 3 1 (|+ sp 0.01)
+  $ ev' 3 2 (|+ sp 0.02)
+  $ recy 3
+  $ sh 2
+  $ loa 16 "te8ba"
+    # n "3"
+    -- # n "<[2|3|27]>/2"
+    |+ shape 0.3
+    |+ ga 1.2
+
+d4
+  $ palindrome
+  -- $ st (so rev $ sl 2 $ bi 2020)
+  $ st "t"
+  $ s "hs1kk"
+    + ga 1.1
+    + cut "-1"
+    + n ((irand 3) + 4)
+
+d5 $ loa 8 "ju8to:8"
+
+d6
+  $ so' 0.2 (st $ sl 2 $ bi 122)
+  $ st (sl 2 $ "~ t") $ s "so1sn:2" # ga 0.9

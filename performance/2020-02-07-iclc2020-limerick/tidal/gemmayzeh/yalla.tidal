@@ -3,35 +3,40 @@
 bpm 140
 
 do
-  let md = [0]
-  let mx = [1, 0, 0, 0, 0]
+  let md = [1]
+  let mx = [1, 1, 1, 1, 1]
   d1
     $ ev 32 (if' (md!!0) (over $ s "so1fx" # n (choose[5..7]) # ga 0.9))
     $ mod32 128 (if' (md!!0) (over $ loopAt 32 $ drop "so1fx:6"))
-    -- $ sometimes ((recy 3) . (sl 2))
-    -- $ sc 4
+    $ so ((recy 3) . (sl 2))
+    $ sc 4
     $ loa 8 "so8pe:4"
       |* ga (mx!!0)
   d2
+    $ so padr
     -- $ sometimes (brak . fa 2)
     $ mod32 128 (if' (md!!0) (# ga 0))
     $ st (sl 2 "t(<[3|2]!3 5>, 8, <0!3 [1|2]>)")
-    -- $ gap 4
-    $ s "hs1kk:3" + n (choose[2..5])
+    $ s "hs1kk:3"
+      + n (choose[2..5])
       |* ga (mx!!1)
   d3
     $ mod32 128 (if' (md!!0) (# ga 0))
-    $ sc 4
+    $ ev 8 (+ sp 0.02)
+    $ ev' 8 1 (+ sp 0.04)
+    $ sc 2
     $ gap 4
     $ loa "16" "so8to:3"
       |+ pan (sl 4 $ perlin)
       |* ga (mx!!2)
   d4
     $ mod16 128 (if' (md!!0) (# ga 0))
-    $ whenmod 8 6 (st $ sl 2 "t([3|5], 8, [0|1|2])")
+    $ ev 3 (fa 2)
+    $ mod 8 6 (st $ sl 2 "t([3|5], 8, [0|1|2])")
     $ (1 <~)
     $ st "t/2"
     $ s "so1sn:3"
+      -- + n (irand 4)
       + shape 0.2
       * ga 0.8
       |* ga (mx!!3)

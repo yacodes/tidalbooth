@@ -1,0 +1,25 @@
+-- razrazraz/breeki
+
+bpm 160
+
+d1
+  $ stack [
+    st "t" $ s "hs1kk:3",
+    st "<~ t>" $ s "so1sn:8",
+    st "~!2 t ~" $ s "h:3",
+    st "t*2" $ s "h",
+    st "t/16" $ s "so1cy" # n (irand 10)
+  ]
+
+d2
+  -- $ so palindrome
+  -- $ so rev
+  -- $ so (fa 2)
+  -- $ so' 0.25 (li 0.5)
+  $ (<| up (sl 4 $ "[0 [0|1|4]?] 0!2 <[1 4] [4 1] [4 1!2 1?]>"))
+  $ s "hs1dk:18"
+    + cut "1"
+    -- + up "[0|5]"
+    -- |< n (ch[18..20])
+
+d3 $ loa 8 "hs8bs:3" |* ga 1.2

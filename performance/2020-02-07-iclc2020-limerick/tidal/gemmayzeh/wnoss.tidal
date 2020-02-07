@@ -1,39 +1,58 @@
--- gemmayzeh/yalla
+-- gemmayzeh/wnoss
 
 bpm 132
 
-d1
-  $ sc 2
-  $ loa 8 "so8pe:36"
-   + ga 1.2
+do
+  let md = [0]
+  let mx = [1, 0, 0, 0, 0, 0, 0]
+  d1
+    $ mod16 64 (if' (md!!0) (over $ loa 16 "ps8fx:12" |< ga 1))
+    $ so (fa 2)
+    $ sc 2
+    $ loa 8 "so8pe:36"
+      * ga 1.2
+      * ga (mx!!0)
+  d2
+    -- $ so (fa 2)
+    $ sh 4
+    $ fa 2
+    $ loa 32 "so8to:6"
+      * ga 0.9
+      * cut "-1"
+      * ga (mx!!1)
+  d3
+    $ mod16 64 (* ga 0)
+    $ mod32 64 (st $ sl 4 "[t ~!2 t?] [t? t] [t t? ~ t] [t(3, 8)]/2")
+    $ st (so rev $ sl 4 $ binary 155)
+    $ s "hs1kk:2"
+      + cut "-1"
+      + ga (mx!!2)
+  d4
+    $ mod 3 2 (# ga (mx!!3))
+    -- $ de' 0.5
+    -- $ rev
+    -- $ sc 2
+    -- $ fa 2
+    $ loa 16 "so8to:27"
+      # cut "-1"
+      # ga 0
+  d5
+    $ mod16 64 (* ga 0)
+    $ ev' 8 2 (+ sp 0.07)
+    $ ev' 8 1 (+ sp 0.06)
+    $ ev 8 (+ sp 0.04)
+    $ loa 8 "so8to:32"
+      # ga (mx!!4)
+  d6
+    $ mod16 64 ((fa 2) . palindrome)
+    $ so (st $ sl 4 $ bi 122)
+    $ (1 <~)
+    $ st "t/2"
+    $ s "so1sn:3"
+      * ga (mx!!5)
+      * ga 0.9
+  d7
+    $ loa 16 "te8cy:2"
+      # ga (mx!!6)
 
-d2
-  $ sh 2
-  $ fa 4
-  $ loa 32 "so8to:6"
-    # ga 0.9
-    # cut "-1"
-
-d3
-  $ mod32 64 (st $ sl 4 "[t ~!2 t?] [t? t] [t t? ~ t] [t(3, 8)]/2")
-  $ st "t"
-  $ s "hs1kk:2"
-    + cut "-1"
-
-d4
-  -- $ mod 2 1 (# ga 1)
-  $ de
-  -- $ jux rev
-  $ sc 2
-  -- $ ev 2 (|+ sp 0.07)
-  -- $ ev' 2 1 (|- sp 0.02)
-  $ fa 2
-  $ loa 16 "so8to:27"
-    # cut "-1"
-    -- # ga 0
-
-d5 $ ev' 8 2 (+ sp 0.07) $ ev' 8 1 (+ sp 0.06) $ ev 8 (+ sp 0.04) $ loa 8 "so8to:32"
-
-d5 $ loa 8 "so8to:45"
-
-d5 $ loa 8 "so8to:48"
+d5 $ loa 16 "so8to:45"

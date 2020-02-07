@@ -1,0 +1,27 @@
+-- _/maj
+
+d1
+  $ de' 0.5
+  $ s "d*4"
+    # cut "1"
+    # n (irand 100)
+    # pan (perlin)
+    # ga 0.8
+
+d2
+  $ fa 2
+  -- $ so (iter 2)
+  $ st (sl 4 $ bi "<200 201 202>")
+  $ s "k:2" * ga 1
+
+d3
+  $ iter 4
+  $ st (sl 4 $ "t(13, 16)")
+  $ s "h*4" |+ pan (perlin)
+
+d4
+  $ mod 11 7 (st (sc 4 $ sl 2 $ bi 74))
+  $ st (sl 2 $ "~ t")
+  $ s "s" + ga 1 # n ((irand 2) + 16)
+
+d5 $ st ("~!2 t t?") $ s "r" # cut "3" # n ((irand 2) + 7)

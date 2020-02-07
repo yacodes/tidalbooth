@@ -75,6 +75,10 @@ let ev = every
 let ev' = every'
 let so = sometimes
 let so' = sometimesBy
+let padr = palindrome
+let foev = foldEvery
+let li = linger
+let it = iter
 
 -- Control Functions
 let sp = speed
@@ -88,7 +92,9 @@ let ga = gain
 let nu = nudge
 let ru = run
 let ra = range
+let ch = choose
 let recy = repeatCycles
+let bi = binary
 
 -- High Order Functions
 
