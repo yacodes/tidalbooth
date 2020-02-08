@@ -7,15 +7,15 @@ do
   let mx = [1, 0, 0, 0, 0, 0, 0]
   d1
     $ mod16 64 (if' (md!!0) (over $ loa 16 "ps8fx:12" |< ga 1))
-    $ so (fa 2)
-    $ sc 2
+    -- $ so (fa 2)
+    -- $ sc 2
     $ loa 8 "so8pe:36"
       * ga 1.2
       * ga (mx!!0)
   d2
     -- $ so (fa 2)
-    $ sh 4
-    $ fa 2
+    -- $ sh 4
+    -- $ fa 2
     $ loa 32 "so8to:6"
       * ga 0.9
       * cut "-1"
@@ -38,9 +38,9 @@ do
       # ga 0
   d5
     $ mod16 64 (* ga 0)
-    $ ev' 8 2 (+ sp 0.07)
-    $ ev' 8 1 (+ sp 0.06)
-    $ ev 8 (+ sp 0.04)
+    -- $ ev' 8 2 (+ sp 0.07)
+    -- $ ev' 8 1 (+ sp 0.06)
+    -- $ ev 8 (+ sp 0.04)
     $ loa 8 "so8to:32"
       # ga (mx!!4)
   d6

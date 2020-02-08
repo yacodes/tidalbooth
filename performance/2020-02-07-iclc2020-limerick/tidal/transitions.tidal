@@ -5,6 +5,8 @@ do
   xfadeIn 3 64 $ silence
   xfadeIn 4 64 $ silence
   xfadeIn 5 64 $ silence
+  xfadeIn 6 64 $ silence
+  xfadeIn 7 64 $ silence
 
 -- Clutch in
 do
@@ -13,3 +15,5 @@ do
   clutchIn 3 64 $ silence
   clutchIn 4 64 $ silence
   clutchIn 5 64 $ silence
+  clutchIn 6 64 $ silence
+  clutchIn 7 64 $ silence

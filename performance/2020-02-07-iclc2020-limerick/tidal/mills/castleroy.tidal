@@ -26,7 +26,7 @@ d2
     |+ ga 1
 
 d3
-  $ de' 0.25
+  $ de' 0.75
   $ st "t*4"
   $ s "hs1dk"
     + cut "2"
@@ -37,7 +37,7 @@ d3
 
 d4
   $ st (sl 2 $ "~ t")
-  $ s "so1sn" + room 0.2 + ga 0.9
+  $ s "so1sn" + room 0.1 + ga 0.9
 
 d5
   -- $ (1 <~)

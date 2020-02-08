@@ -1,11 +1,13 @@
 -- mills/varevo
 
+bpm 132
+
 d1
-  $ so (palindrome)
+  -- $ so (padr)
   $ loa 8 "ju8pe:4"
     |+ cut "1"
-    |+ lpf (ra 200 4000 $ sl 4 $ perlin)
-    |+ lpq (ra 0 0.2 $ sl 4 $ perlinWith sine)
+    -- |+ lpf (ra 200 4000 $ sl 4 $ perlin)
+    -- |+ lpq (ra 0 0.2 $ sl 4 $ perlinWith sine)
     |+ pan (perlin)
     |+ ga 0.9
 
@@ -17,11 +19,11 @@ d2
     |+ pan (perlin)
 
 d3
-  $ ev 3 (|+ sp 0.03)
-  $ ev' 3 1 (|+ sp 0.01)
-  $ ev' 3 2 (|+ sp 0.02)
-  $ recy 3
-  $ sh 2
+  -- $ ev 3 (|+ sp 0.03)
+  -- $ ev' 3 1 (|+ sp 0.01)
+  -- $ ev' 3 2 (|+ sp 0.02)
+  -- $ recy 3
+  -- $ sh 2
   $ loa 16 "te8ba"
     # n "3"
     -- # n "<[2|3|27]>/2"

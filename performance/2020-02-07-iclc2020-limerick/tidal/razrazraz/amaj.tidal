@@ -1,12 +1,15 @@
--- _/maj
+-- razrazraz/amaj
+
+bpm 150
 
 d1
   $ de' 0.5
-  $ s "d*4"
-    # cut "1"
-    # n (irand 100)
-    # pan (perlin)
-    # ga 0.8
+  $ st "t*4"
+  $ s "d"
+    + cut "1"
+    + n (irand 100)
+    + pan (perlin)
+    + ga 0.8
 
 d2
   $ fa 2
