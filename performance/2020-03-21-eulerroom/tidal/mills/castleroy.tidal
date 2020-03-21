@@ -1,0 +1,50 @@
+-- mills/castelroy
+
+bpm 134
+
+d1
+  -- $ mod16 64 (# ga 0)
+  -- $ de' 0
+  -- $ ev 8 (fa 2 . de)
+  -- $ st (so rev $ sl 2 $ bi 2020)
+  $ st "t"
+  $ s "ps1kk"
+    + cut "1"
+    + n (irand 2)
+
+d2
+  -- $ so (|+ sp 0.02)
+  -- $ so (|- sp 0.01)
+  -- $ mod 16 11 (rev)
+  -- $ mod 3 1 (# ga 0)
+  -- $ mod 16 11 (# ga 1)
+  -- $ so rev
+  $ loa 32 "hs8sr:2"
+    + cut "1"
+    -- + speed 0.025
+    |+ pan (sl 4 $ perlin)
+    |+ ga 1
+
+d3
+  $ de' 0.75
+  $ st "t*4"
+  $ s "hs1dk"
+    + cut "2"
+    + n (irand 20)
+    + pan (perlin)
+    * ga 0.9
+    + n (recy 3 $ sc 10 $ ru 40)
+
+d4
+  $ st (sl 2 $ "~ t")
+  $ s "so1sn" + room 0.1 + ga 0.9
+
+d5
+  -- $ (1 <~)
+  $ de' 0.2
+  $ fa 4
+  -- $ st (sl 4 $ bi 146)
+  $ s "so1cy"
+    # n ((irand 1) + 22)
+    # cut "3"
+    # pan (perlin)

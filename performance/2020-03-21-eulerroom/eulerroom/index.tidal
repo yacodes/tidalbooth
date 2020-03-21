@@ -1,0 +1,157 @@
+d1 $ s "bd"
+
+d1 silence
+
+d1 $ loopAt 8 $ striate 8 $ s "ps8ba:3" # gain 1.2
+
+d2 $ loopAt 16 $ striate 8 $ s "te8ba:14" # shape 0.5
+
+bpm 150
+
+d3 $ s "hs1kk:8" # crush 3
+
+d4 $ sl 2 $ s "cl"
+
+d1
+  $ s "h*4"
+    # n (irand 8)
+    # pan (sl 4 $ sine)
+
+d2
+  $ so (|+ speed 0.01)
+  $ so (|+ speed 0.01)
+  $ so (|+ speed 0.01)
+  $ loopAt 8
+  $ striate 32
+  $ s "ps8ba"
+    # n 2
+    # shape 0.4
+
+d5
+  $ so' 0.2 (scramble 4)
+  $ up (sl 4 $ "0 [0 ~ 1 0] [0 <~ 1> ~ <1 ~>] [~ [0|1|4] <~ 4> 4]")
+    # s "d"
+    # cut "-1"
+
+
+d6 $ struct (sl 2 $ "~ t") $ s "r"
+
+do
+  clutchIn 1 64 $ silence
+  clutchIn 2 64 $ silence
+  clutchIn 3 64 $ silence
+  clutchIn 4 64 $ silence
+  clutchIn 5 64 $ silence
+  clutchIn 6 64 $ silence
+  clutchIn 7 64 $ silence
+
+-- Thanks everybody! With love from Moscow <3
+-- Thanks everybody! With love from Moscow <3
+-- Thanks everybody! With love from Moscow <3
+-- Thanks everybody! With love from Moscow <3
+-- Thanks everybody! With love from Moscow <3
+-- Thanks everybody! With love from Moscow <3
+-- Thanks everybody! With love from Moscow <3
+-- Thanks everybody! With love from Moscow <3
+-- Thanks everybody! With love from Moscow <3
+-- Thanks everybody! With love from Moscow <3
+-- Thanks everybody! With love from Moscow <3
+-- Thanks everybody! With love from Moscow <3
+-- Thanks everybody! With love from Moscow <3
+-- Thanks everybody! With love from Moscow <3
+-- Thanks everybody! With love from Moscow <3
+-- Thanks everybody! With love from Moscow <3
+-- Thanks everybody! With love from Moscow <3
+-- Thanks everybody! With love from Moscow <3
+-- Thanks everybody! With love from Moscow <3
+-- Thanks everybody! With love from Moscow <3
+-- Thanks everybody! With love from Moscow <3
+-- Thanks everybody! With love from Moscow <3
+-- Thanks everybody! With love from Moscow <3
+-- Thanks everybody! With love from Moscow <3
+-- Thanks everybody! With love from Moscow <3
+-- Thanks everybody! With love from Moscow <3
+-- Thanks everybody! With love from Moscow <3
+-- Thanks everybody! With love from Moscow <3
+-- Thanks everybody! With love from Moscow <3
+-- Thanks everybody! With love from Moscow <3
+-- Thanks everybody! With love from Moscow <3
+-- Thanks everybody! With love from Moscow <3
+-- Thanks everybody! With love from Moscow <3
+-- Thanks everybody! With love from Moscow <3
+-- Thanks everybody! With love from Moscow <3
+-- Thanks everybody! With love from Moscow <3
+-- Thanks everybody! With love from Moscow <3
+-- Thanks everybody! With love from Moscow <3
+-- Thanks everybody! With love from Moscow <3
+-- Thanks everybody! With love from Moscow <3
+-- Thanks everybody! With love from Moscow <3
+-- Thanks everybody! With love from Moscow <3
+-- Thanks everybody! With love from Moscow <3
+-- Thanks everybody! With love from Moscow <3
+-- Thanks everybody! With love from Moscow <3
+-- Thanks everybody! With love from Moscow <3
+-- Thanks everybody! With love from Moscow <3
+-- Thanks everybody! With love from Moscow <3
+-- Thanks everybody! With love from Moscow <3
+-- Thanks everybody! With love from Moscow <3
+-- Thanks everybody! With love from Moscow <3
+-- Thanks everybody! With love from Moscow <3
+-- Thanks everybody! With love from Moscow <3
+-- Thanks everybody! With love from Moscow <3
+-- Thanks everybody! With love from Moscow <3
+-- Thanks everybody! With love from Moscow <3
+-- Thanks everybody! With love from Moscow <3
+
+d1
+  $ so' 0.1 (fa 2)
+  $ so' 0.25 (shuffle 4)
+  $ loopAt 8
+  $ striate 32
+  $ s "hs8bs"
+    # shape 0.5
+
+d2
+  -- $ so' 0.2 (fa 2)
+  $ shuffle 2
+  $ struct (sl 2 $ bi 2020)
+  $ s "hs1dk:3"
+    |+ up (choose [0..7])
+    |+ n (choose [10..14])
+
+d3 $ sl 4 $ "fx" # n (irand 4) # shape 0.4
+
+d4 $ loopAt 8 $ striate 16 $ s "ju8to:2"
+
+d5 $ loopAt 8 $ striate 16 $ s "ps8ba:3"
+
+d6 $ s "r"
+
+d1
+  $ so' 0.1 (fa 2)
+  $ degradeBy 0.1
+  $ struct (slow 4 "t(7, 8, <0 1 1 2 3 4>)")
+  $ s "d*2"
+    # ((irand 8) + 20)
+    # delay 0.2 # delaytime 0.2 # delayfeedback 0.2
+
+d2
+  $ s "hs1dk:1"
+
+d3
+  $ struct (sl 4 "~ t")
+  $ s "cl"
+
+d4
+  $ jux rev
+  $ de' 0.2
+  $ so' 0.2 (fa 2)
+  $ struct (sl 4 "t(11, 16)")
+  $ s "h"
+
+d5
+  $ so rev
+  $ loopAt 8
+  $ striate 16
+  $ s "so8cy"
+    # gain 1.1

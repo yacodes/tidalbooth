@@ -1,0 +1,373 @@
+-- Hi from Moscow, everybody!
+
+d1 $ de' 0.25 $ st "t*4" $ s "d" # n (irand 100) # ga 0.85
+
+-- gemmayzeh/wnoss
+
+bpm 132
+
+do
+  let md = [1]
+  let mx = [1, 1, 1, 1, 1, 1, 1]
+  d1
+    $ mod16 64 (if' (md!!0) (over $ loa 16 "ps8fx:12" |< ga 1))
+    -- $ so (fa 2)
+    $ sc 2
+    $ loa 8 "so8pe:36"
+      * ga 1.2
+      * ga (mx!!0)
+  d2
+    -- $ so (fa 2)
+    $ sh 4
+    -- $ fa 2
+    $ loa 32 "so8to:6"
+      * ga 0.9
+      * cut "-1"
+      * ga (mx!!1)
+  d3
+    $ mod16 64 (* ga 0)
+    $ mod32 64 (st $ sl 4 "[t ~!2 t?] [t? t] [t t? ~ t] [t(3, 8)]/2")
+    $ st (so rev $ sl 4 $ binary 155)
+    $ s "hs1kk:2"
+      + cut "-1"
+      + ga (mx!!2)
+  d4
+    $ mod 3 2 (# ga (mx!!3))
+    -- $ de' 0.5
+    -- $ rev
+    $ sc 2
+    $ fa 2
+    $ loa 16 "so8to:27"
+      # cut "-1"
+      # ga 0
+  d5
+    $ mod16 64 (* ga 0)
+    $ ev' 8 2 (+ sp 0.07)
+    $ ev' 8 1 (+ sp 0.06)
+    $ ev 8 (+ sp 0.04)
+    $ loa 8 "so8to:32"
+      # ga (mx!!4)
+  d6
+    $ mod16 64 ((fa 2) . palindrome)
+    $ ev 8 (fa 2)
+    $ so (st $ sl 4 $ bi 122)
+    $ (1 <~)
+    $ st "t/2"
+    $ s "so1sn:3"
+      * ga (mx!!5)
+      * ga 0.9
+  d7
+    $ loa 16 "te8cy:2"
+      # ga (mx!!6)
+
+
+-- Clutch in
+do
+  clutchIn 1 64 $ loa 8 "so8pe:4"
+  clutchIn 2 64 $ s "hs1kk:3" + n (choose[2..5])
+  clutchIn 3 64 $ silence
+  clutchIn 4 64 $ silence
+  clutchIn 5 64 $ silence
+  clutchIn 6 64 $ silence
+  clutchIn 7 64 $ silence
+
+-- gemmayzeh/yalla
+
+bpm 140
+
+do
+  let md = [1]
+  let mx = [1, 1, 1, 1, 1]
+  d1
+    $ ev 32 (if' (md!!0) (over $ s "so1fx" # n (choose[5..7]) # ga 0.9))
+    $ mod32 128 (if' (md!!0) (over $ loopAt 32 $ drop "so1fx:6"))
+    -- $ so ((recy 3) . (sl 2))
+    -- $ sc 4
+    $ loa 8 "so8pe:4"
+      |* ga (mx!!0)
+  d2
+    $ so padr
+    $ mod16 64 (li 0.25)
+    -- $ so' 0.2 (iter 2)
+    $ mod 15 13 (fa 2)
+    -- $ sometimes (brak . fa 2)
+    $ mod32 128 (if' (md!!0) (# ga 0))
+    $ st (sl 2 "t(<[3|2]!3 5>, 8, <0!3 [1|2]>)")
+    $ s "hs1kk:3"
+      + n (choose[2..5])
+      |* ga (mx!!1)
+  d3
+    $ mod32 128 (if' (md!!0) (# ga 0))
+    -- $ ev 8 (+ sp 0.02)
+    -- $ ev' 8 1 (+ sp 0.04)
+    $ sc 2
+    -- $ gap 4
+    $ loa "16" "so8to:3"
+      |+ pan (sl 4 $ perlin)
+      |* ga (mx!!2)
+  d4
+    $ mod16 128 (if' (md!!0) (# ga 0))
+    -- $ ev 3 (fa 2)
+    $ mod 8 6 (st $ sl 2 "t([3|5], 8, [0|1|2])")
+    $ (1 <~)
+    $ st "t/2"
+    $ s "so1sn:3"
+      + n ((irand 4) + 2)
+      + shape 0.2
+      * ga 0.8
+      |* ga (mx!!3)
+  d5
+    $ mod 13 11 (# ga 0)
+    $ st "t*4" $ s "so1cy:8"
+      + nu "[0 0.02]/4"
+      + sp "[1 0.9 1.1 1.5]/3"
+      + pan (sl 4 $ perlin)
+      + ga (ra 0.8 1 $ sl 8 $ perlin)
+      |* ga (mx!!4)
+
+
+-- Clutch in
+do
+  clutchIn 1 64 $ st "t" $ s "ps1kk" + cut "1" + n (irand 2)
+  clutchIn 2 64 $ loa 32 "hs8sr:2" + cut "1" + pan (sl 4 $ perlin) |+ ga 1
+  clutchIn 3 64 $ silence
+  clutchIn 4 64 $ silence
+  clutchIn 5 64 $ silence
+  clutchIn 6 64 $ silence
+  clutchIn 7 64 $ silence
+
+-- mills/castelroy
+
+bpm 134
+
+d1
+  -- $ mod16 64 (# ga 0)
+  -- $ de' 0
+  -- $ ev 8 (fa 2 . de)
+  -- $ st (so rev $ sl 2 $ bi 2020)
+  $ st "t"
+  $ s "ps1kk"
+    + cut "1"
+    + n (irand 2)
+
+d2
+  -- $ so (|+ sp 0.02)
+  -- $ so (|- sp 0.01)
+  -- $ mod 16 11 (rev)
+  $ mod 3 1 (# ga 0)
+  -- $ mod 16 11 (# ga 1)
+  -- $ so rev
+  $ loa "<16 32>/4" "hs8sr:2"
+    + cut "1"
+    -- + speed 0.025
+    |+ pan (sl 4 $ perlin)
+    |+ ga 1
+
+d3
+  $ de' 0.25
+  $ st "t*4"
+  $ s "hs1dk"
+    + cut "2"
+    + n (irand 40)
+    + pan (perlin)
+    * ga 1
+    + n (recy 3 $ sc 10 $ ru 40)
+
+d4
+  $ st (sl 2 $ "~ t")
+  $ s "so1sn" + room 0.1 + ga 0.9
+
+d5
+  -- $ (1 <~)
+  $ de' 0.2
+  $ fa 4
+  -- $ st (sl 4 $ bi 146)
+  $ s "so1cy"
+    # n ((irand 1) + 22)
+    # cut "3"
+    # pan (perlin)
+
+-- Clutch in
+do
+  clutchIn 1 64 $ loa 8 "ju8pe:4" |+ cut "1" |+ pan (perlin) |+ ga 0.9
+  clutchIn 2 64 $ loa 16 "so8pe:14" |+ cut "2" |+ pan (perlin)
+  clutchIn 3 64 $ silence
+  clutchIn 4 64 $ silence
+  clutchIn 5 64 $ silence
+  clutchIn 6 64 $ silence
+  clutchIn 7 64 $ silence
+
+-- mills/varevo
+
+bpm 132
+
+d1
+  -- $ so (padr)
+  $ loa 8 "ju8pe:4"
+    |+ cut "1"
+    -- |+ lpf (ra 200 4000 $ sl 4 $ perlin)
+    -- |+ lpq (ra 0 0.2 $ sl 4 $ perlinWith sine)
+    |+ pan (perlin)
+    |+ ga 0.9
+
+d2
+  -- $ so rev
+  -- $ so (fa 2)
+  $ loa 16 "so8pe:14"
+    |+ cut "2"
+    |+ pan (perlin)
+
+d3
+  -- $ ev 3 (|+ sp 0.03)
+  $ so' 0.2 (|+ sp 0.01)
+  -- $ ev' 3 2 (|+ sp 0.02)
+  -- $ recy 3
+  $ sh 2
+  $ loa 16 "te8ba"
+    # n "3"
+    # n "<[2|3|27]>/2"
+    |+ shape 0.3
+    |+ ga 1.1
+
+d4
+  $ padr
+  -- $ st (so rev $ sl 2 $ bi 2020)
+  $ st "t"
+  $ s "hs1kk"
+    + ga 1.1
+    + cut "-1"
+    + n ((irand 3) + 4)
+
+d5 $ loa 8 "ju8to:8" |+ ga 1.1
+
+d6
+  $ so' 0.2 (st $ sl 2 $ bi 122)
+  $ st (sl 2 $ "~ t") $ s "so1sn:2" # ga 1
+-- razrazraz/amaj
+
+bpm 150
+
+d1
+  $ de' 0.5
+  $ st "t*4"
+  $ s "d"
+    + cut "1"
+    + n (irand 100)
+    + pan (perlin)
+    + ga 0.8
+
+d2
+  $ fa 2
+  -- $ so (iter 2)
+  $ st (sl 4 $ bi "<200 201 202>")
+  $ s "k:2" * ga 1
+
+d3
+  $ iter 4
+  $ st (sl 4 $ "t(13, 16)")
+  $ s "h*4" |+ pan (perlin)
+
+d4
+  $ mod 11 7 (st (sc 4 $ sl 2 $ bi 74))
+  $ st (sl 2 $ "~ t")
+  $ s "s" + ga 1 # n ((irand 2) + 16)
+
+d5 $ st ("~!2 t t?") $ s "r" # cut "3" # n ((irand 2) + 7)
+
+
+
+-- Clutch in
+do
+  clutchIn 1 64 $ de' 0.5 $ st "t*4" $ s "d" + cut "1" + n (irand 100) + pan (perlin) + ga 0.9
+  clutchIn 2 64 $ fa 2 $ st (sl 4 $ bi "<200 201 202>") $ s "k:2" * ga 1
+  clutchIn 3 64 $ silence
+  clutchIn 4 64 $ silence
+  clutchIn 5 64 $ silence
+  clutchIn 6 64 $ silence
+  clutchIn 7 64 $ silence
+
+-- razrazraz/amaj
+
+bpm 150
+
+d1
+  $ de' 0.25
+  $ st "t*4"
+  $ s "d"
+    + cut "1"
+    + n (irand 100)
+    + pan (perlin)
+    + ga 1
+
+d2
+  -- $ fa 2
+  -- $ so (iter 2)
+  $ st (sl 4 $ bi "<200 201 202>")
+  $ s "k:2" * ga 1
+
+d3
+  $ iter 4
+  $ st (sl 4 $ "t(13, 16)")
+  $ s "h*4" |+ pan (perlin)
+
+d4
+  $ mod 11 7 (st (sc 4 $ sl 2 $ bi 74))
+  $ st (sl 2 $ "~ t")
+  $ s "s" + ga 1 # n ((irand 2) + 16)
+
+d5 $ st ("~!2 t t?") $ s "r" # cut "3" # n ((irand 2) + 7)
+
+
+
+-- Clutch in
+do
+  clutchIn 1 64 $ silence
+  clutchIn 2 64 $ (<| up (sl 4 $ "[0 [0|1|4]?] 0!2 <[1 4] [4 1] [4 1!2 1?]>")) $ s "hs1dk:18" + cut "1"
+  clutchIn 3 64 $ loa 8 "hs8bs:3" |* ga 1.2
+  clutchIn 4 64 $ silence
+  clutchIn 5 64 $ silence
+  clutchIn 6 64 $ silence
+  clutchIn 7 64 $ silence
+
+-- razrazraz/breeki
+
+bpm 160
+
+d1
+  $ stack [
+    st "t" $ s "hs1kk:3",
+    st "<~ t>" $ s "so1sn:8",
+    st "~!2 t ~" $ s "h:3",
+    st "t*2" $ s "h",
+    st "t/16" $ s "so1cy" # n (irand 10)
+  ]
+
+d2
+  -- $ so palindrome
+  -- $ so rev
+  -- $ so (fa 2)
+  $ so' 0.25 (li 0.5)
+  $ (<| up (sl 4 $ "[0 [0|1|4]?] 0!2 <[1 4] [4 1] [4 1!2 1?]>"))
+  $ s "hs1dk:20"
+    + cut "1"
+    + up "[0|3|5]"
+    + ga 1.1
+# n (irand 20)
+    -- |< n (ch[18..20])
+
+d3
+  $ sh 2
+  $ so' 0.25 (|+ sp 0.01)
+  $ loa 8 "hs8bs:3"
+    |* ga 1.2
+
+
+-- Crossfade
+do
+  xfadeIn 1 64 $ silence
+  xfadeIn 2 64 $ silence
+  xfadeIn 3 64 $ silence
+  xfadeIn 4 64 $ silence
+  xfadeIn 5 64 $ silence
+  xfadeIn 6 64 $ silence
+  xfadeIn 7 64 $ silence
